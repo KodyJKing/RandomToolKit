@@ -1,0 +1,25 @@
+package rtk.block;
+
+import net.minecraft.block.state.IBlockState;
+import rtk.ModBlocks;
+
+public class BlockDiversTent extends BlockTent {
+    public BlockDiversTent(String name) {
+        super(name);
+    }
+
+    @Override
+    public int fuelCost() {
+        return 32;
+    }
+
+    @Override
+    public IBlockState wall() {
+        return ModBlocks.diversTentWall.getDefaultState();
+    }
+
+    @Override
+    public boolean worksInWater() {
+        return true;
+    }
+}

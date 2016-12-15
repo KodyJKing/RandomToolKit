@@ -1,0 +1,19 @@
+item.trowel.name=Trowel
+item.hotplate.name=Hot Plate
+item.hotplateEtched.name=Etched Hot Plate
+item.needle.name=Needle
+
+tile.baseTent.blocked=Something is blocking your tent!
+
+tile.emergencyTent.name=Emergency Tent
+tile.emergencyTentWall.name=Emergency Tent Wall
+tile.emergencyTentLight.name=Emergency Tent Light
+
+tile.tent.name=Tent
+tile.tentWall.name=Tent Wall
+
+tile.diversTent.name=Diver's Tent
+tile.diversTentWall.name=Diver's Tent Wall
+
+tile.enderTent.name=Ender Tent
+tile.enderTentWall.name=Ender Tent Wall
