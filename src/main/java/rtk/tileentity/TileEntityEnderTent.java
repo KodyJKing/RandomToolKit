@@ -17,18 +17,27 @@ public class TileEntityEnderTent extends TileEntity {
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
+        readTent(compound);
+        super.readFromNBT(compound);
+    }
+
+    public void readTent(NBTTagCompound compound){
         setDeployed(compound.getBoolean("deployed"));
         setFirstDeploy(compound.getBoolean("firstDeploy"));
         setBlockList(compound.getTagList("blockList", 10));
-        super.readFromNBT(compound);
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+        writeTent(compound);
+        return super.writeToNBT(compound);
+    }
+
+    public NBTTagCompound writeTent(NBTTagCompound compound){
         compound.setBoolean("deployed", isDeployed());
         compound.setBoolean("firstDeploy", isFirstDeploy());
         compound.setTag("blockList", blockList);
-        return super.writeToNBT(compound);
+        return compound;
     }
 
     public boolean isDeployed() {

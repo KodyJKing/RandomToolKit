@@ -2,9 +2,9 @@
 {
   "modid": "rtk",
   "name": "Random Tool Kit",
-  "description": "Just an assortment of random tools.",
-  "version": "${version}",
-  "mcversion": "1.10.2",
+  "description": "Just a random assortment of tools.",
+  "version": "1.0.0",
+  "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
   "authorList": ["KodyJKing"],

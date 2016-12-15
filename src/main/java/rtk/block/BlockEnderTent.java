@@ -169,7 +169,7 @@ public class BlockEnderTent extends BlockTent {
     @Override
     public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
         if(stack.hasTagCompound())
-            getTileEntity(world, pos).readFromNBT(stack.getTagCompound());
+            getTileEntity(world, pos).readTent(stack.getTagCompound());
         EntityPlayer player = (EntityPlayer)placer;
         if(player != null && player.capabilities.isCreativeMode)
             player.inventory.deleteStack(stack);
@@ -189,7 +189,7 @@ public class BlockEnderTent extends BlockTent {
         tryGrabContents(world, pos);
 
         ItemStack drop = new ItemStack(ModBlocks.enderTent, 1);
-        getTileEntity(world, pos).writeToNBT(CNBT.ensureCompound(drop));
+        getTileEntity(world, pos).writeTent(CNBT.ensureCompound(drop));
         EntityItem item = new EntityItem(world, pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F, drop);
         world.spawnEntityInWorld(item);
     }
