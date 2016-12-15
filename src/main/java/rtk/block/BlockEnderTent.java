@@ -1,10 +1,12 @@
 package rtk.block;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
@@ -171,7 +173,7 @@ public class BlockEnderTent extends BlockTent {
         if(stack.hasTagCompound())
             getTileEntity(world, pos).readTent(stack.getTagCompound());
         EntityPlayer player = (EntityPlayer)placer;
-        if(player != null && player.capabilities.isCreativeMode)
+        if(player != null && player.capabilities.isCreativeMode && stack.stackSize == 1)
             player.inventory.deleteStack(stack);
         super.onBlockPlacedBy(world, pos, state, placer, stack);
     }
@@ -189,6 +191,7 @@ public class BlockEnderTent extends BlockTent {
         tryGrabContents(world, pos);
 
         ItemStack drop = new ItemStack(ModBlocks.enderTent, 1);
+        drop.addEnchantment(Enchantments.INFINITY, 1);
         getTileEntity(world, pos).writeTent(CNBT.ensureCompound(drop));
         EntityItem item = new EntityItem(world, pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F, drop);
         world.spawnEntityInWorld(item);

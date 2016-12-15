@@ -12,7 +12,7 @@ public class BlockTentWall extends BlockBase {
 
     public BlockTentWall(String name){
         super(Material.CLOTH, name);
-        setCreativeTab(CreativeTabs.TOOLS);
+        //setCreativeTab(CreativeTabs.TOOLS);
         setSoundType(SoundType.CLOTH);
         setHardness(0.5F);
         setResistance(0.5F);
