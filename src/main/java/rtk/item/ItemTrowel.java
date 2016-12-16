@@ -55,9 +55,15 @@ public class ItemTrowel extends ItemBase {
 
         boolean live = selection == null;
 
+//Old 8 direction movement.
+//        float adjust = (float)Math.PI / 180.0F;
+//        int dx = (int)Math.floor(-Math.sin(player.rotationYaw * adjust) + 0.5F);
+//        int dz = (int)Math.floor(Math.cos(player.rotationYaw * adjust) + 0.5F);
+
         float adjust = (float)Math.PI / 180.0F;
-        int dx = (int)Math.floor(-Math.sin(player.rotationYaw * adjust) + 0.5F);
-        int dz = (int)Math.floor(Math.cos(player.rotationYaw * adjust) + 0.5F);
+        double angle = Math.round(player.rotationYaw / 90) * 90;
+        int dx = (int)Math.round(-Math.sin(angle * adjust));
+        int dz = (int)Math.round(Math.cos(angle * adjust));
 
         if(player.isSneaking())
         {
