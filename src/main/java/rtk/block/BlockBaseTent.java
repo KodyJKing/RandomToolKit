@@ -101,10 +101,11 @@ public class BlockBaseTent extends BlockBase {
         for(int i = Math.min(x, dx); i <= Math.max(x, dx); i++){
             for(int j = Math.min(y, dy); j <= Math.max(y, dy); j++){
                 for(int k = Math.min(z, dz); k <= Math.max(z, dz); k++){
-                    IBlockState bs = world.getBlockState(new BlockPos(i, j, k));
+                    BlockPos pos = new BlockPos(i, j, k);
+                    IBlockState bs = world.getBlockState(pos);
                     if(bs.getBlock().getClass().equals(getClass()))
                         continue;
-                    if(bs.isOpaqueCube())
+                    if(!(bs.getBlock().isReplaceable(world, pos) || !bs.isOpaqueCube() && bs.getBlockHardness(world, pos) < 0.01F))
                         return false;
                     if(!worksInWater()){
                         if(bs.getBlock() == Blocks.WATER || bs.getBlock() == Blocks.FLOWING_WATER)

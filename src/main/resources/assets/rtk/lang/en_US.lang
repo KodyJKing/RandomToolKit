@@ -9,7 +9,7 @@ item.hotplateEtched.name=Etched Hot Plate
 item.hotplateEtched.tooltip=Melts and etches cobblestone and;stone into stone bricks in a 3x3 pattern.
 
 item.needle.name=Needle
-item.needle.tooptip=Use on tent walls to pop them all at once.;Doesn't destroy main tent block.
+item.needle.tooltip=Use on tent walls to pop them all at once.;Doesn't destroy main tent block.
 
 tile.baseTent.blocked=Something is blocking your tent!
 
