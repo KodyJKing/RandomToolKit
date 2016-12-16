@@ -44,12 +44,6 @@ public class RTK {
                 "LEL",
                 "IFI", 'O', new ItemStack(Items.DYE, 1, 14), 'L', Items.LEATHER, 'E', ModBlocks.emergencyTent, 'I', Items.IRON_INGOT, 'F', Blocks.FURNACE);
 
-
-        GameRegistry.addRecipe(new ItemStack(ModItems.needle, 4),
-                "I##",
-                "#I#",
-                "###", 'I', Items.IRON_INGOT);
-
         GameRegistry.addRecipe(new ItemStack(ModBlocks.enderTent, 1),
                 "BEB",
                 "EIE",
@@ -67,6 +61,7 @@ public class RTK {
                 "#S#", 'I', Items.IRON_INGOT, 'S', Items.STICK);
 
         GameRegistry.addShapelessRecipe(new ItemStack(ModItems.hotplateEtched), new Object[] {ModItems.hotplate, Blocks.STONEBRICK, Items.DIAMOND, Items.DIAMOND});
+        GameRegistry.addShapelessRecipe(new ItemStack(ModItems.needle), new Object[] {Items.IRON_INGOT, Items.STRING});
     }
 
     @Mod.EventHandler

@@ -12,6 +12,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
+import rtk.common.Common;
 
 import javax.annotation.Nullable;
 
@@ -105,7 +106,7 @@ public class BlockBaseTent extends BlockBase {
                     IBlockState bs = world.getBlockState(pos);
                     if(bs.getBlock().getClass().equals(getClass()))
                         continue;
-                    if(!(bs.getBlock().isReplaceable(world, pos) || !bs.isOpaqueCube() && bs.getBlockHardness(world, pos) < 0.01F))
+                    if(!Common.shouldReplace(world, pos))
                         return false;
                     if(!worksInWater()){
                         if(bs.getBlock() == Blocks.WATER || bs.getBlock() == Blocks.FLOWING_WATER)
