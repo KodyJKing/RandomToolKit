@@ -2,10 +2,7 @@ package rtk;
 
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import rtk.item.ItemBase;
-import rtk.item.ItemHotplate;
-import rtk.item.ItemNeedle;
-import rtk.item.ItemTrowel;
+import rtk.item.*;
 
 public class ModItems {
     public static ItemBase trowel, hotplate, hotplate_etched, needle;

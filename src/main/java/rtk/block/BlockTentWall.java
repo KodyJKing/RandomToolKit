@@ -2,11 +2,10 @@ package rtk.block;
 
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import rtk.common.CMath;
+import rtk.common.Common;
 
 public class BlockTentWall extends BlockBase {
 
@@ -26,7 +25,7 @@ public class BlockTentWall extends BlockBase {
         if(isTentWall(world, x, y, z)){
 
             world.setBlockToAir(new BlockPos(x, y, z));
-            if(!silent && !world.isRemote && CMath.random.nextInt(15) == 0)
+            if(!silent && !world.isRemote && Common.random.nextInt(15) == 0)
                 world.createExplosion(player, x, y, z, 1.0F, false);
 
             for(int i = -1; i <= 1; i++){

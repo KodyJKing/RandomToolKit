@@ -11,9 +11,9 @@ public class Vector {
 
     public static Vector random(float length){
         Vector result = new Vector(
-                (float)CMath.random.nextGaussian(),
-                (float)CMath.random.nextGaussian(),
-                (float)CMath.random.nextGaussian()
+                (float) Common.random.nextGaussian(),
+                (float) Common.random.nextGaussian(),
+                (float) Common.random.nextGaussian()
         );
         result.multiply(length / result.length());
         return result;

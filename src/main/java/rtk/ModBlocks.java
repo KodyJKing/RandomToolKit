@@ -10,7 +10,8 @@ public class ModBlocks {
             emergencyTent, emergencyTentWall, emergencyTentLight,
             tent, tentWall,
             diversTent, diversTentWall,
-            enderTent, enderTentWall;
+            enderTent, enderTentWall,
+            transientBlock;
 
     public static void init() {
 
@@ -26,6 +27,8 @@ public class ModBlocks {
 
         enderTent = register(new BlockEnderTent("enderTent"));
         enderTentWall = register(new BlockTentWall("enderTentWall"));
+
+        //transientBlock = register(new BlockTransient("transientBLock"));
     }
 
     private static <T extends Block> T register(T block, ItemBlock itemBlock) {
@@ -44,7 +47,11 @@ public class ModBlocks {
     }
 
     private static <T extends Block> T register(T block) {
-        ItemBlock itemBlock = new ItemBlock(block);
+        ItemBlock itemBlock;
+        if(block instanceof  BlockBase)
+            itemBlock = ((BlockBase)block).createItemBlock(block);
+        else
+            itemBlock = new ItemBlock(block);
         itemBlock.setRegistryName(block.getRegistryName());
         return register(block, itemBlock);
     }

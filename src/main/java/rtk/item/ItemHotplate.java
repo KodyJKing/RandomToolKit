@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import rtk.common.CMath;
+import rtk.common.Common;
 import rtk.common.Vector;
 
 public class ItemHotplate extends ItemBase {
@@ -72,7 +72,7 @@ public class ItemHotplate extends ItemBase {
         }
 
         if(didMelt)
-            world.playSound(null, x, y, z, SoundEvents.BLOCK_REDSTONE_TORCH_BURNOUT, SoundCategory.BLOCKS, 0.1F + CMath.random.nextFloat() * 0.2F, 1.0F);
+            world.playSound(null, x, y, z, SoundEvents.BLOCK_REDSTONE_TORCH_BURNOUT, SoundCategory.BLOCKS, 0.1F + Common.random.nextFloat() * 0.2F, 1.0F);
 
         player.swingArm(hand);
         return EnumActionResult.SUCCESS;

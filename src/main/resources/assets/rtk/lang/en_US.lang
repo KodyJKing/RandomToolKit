@@ -1,19 +1,37 @@
 item.trowel.name=Trowel
+item.trowel.tooltip=Lays a line of blocks in the direction you're facing.
+item.trowel.tooltip2=Put to the left of building blocks in inventory.;Shift-right click to change length.
+
 item.hotplate.name=Hot Plate
+item.hotplate.tooltip=Melts cobblestone into stone in a 3x3 pattern.
+
 item.hotplateEtched.name=Etched Hot Plate
+item.hotplateEtched.tooltip=Melts and etches cobblestone and;stone into stone bricks in a 3x3 pattern.
+
 item.needle.name=Needle
+item.needle.tooptip=Use on tent walls to pop them all at once.;Doesn't destroy main tent block.
 
 tile.baseTent.blocked=Something is blocking your tent!
 
 tile.emergencyTent.name=Emergency Tent
 tile.emergencyTentWall.name=Emergency Tent Wall
 tile.emergencyTentLight.name=Emergency Tent Light
+tile.emergencyTent.tooltip=An instant 9x9 for dire straits.
+tile.emergencyTent.tooltip2=Right click to deploy.
 
 tile.tent.name=Tent
 tile.tentWall.name=Tent Wall
+tile.tent.tooltip=A reusable tent.
+tile.tent.tooltip2=Right click with 8 coal/charcoal to deploy.
 
 tile.diversTent.name=Diver's Tent
 tile.diversTentWall.name=Diver's Tent Wall
+tile.diversTent.tooltip=Works under water!
+tile.diversTent.tooltip2=Right click with 32 coal/charcoal to deploy.
 
 tile.enderTent.name=Ender Tent
 tile.enderTentWall.name=Ender Tent Wall
+tile.enderTent.tooltip=A magic tent which can retain it's interior when picked up.
+tile.enderTent.tooltip2=Right click with 16 ender pearls to deploy.
+
+
