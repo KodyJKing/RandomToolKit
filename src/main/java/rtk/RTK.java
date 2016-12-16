@@ -3,6 +3,7 @@ package rtk;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -66,7 +67,7 @@ public class RTK {
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-
+        MinecraftForge.EVENT_BUS.register(new RTKEvents());
     }
 
 }

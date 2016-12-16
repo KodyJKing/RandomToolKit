@@ -10,9 +10,9 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import rtk.common.Common;
-import rtk.common.Vector;
 
 public class ItemHotplate extends ItemBase {
 
@@ -80,9 +80,11 @@ public class ItemHotplate extends ItemBase {
 
     public void spawnSmoke(World world, int x, int y, int z){
         for(int i = 0; i <= 10; i++){
-            Vector pos = Vector.random(0.5F);
-            Vector dir = Vector.random(0.1F);
-            world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x + 0.5 + pos.x, y + 0.5 + pos.y, z + 0.5 + pos.z, dir.x, dir.y, dir.z);
+            Vec3d pos = Common.randomVector(0.5F);
+            Vec3d dir = Common.randomVector(0.1F);
+            world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL,
+                    x + 0.5 + pos.xCoord, y + 0.5 + pos.yCoord, z + 0.5 + pos.zCoord,
+                    dir.xCoord, dir.yCoord, dir.zCoord);
         }
     }
 }
