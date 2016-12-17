@@ -85,7 +85,6 @@ public class BlockEnderTent extends BlockTent {
     }
 
     public void placeContents(World world, BlockPos pos) {
-
         TileEntityEnderTent te = getTileEntity(world, pos);
         if(te.isFirstDeploy())
             return;
@@ -93,14 +92,21 @@ public class BlockEnderTent extends BlockTent {
         int h = width() - 1; //Height
         int r = h / 2; //Radius
 
-        double p = 1; //AABB padding
-        AxisAlignedBB tentBounds = new AxisAlignedBB(pos.getX() - r - p, pos.getY() - p, pos.getZ() - r - p, pos.getX() + r + p, pos.getY() + h + p, pos.getZ() + r + p);
-
-        List<EntityItem> oldItems = world.getEntitiesWithinAABB(EntityItem.class, tentBounds);
-
         NBTTagList blockList = te.getBlockList();
 
-        for(int attempt = 0; attempt < 2; attempt++){ int bsInd = 0;
+        //First set everything to barriers so nothing is without solid support during the building loop.
+        //This was "inspired" by the Minecraft CommandClone class.
+        for(int y = pos.getY(); y <= pos.getY() + h; y++){
+            for(int x = pos.getX() - r; x <= pos.getX() + r; x++){
+                for(int z = pos.getZ() - r; z <= pos.getZ() + r; z++){
+                    if(y != pos.getY() || x != pos.getX() || z != pos.getZ()){
+                        world.setBlockState(new BlockPos(x, y, z), Blocks.BARRIER.getDefaultState(), 2);
+                    }
+                }
+            }
+        }
+
+        int bsInd = 0;
         for(int y = pos.getY(); y <= pos.getY() + h; y++){
             for(int x = pos.getX() - r; x <= pos.getX() + r; x++){
                 for(int z = pos.getZ() - r; z <= pos.getZ() + r; z++){
@@ -110,13 +116,6 @@ public class BlockEnderTent extends BlockTent {
                     bsInd++;
                 }
             }
-        }}
-
-        List<EntityItem> currentItems = world.getEntitiesWithinAABB(EntityItem.class, tentBounds);
-
-        for(EntityItem item : currentItems){
-            if(!oldItems.contains(item))
-                item.setDead();
         }
     }
 
@@ -130,6 +129,7 @@ public class BlockEnderTent extends BlockTent {
 
         NBTTagList blockList = new NBTTagList();
 
+        //Read ALL blocks BEFORE destroying.
         for(int y = pos.getY(); y <= pos.getY() + h; y++){
             for(int x = pos.getX() - r; x <= pos.getX() + r; x++){
                 for(int z = pos.getZ() - r; z <= pos.getZ() + r; z++){
@@ -138,27 +138,27 @@ public class BlockEnderTent extends BlockTent {
             }
         }
 
-        double p = 1; //AABB padding
-        AxisAlignedBB tentBounds = new AxisAlignedBB(pos.getX() - r - p, pos.getY() - p, pos.getZ() - r - p, pos.getX() + r + p, pos.getY() + h + p, pos.getZ() + r + p);
-
-        List<EntityItem> oldItems = world.getEntitiesWithinAABB(EntityItem.class, tentBounds);
-
+        //Next set everything to a solid block so nothing loses support during deletion. (I'm talking about you torches!!!)
         for(int z = pos.getZ() - r; z <= pos.getZ() + r; z++){
             for(int x = pos.getX() - r; x <= pos.getX() + r; x++){
                 for(int y = pos.getY(); y <= pos.getY() + h; y++){
                     if(y != pos.getY() || x != pos.getX() || z != pos.getZ()){
-                        //world.removeTileEntity(new BlockPos(x, y, z));
-                        world.setBlockState(new BlockPos(x, y, z), Blocks.AIR.getDefaultState(), 2);
+                        world.removeTileEntity(new BlockPos(x, y, z)); //This prevents things like chests dropping their inventories.
+                        world.setBlockState(new BlockPos(x, y, z), Blocks.BARRIER.getDefaultState(), 2);
                     }
                 }
             }
         }
 
-        List<EntityItem> currentItems = world.getEntitiesWithinAABB(EntityItem.class, tentBounds);
-
-        for(EntityItem item : currentItems){
-            if(!oldItems.contains(item))
-                item.setDead();
+        //Finally we can actually delete everything.
+        for(int z = pos.getZ() - r; z <= pos.getZ() + r; z++){
+            for(int x = pos.getX() - r; x <= pos.getX() + r; x++){
+                for(int y = pos.getY(); y <= pos.getY() + h; y++){
+                    if(y != pos.getY() || x != pos.getX() || z != pos.getZ()){
+                        world.setBlockState(new BlockPos(x, y, z), Blocks.AIR.getDefaultState(), 2);
+                    }
+                }
+            }
         }
 
         world.playSound(null, pos, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.BLOCKS, 0.5F, 1F);
@@ -172,9 +172,11 @@ public class BlockEnderTent extends BlockTent {
     public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
         if(stack.hasTagCompound())
             getTileEntity(world, pos).readTent(stack.getTagCompound());
+
         EntityPlayer player = (EntityPlayer)placer;
         if(player != null && player.capabilities.isCreativeMode && stack.stackSize == 1)
             player.inventory.deleteStack(stack);
+
         super.onBlockPlacedBy(world, pos, state, placer, stack);
     }
 
@@ -191,7 +193,7 @@ public class BlockEnderTent extends BlockTent {
         tryGrabContents(world, pos);
 
         ItemStack drop = new ItemStack(ModBlocks.enderTent, 1);
-        drop.addEnchantment(Enchantments.INFINITY, 1);
+        drop.addEnchantment(Enchantments.INFINITY, 1); //This is just an indicator that the tent is full.
         getTileEntity(world, pos).writeTent(CNBT.ensureCompound(drop));
         EntityItem item = new EntityItem(world, pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F, drop);
         world.spawnEntityInWorld(item);

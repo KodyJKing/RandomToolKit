@@ -45,7 +45,6 @@ public class TileEntityEnderTent extends TileEntity {
     }
 
     public void setDeployed(boolean deployed) {
-        System.out.println("Deployed: " + Boolean.toString(deployed));
         this.deployed = deployed;
         markDirty();
     }

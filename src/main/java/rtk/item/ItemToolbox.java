@@ -7,6 +7,4 @@ public class ItemToolbox extends ItemBase {
         super(name);
         setCreativeTab(CreativeTabs.TOOLS);
     }
-
-
 }
