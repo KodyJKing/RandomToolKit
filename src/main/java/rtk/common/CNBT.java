@@ -43,7 +43,7 @@ public class CNBT {
     public static void placeBlockFromNBT(World world, BlockPos pos, NBTTagCompound NBT){
         IBlockState bs = Block.getStateById(NBT.getInteger("stateID"));
 
-        world.setBlockState(pos, bs, 2);
+        world.setBlockState(pos, bs, 3);
 
         if(NBT.hasKey("tileEntity")){
             TileEntity tile = TileEntity.create(world, (NBTTagCompound)NBT.getTag("tileEntity"));
