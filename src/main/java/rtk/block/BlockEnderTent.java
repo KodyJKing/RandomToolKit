@@ -102,12 +102,17 @@ public class BlockEnderTent extends BlockTent {
             for(int x = pos.getX() - r; x <= pos.getX() + r; x++){
                 for(int z = pos.getZ() - r; z <= pos.getZ() + r; z++){
 
-                    TileEntity otherTileEntity = world.getTileEntity(pos);
-                    if(otherTileEntity instanceof TileEntityEnderTent) //We don't want another ender tent collapsing in a collapsing ender tent!!!
-                        ((TileEntityEnderTent)otherTileEntity).dontGrab = true;
+                    if(y != pos.getY() || x != pos.getX() || z != pos.getZ()){  //Don't mess with the tent block!!!
 
-                    if(y != pos.getY() || x != pos.getX() || z != pos.getZ()) //Don't mess with the tent block!!!
-                        world.setBlockState(new BlockPos(x, y, z), Blocks.DIRT.getDefaultState(), 2);
+                        BlockPos otherPos = new BlockPos(x, y, z);
+
+                        TileEntity otherTileEntity = world.getTileEntity(otherPos);
+                        if(otherTileEntity instanceof TileEntityEnderTent) //We don't want another ender tent collapsing in a collapsing ender tent!!!
+                            ((TileEntityEnderTent)otherTileEntity).dontGrab = true;
+
+                        world.setBlockState(otherPos, Blocks.DIRT.getDefaultState(), 2);
+                    }
+
                 }
             }
         }
@@ -212,10 +217,11 @@ public class BlockEnderTent extends BlockTent {
         if(te.dontGrab)
             return;
 
-        tryGrabContents(world, pos);
-
         ItemStack drop = new ItemStack(ModBlocks.enderTent, 1);
-        drop.addEnchantment(Enchantments.INFINITY, 1); //This is just an indicator that the tent is full.
+        tryGrabContents(world, pos);
+        if(!te.isDeployed() && !te.isFirstDeploy())
+            drop.addEnchantment(Enchantments.INFINITY, 1); //This is just an indicator that the tent is full.
+
         getTileEntity(world, pos).writeTent(CNBT.ensureCompound(drop));
         EntityItem item = new EntityItem(world, pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F, drop);
         world.spawnEntityInWorld(item);

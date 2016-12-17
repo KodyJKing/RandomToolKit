@@ -12,6 +12,7 @@ public class TileEntityEnderTent extends TileEntity {
     public boolean dontGrab;
 
     public TileEntityEnderTent(){
+        dontGrab = false;
         deployed = false;
         isFirstDeploy = true;
         blockList = new NBTTagList();
