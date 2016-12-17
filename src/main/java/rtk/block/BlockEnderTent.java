@@ -1,5 +1,6 @@
 package rtk.block;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityLivingBase;
@@ -9,6 +10,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
@@ -99,9 +101,9 @@ public class BlockEnderTent extends BlockTent {
         for(int y = pos.getY(); y <= pos.getY() + h; y++){
             for(int x = pos.getX() - r; x <= pos.getX() + r; x++){
                 for(int z = pos.getZ() - r; z <= pos.getZ() + r; z++){
-                    if(y != pos.getY() || x != pos.getX() || z != pos.getZ()){
+
+                    if(y != pos.getY() || x != pos.getX() || z != pos.getZ()) //Don't mess with the tent block!!!
                         world.setBlockState(new BlockPos(x, y, z), Blocks.BARRIER.getDefaultState(), 2);
-                    }
                 }
             }
         }
@@ -110,9 +112,10 @@ public class BlockEnderTent extends BlockTent {
         for(int y = pos.getY(); y <= pos.getY() + h; y++){
             for(int x = pos.getX() - r; x <= pos.getX() + r; x++){
                 for(int z = pos.getZ() - r; z <= pos.getZ() + r; z++){
-                    if(y != pos.getY() || x != pos.getX() || z != pos.getZ()){
+
+                    if(y != pos.getY() || x != pos.getX() || z != pos.getZ()) //Don't mess with the tent block!!!
                         CNBT.placeBlockFromNBT(world, new BlockPos(x, y, z), blockList.getCompoundTagAt(bsInd));
-                    }
+
                     bsInd++;
                 }
             }
@@ -133,18 +136,29 @@ public class BlockEnderTent extends BlockTent {
         for(int y = pos.getY(); y <= pos.getY() + h; y++){
             for(int x = pos.getX() - r; x <= pos.getX() + r; x++){
                 for(int z = pos.getZ() - r; z <= pos.getZ() + r; z++){
+
                     blockList.appendTag(CNBT.NBTFromBlock(world, new BlockPos(x, y, z)));
                 }
             }
         }
 
-        //Next set everything to a solid block so nothing loses support during deletion. (I'm talking about you torches!!!)
+        //Next set everything to a solid block so nothing loses support during deletion. (I'm talking about you torches!)
         for(int z = pos.getZ() - r; z <= pos.getZ() + r; z++){
             for(int x = pos.getX() - r; x <= pos.getX() + r; x++){
                 for(int y = pos.getY(); y <= pos.getY() + h; y++){
-                    if(y != pos.getY() || x != pos.getX() || z != pos.getZ()){
-                        world.removeTileEntity(new BlockPos(x, y, z)); //This prevents things like chests dropping their inventories.
-                        world.setBlockState(new BlockPos(x, y, z), Blocks.BARRIER.getDefaultState(), 2);
+
+                    if(y != pos.getY() || x != pos.getX() || z != pos.getZ()){ //Don't mess with the tent block!
+
+                        BlockPos otherPos = new BlockPos(x, y, z);
+
+                        TileEntity otherTileEntity = world.getTileEntity(otherPos);
+                        if(otherTileEntity instanceof IInventory)
+                            ((IInventory)otherTileEntity).clear();
+
+                        if(otherTileEntity instanceof TileEntityEnderTent) //We don't want another ender tent collapsing in a collapsing ender tent!!!
+                            ((TileEntityEnderTent)otherTileEntity).dontGrab = true;
+
+                        world.setBlockState(otherPos, Blocks.BARRIER.getDefaultState(), 2);
                     }
                 }
             }
@@ -154,9 +168,9 @@ public class BlockEnderTent extends BlockTent {
         for(int z = pos.getZ() - r; z <= pos.getZ() + r; z++){
             for(int x = pos.getX() - r; x <= pos.getX() + r; x++){
                 for(int y = pos.getY(); y <= pos.getY() + h; y++){
-                    if(y != pos.getY() || x != pos.getX() || z != pos.getZ()){
+
+                    if(y != pos.getY() || x != pos.getX() || z != pos.getZ()) //Don't mess with the tent block!!!
                         world.setBlockState(new BlockPos(x, y, z), Blocks.AIR.getDefaultState(), 2);
-                    }
                 }
             }
         }
@@ -188,6 +202,10 @@ public class BlockEnderTent extends BlockTent {
     @Override
     public void breakBlock(World world, BlockPos pos, IBlockState state) {
         if(world.isRemote)
+            return;
+
+        TileEntityEnderTent te = getTileEntity(world, pos);
+        if(te.dontGrab)
             return;
 
         tryGrabContents(world, pos);

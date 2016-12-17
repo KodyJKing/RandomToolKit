@@ -9,6 +9,8 @@ public class TileEntityEnderTent extends TileEntity {
     private boolean isFirstDeploy;
     private NBTTagList blockList;
 
+    public boolean dontGrab;
+
     public TileEntityEnderTent(){
         deployed = false;
         isFirstDeploy = true;
@@ -46,6 +48,8 @@ public class TileEntityEnderTent extends TileEntity {
 
     public void setDeployed(boolean deployed) {
         this.deployed = deployed;
+        if(deployed)
+            setBlockList(new NBTTagList());
         markDirty();
     }
 
