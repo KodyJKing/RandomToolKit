@@ -2,17 +2,11 @@ package rtk.item;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemTool;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.World;
-import org.lwjgl.Sys;
-import rtk.common.Common;
 
 public class ItemToolbelt extends ItemBase {
     public ItemToolbelt(String name) {
@@ -25,6 +19,8 @@ public class ItemToolbelt extends ItemBase {
             return;
 
         RayTraceResult trace = player.rayTrace(5, 0);
+        if(trace.getBlockPos() == null)
+            return;
         IBlockState bs = player.getEntityWorld().getBlockState(trace.getBlockPos());
 
         int toolSlot = bestTool(bs, player);

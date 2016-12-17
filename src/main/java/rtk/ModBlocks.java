@@ -39,7 +39,7 @@ public class ModBlocks {
             BlockBase b = (BlockBase)block;
             b.registerItemModel(itemBlock);
             if(b.hasTileEntity()){
-                GameRegistry.registerTileEntity(b.getTileEntityClass(), b.getUnlocalizedName().toString());
+                GameRegistry.registerTileEntity(b.getTileEntityClass(), b.getUnlocalizedName());
             }
         }
 

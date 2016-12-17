@@ -35,9 +35,6 @@ public class BlockTentWall extends BlockBase {
                     }
                 }
             }
-
-            return;
         }
-        return;
     }
 }

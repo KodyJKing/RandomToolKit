@@ -61,6 +61,11 @@ public class RTK {
                 "III",
                 "#S#", 'I', Items.IRON_INGOT, 'S', Items.STICK);
 
+        GameRegistry.addRecipe(new ItemStack(ModItems.toolBelt, 1),
+                "LLL",
+                "L#L",
+                "LIL", 'L', Items.LEATHER, 'I', Items.IRON_INGOT);
+
         GameRegistry.addShapelessRecipe(new ItemStack(ModItems.hotplateEtched), new Object[] {ModItems.hotplate, Blocks.STONEBRICK, Items.DIAMOND, Items.DIAMOND});
         GameRegistry.addShapelessRecipe(new ItemStack(ModItems.needle), new Object[] {Items.IRON_INGOT, Items.STRING});
     }
