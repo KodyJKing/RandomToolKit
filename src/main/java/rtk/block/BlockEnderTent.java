@@ -96,14 +96,18 @@ public class BlockEnderTent extends BlockTent {
 
         NBTTagList blockList = te.getBlockList();
 
-        //First set everything to barriers so nothing is without solid support during the building loop.
+        //First set everything to dirt so nothing is without solid support during the building loop.
         //This was "inspired" by the Minecraft CommandClone class.
         for(int y = pos.getY(); y <= pos.getY() + h; y++){
             for(int x = pos.getX() - r; x <= pos.getX() + r; x++){
                 for(int z = pos.getZ() - r; z <= pos.getZ() + r; z++){
 
+                    TileEntity otherTileEntity = world.getTileEntity(pos);
+                    if(otherTileEntity instanceof TileEntityEnderTent) //We don't want another ender tent collapsing in a collapsing ender tent!!!
+                        ((TileEntityEnderTent)otherTileEntity).dontGrab = true;
+
                     if(y != pos.getY() || x != pos.getX() || z != pos.getZ()) //Don't mess with the tent block!!!
-                        world.setBlockState(new BlockPos(x, y, z), Blocks.BARRIER.getDefaultState(), 2);
+                        world.setBlockState(new BlockPos(x, y, z), Blocks.DIRT.getDefaultState(), 2);
                 }
             }
         }
@@ -158,7 +162,7 @@ public class BlockEnderTent extends BlockTent {
                         if(otherTileEntity instanceof TileEntityEnderTent) //We don't want another ender tent collapsing in a collapsing ender tent!!!
                             ((TileEntityEnderTent)otherTileEntity).dontGrab = true;
 
-                        world.setBlockState(otherPos, Blocks.BARRIER.getDefaultState(), 2);
+                        world.setBlockState(otherPos, Blocks.DIRT.getDefaultState(), 2);
                     }
                 }
             }
