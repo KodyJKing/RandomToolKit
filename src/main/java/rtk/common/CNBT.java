@@ -3,6 +3,7 @@ package rtk.common;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -49,6 +50,12 @@ public class CNBT {
             TileEntity tile = TileEntity.create(world, (NBTTagCompound)NBT.getTag("tileEntity"));
             world.setTileEntity(pos, tile);
         }
+    }
+
+    public static <T extends NBTBase> T ensure(NBTTagCompound nbt, String name, T defaultValue){
+        if(!nbt.hasKey(name))
+            nbt.setTag(name, defaultValue);
+        return (T)nbt.getTag(name);
     }
 
 }

@@ -9,7 +9,10 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import rtk.gui.RTKGuiHandler;
+import rtk.proxy.CommonProxy;
 
 @Mod(modid = RTK.modId, name = RTK.name, version = RTK.version, acceptedMinecraftVersions = "[1.10, 1.10.2]")
 public class RTK {
@@ -18,7 +21,7 @@ public class RTK {
     public static final String name = "Random Tool Kit";
     public static final String version = "1.0.0";
 
-    @SidedProxy(clientSide = "rtk.ClientProxy", serverSide = "rtk.CommonProxy")
+    @SidedProxy(clientSide = "rtk.proxy.ClientProxy", serverSide = "rtk.proxy.CommonProxy")
     public static CommonProxy proxy;
 
     @Mod.Instance(modId)
@@ -68,6 +71,8 @@ public class RTK {
 
         GameRegistry.addShapelessRecipe(new ItemStack(ModItems.hotplateEtched), new Object[] {ModItems.hotplate, Blocks.STONEBRICK, Items.DIAMOND, Items.DIAMOND});
         GameRegistry.addShapelessRecipe(new ItemStack(ModItems.needle), new Object[] {Items.IRON_INGOT, Items.STRING});
+
+        NetworkRegistry.INSTANCE.registerGuiHandler(instance, new RTKGuiHandler());
     }
 
     @Mod.EventHandler

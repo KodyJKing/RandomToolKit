@@ -12,6 +12,7 @@ public class ItemToolbelt extends ItemBase {
     public ItemToolbelt(String name) {
         super(name);
         setCreativeTab(CreativeTabs.TOOLS);
+        setMaxStackSize(1);
     }
 
     public static void selectBestTool(EntityPlayer player, int itemSlot){

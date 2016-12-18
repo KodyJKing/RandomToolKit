@@ -11,6 +11,7 @@ item.needle.name=Needle
 item.needle.tooltip=Use on tent walls to pop them all at once.;Doesn't destroy main tent block.
 
 item.toolbox.name=Toolbox
+item.toolbox.tooltip=Can hold many unstackable items.
 
 item.toolbelt.name=Toolbelt
 item.toolbelt.tooltip=Swaps to the most effective tool when breaking blocks.;Must be equipped on hotbar.

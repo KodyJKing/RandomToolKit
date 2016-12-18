@@ -1,4 +1,4 @@
-package rtk;
+package rtk.proxy;
 
 import net.minecraft.item.Item;
 

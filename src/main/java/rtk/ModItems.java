@@ -5,9 +5,11 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import rtk.item.*;
 
 public class ModItems {
-    public static ItemBase trowel, hotplate, hotplateEtched, needle, toolbox, toolBelt;
+    public static ItemBase devTool, trowel, hotplate, hotplateEtched, needle, toolbox, toolBelt;
 
     public static void init() {
+        devTool = register(new ItemDevTool("devTool"));
+
         trowel = register(new ItemTrowel("trowel"));
         hotplate = register(new ItemHotplate("hotplate", false));
         hotplateEtched = register(new ItemHotplate("hotplateEtched", true));
