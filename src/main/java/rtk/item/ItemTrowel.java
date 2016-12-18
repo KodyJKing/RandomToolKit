@@ -7,7 +7,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -48,7 +50,23 @@ public class ItemTrowel extends ItemBase {
 
         if(!player.capabilities.isCreativeMode)
             inv.decrStackSize(nextItem, 1);
+
+        if(stack.stackSize == 0)
+            tryRefill(player, stack, nextItem);
         return true;
+    }
+
+    public void tryRefill(EntityPlayer player, ItemStack stack, int slot){
+        IInventory inv = player.inventory;
+        for(int i = 0; i < inv.getSizeInventory(); i++){
+            ItemStack other = inv.getStackInSlot(i);
+            if(other != null && stack.isItemEqual(other)){
+                inv.setInventorySlotContents(slot, other);
+                inv.removeStackFromSlot(i);
+                player.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 1, 2);
+                return;
+            }
+        }
     }
 
     public void buildOrSelect(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, EnumFacing facing, List<BlockPos> selection){

@@ -2,5 +2,13 @@
 	"parent": "item/generated",
 	"textures": {
 		"layer0": "rtk:items/toolbox"
-	}
+	},
+    "overrides": [ 
+	    {
+	        "predicate": {
+	            "open": 1
+	        },
+	        "model" : "rtk:item/toolbox_open"
+	    }
+	]
 }

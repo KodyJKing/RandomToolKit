@@ -46,12 +46,18 @@ public class RTK {
         GameRegistry.addRecipe(new ItemStack(ModBlocks.tent),
                 "ILI",
                 "LEL",
-                "IFI", 'O', new ItemStack(Items.DYE, 1, 14), 'L', Items.LEATHER, 'E', ModBlocks.emergencyTent, 'I', Items.IRON_INGOT, 'F', Blocks.FURNACE);
+                "IFI", 'L', Items.LEATHER, 'E', ModBlocks.emergencyTent, 'I', Items.IRON_INGOT, 'F', Blocks.FURNACE);
+
+        GameRegistry.addRecipe(new ItemStack(ModBlocks.diversTent),
+                "ISI",
+                "SES",
+                "IFI", 'S', Items.SLIME_BALL, 'E', ModBlocks.tent, 'I', Blocks.IRON_BLOCK, 'F', Blocks.FURNACE);
+
 
         GameRegistry.addRecipe(new ItemStack(ModBlocks.enderTent, 1),
                 "BEB",
-                "EIE",
-                "BEB", 'E', Items.ENDER_EYE, 'B', Items.BLAZE_ROD, 'I', ModBlocks.tent);
+                "ETE",
+                "BCB", 'E', Blocks.END_STONE, 'B', Items.BLAZE_ROD, 'T', ModBlocks.tent, 'C', Blocks.ENDER_CHEST);
 
 
         GameRegistry.addRecipe(new ItemStack(ModItems.trowel, 1),
@@ -64,10 +70,15 @@ public class RTK {
                 "III",
                 "#S#", 'I', Items.IRON_INGOT, 'S', Items.STICK);
 
-        GameRegistry.addRecipe(new ItemStack(ModItems.toolBelt, 1),
+        GameRegistry.addRecipe(new ItemStack(ModItems.toolbelt, 1),
                 "LLL",
                 "L#L",
                 "LIL", 'L', Items.LEATHER, 'I', Items.IRON_INGOT);
+
+        GameRegistry.addRecipe(new ItemStack(ModItems.toolbox, 1),
+                "ILI",
+                "ICC",
+                "III", 'L', Items.LEATHER, 'I', Items.IRON_INGOT, 'C', Blocks.TRAPPED_CHEST);
 
         GameRegistry.addShapelessRecipe(new ItemStack(ModItems.hotplateEtched), new Object[] {ModItems.hotplate, Blocks.STONEBRICK, Items.DIAMOND, Items.DIAMOND});
         GameRegistry.addShapelessRecipe(new ItemStack(ModItems.needle), new Object[] {Items.IRON_INGOT, Items.STRING});

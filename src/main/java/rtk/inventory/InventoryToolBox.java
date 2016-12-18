@@ -1,33 +1,31 @@
 package rtk.inventory;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagInt;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import rtk.common.CNBT;
 
 import javax.annotation.Nullable;
 
-public class InventoryToolBox implements IInventory {
+public class InventoryToolbox implements IInventory {
 
-    private static final String INVENTORY = "inventory";
-    private ItemStack stack;
+    public ItemStack stack;
 
-    public InventoryToolBox(ItemStack stack){
+    public InventoryToolbox(ItemStack stack){
         this.stack = stack;
         NBTTagCompound nbt = CNBT.ensureCompound(stack);
-        if(!nbt.hasKey(INVENTORY))
+        if(!nbt.hasKey("inventory"))
             clear();
     }
 
     private NBTTagList getInventoryList(){
-        return stack.getTagCompound().getTagList(INVENTORY, 10);
+        return stack.getTagCompound().getTagList("inventory", 10);
     }
 
     private NBTTagCompound NBTAt(int i){
@@ -80,15 +78,24 @@ public class InventoryToolBox implements IInventory {
 
     @Override
     public boolean isUseableByPlayer(EntityPlayer player) {
-        return player.getHeldItemMainhand() == stack;
+        return player.getHeldItemMainhand() == stack || player.getHeldItemOffhand() == stack;
     }
 
     @Override
     public void openInventory(EntityPlayer player) {
+        if(!player.worldObj.isRemote){
+            player.worldObj.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_CHEST_OPEN, SoundCategory.BLOCKS, 0.3F, 1.5F);
+        }
+        stack.getTagCompound().setBoolean("open", true);
     }
 
     @Override
     public void closeInventory(EntityPlayer player) {
+        if(!player.worldObj.isRemote){
+            player.worldObj.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_CHEST_CLOSE, SoundCategory.BLOCKS, 0.3F, 1.5F);
+        }
+        stack = player.inventory.getStackInSlot(stack.getTagCompound().getInteger("index"));
+        stack.getTagCompound().setBoolean("open", false);
     }
 
     @Override
@@ -116,7 +123,7 @@ public class InventoryToolBox implements IInventory {
         NBTTagList list = new NBTTagList();
         for(int i = 0; i < getSizeInventory(); i++)
             list.appendTag(new NBTTagCompound());
-        nbt.setTag(INVENTORY, list);
+        nbt.setTag("inventory", list);
     }
 
     @Override

@@ -12,7 +12,6 @@ import net.minecraft.world.World;
 public class ItemDevTool extends ItemBase {
     public ItemDevTool(String name) {
         super(name);
-        setCreativeTab(CreativeTabs.TOOLS);
     }
 
     @Override

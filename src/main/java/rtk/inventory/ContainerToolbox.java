@@ -2,6 +2,7 @@ package rtk.inventory;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -100,8 +101,8 @@ public class ContainerToolbox extends Container {
      */
     public void onContainerClosed(EntityPlayer playerIn)
     {
-        super.onContainerClosed(playerIn);
         this.toolboxInv.closeInventory(playerIn);
+        super.onContainerClosed(playerIn);
     }
 
     /**
