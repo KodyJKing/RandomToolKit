@@ -6,6 +6,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -61,5 +63,13 @@ public class Common {
         result = result.normalize();
         result = result.scale(length);
         return result;
+    }
+
+    public static int findExactStack(IInventory inventory, ItemStack stack){
+        for(int i = 0; i < inventory.getSizeInventory(); i++){
+            if(inventory.getStackInSlot(i) == stack)
+                return i;
+        }
+        return -1;
     }
 }

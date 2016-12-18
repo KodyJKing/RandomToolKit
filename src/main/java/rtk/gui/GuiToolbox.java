@@ -3,23 +3,27 @@ package rtk.gui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.inventory.IInventory;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ResourceLocation;
+import rtk.common.Common;
 import rtk.inventory.ContainerToolbox;
+import rtk.inventory.InventoryToolbox;
 
 public class GuiToolbox extends GuiContainer {
     /** The ResourceLocation containing the chest GUI texture. */
     private static final ResourceLocation CHEST_GUI_TEXTURE = new ResourceLocation("textures/gui/container/generic_54.png");
-    private final IInventory upperChestInventory;
-    private final IInventory lowerChestInventory;
+    private final InventoryPlayer playerInv;
+    private final InventoryToolbox toolboxInv;
     /** window height is calculated with these values; the more rows, the heigher */
     private final int inventoryRows;
 
-    public GuiToolbox(IInventory upperInv, IInventory lowerInv)
+    public GuiToolbox(InventoryPlayer upperInv, InventoryToolbox lowerInv)
     {
         super(new ContainerToolbox(upperInv, lowerInv, Minecraft.getMinecraft().thePlayer));
-        this.upperChestInventory = upperInv;
-        this.lowerChestInventory = lowerInv;
+        this.playerInv = upperInv;
+        this.toolboxInv = lowerInv;
         this.allowUserInput = false;
         int i = 222;
         int j = 114;
@@ -32,8 +36,8 @@ public class GuiToolbox extends GuiContainer {
      */
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
     {
-        this.fontRendererObj.drawString(this.lowerChestInventory.getDisplayName().getUnformattedText(), 8, 6, 4210752);
-        this.fontRendererObj.drawString(this.upperChestInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, 4210752);
+        this.fontRendererObj.drawString(this.toolboxInv.getDisplayName().getUnformattedText(), 8, 6, 4210752);
+        this.fontRendererObj.drawString(this.playerInv.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, 4210752);
     }
 
     /**
@@ -47,5 +51,13 @@ public class GuiToolbox extends GuiContainer {
         int j = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.inventoryRows * 18 + 17);
         this.drawTexturedModalRect(i, j + this.inventoryRows * 18 + 17, 0, 126, this.xSize, 96);
+    }
+
+    @Override
+    protected boolean checkHotbarKeys(int keyCode) {
+        int toolboxIndex = toolboxInv.stack.getTagCompound().getInteger("index"); //Don't put the tool box in itself!
+        if(toolboxIndex >= 0 && toolboxIndex < 9 && this.mc.gameSettings.keyBindsHotbar[toolboxIndex].isActiveAndMatches(keyCode))
+            return false;
+        return super.checkHotbarKeys(keyCode);
     }
 }

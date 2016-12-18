@@ -2,43 +2,49 @@ package rtk.inventory;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ContainerChest;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import rtk.common.Common;
 
 import javax.annotation.Nullable;
 
 public class ContainerToolbox extends Container {
-    private final IInventory lowerChestInventory;
+    private final InventoryToolbox toolboxInv;
     private final int numRows;
 
-    public ContainerToolbox(IInventory playerInventory, IInventory chestInventory, EntityPlayer player)
+    public ContainerToolbox(IInventory playerInventory, InventoryToolbox chestInventory, EntityPlayer player)
     {
-        this.lowerChestInventory = chestInventory;
+        this.toolboxInv = chestInventory;
         this.numRows = chestInventory.getSizeInventory() / 9;
         chestInventory.openInventory(player);
         int i = (this.numRows - 4) * 18;
 
-        for (int j = 0; j < this.numRows; ++j)
+        for (int row = 0; row < this.numRows; ++row)
         {
-            for (int k = 0; k < 9; ++k)
+            for (int column = 0; column < 9; ++column)
             {
-                this.addSlotToContainer(new SlotToolbox(chestInventory, k + j * 9, 8 + k * 18, 18 + j * 18));
+                this.addSlotToContainer(new SlotToolbox(chestInventory, column + row * 9, 8 + column * 18, 18 + row * 18));
             }
         }
 
-        for (int l = 0; l < 3; ++l)
+        for (int row = 0; row < 3; ++row)
         {
-            for (int j1 = 0; j1 < 9; ++j1)
+            for (int column = 0; column < 9; ++column)
             {
-                this.addSlotToContainer(new Slot(playerInventory, j1 + l * 9 + 9, 8 + j1 * 18, 103 + l * 18 + i));
+                this.addSlotToContainer(new Slot(playerInventory, column + row * 9 + 9, 8 + column * 18, 103 + row * 18 + i));
             }
         }
 
-        for (int i1 = 0; i1 < 9; ++i1)
+        for (int column = 0; column < 9; ++column)
         {
-            this.addSlotToContainer(new Slot(playerInventory, i1, 8 + i1 * 18, 161 + i));
+            Slot slot;
+            int toolboxIndex = toolboxInv.stack.getTagCompound().getInteger("index");
+            if(column == toolboxIndex)
+                slot = new SlotLocked(playerInventory, column, 8 + column * 18, 161 + i);
+            else
+                slot = new Slot(playerInventory, column, 8 + column * 18, 161 + i);
+            this.addSlotToContainer(slot);
         }
     }
 
@@ -47,7 +53,7 @@ public class ContainerToolbox extends Container {
      */
     public boolean canInteractWith(EntityPlayer playerIn)
     {
-        return this.lowerChestInventory.isUseableByPlayer(playerIn);
+        return this.toolboxInv.isUseableByPlayer(playerIn);
     }
 
     /**
@@ -95,14 +101,14 @@ public class ContainerToolbox extends Container {
     public void onContainerClosed(EntityPlayer playerIn)
     {
         super.onContainerClosed(playerIn);
-        this.lowerChestInventory.closeInventory(playerIn);
+        this.toolboxInv.closeInventory(playerIn);
     }
 
     /**
      * Return this chest container's lower chest inventory.
      */
-    public IInventory getLowerChestInventory()
+    public IInventory getToolboxInv()
     {
-        return this.lowerChestInventory;
+        return this.toolboxInv;
     }
 }
