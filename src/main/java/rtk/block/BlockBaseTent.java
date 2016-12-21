@@ -43,10 +43,20 @@ public class BlockBaseTent extends BlockBase {
     }
 
     public boolean canBuildTent(World world, BlockPos pos){
-        int h = width() - 1; //Height
-        int r = h / 2; //Radius
 
-        return isCuboidEmpty(world, pos.getX() + r, pos.getY() + h, pos.getZ() + r, pos.getX() - r, pos.getY(), pos.getZ() - r);
+        for(BlockPos other : tentCuboid(pos)){
+            IBlockState bs = world.getBlockState(other);
+            if(bs.getBlock().getClass().equals(getClass()))
+                continue;
+            if(!Common.shouldReplace(world, other))
+                return false;
+            if(!worksInWater()){
+                if(bs.getBlock() == Blocks.WATER || bs.getBlock() == Blocks.FLOWING_WATER)
+                    return false;
+            }
+        }
+
+        return true;
     }
 
     public boolean tryBuildTent(World world, BlockPos pos, EntityPlayer player, EnumFacing side){
@@ -62,19 +72,16 @@ public class BlockBaseTent extends BlockBase {
         int h = width() - 1; //Height
         int r = h / 2; //Radius
 
-        fillCuboid(world, x + r, y + h, z + r, x - r, y + h, z - r, wall());//y flat high (top)
-        fillCuboid(world, x + r, y, z + r, x - r, y, z - r, wall());//y flat low (bottom)
+        fillCuboid(world, pos.add(-r, h, -r), pos.add(r, h, r), wall()); //fixed y high (top)
+        fillCuboid(world, pos.add(-r, 0, -r), pos.add(r, 0, r), wall()); //fixed y low (bottom)
 
-        fillCuboid(world, x + r, y, z + r, x + r, y + h, z - r, wall());//x flat high
-        fillCuboid(world, x - r, y, z + r, x - r, y + h, z - r, wall());//x flat low
+        fillCuboid(world, pos.add(r, 0, -r), pos.add(r, h, r), wall());  //fixed x high
+        fillCuboid(world, pos.add(-r, 0, -r), pos.add(-r, h, r), wall());//fixed x low
 
-        fillCuboid(world, x + r, y, z + r, x - r, y + h, z + r, wall());//z flat high
-        fillCuboid(world, x + r, y, z - r, x - r, y + h, z - r, wall());//z flat low
+        fillCuboid(world, pos.add(-r, 0, r), pos.add(r, h, r), wall());  //fixed z high
+        fillCuboid(world, pos.add(-r, 0, -r), pos.add(r, h, -r), wall());//fixed z low
 
-        h -= 1;
-        r -= 1;
-
-        fillCuboid(world, x + r, y + 1, z + r, x - r, y + h, z - r, Blocks.AIR.getDefaultState());
+        fillCuboid(world, pos.add(1 - r, 1, 1 - r), pos.add(r - 1, h - 1, r - 1), Blocks.AIR.getDefaultState());
 
         decorate(world, pos, player, side);
         return true;
@@ -84,38 +91,19 @@ public class BlockBaseTent extends BlockBase {
         world.createExplosion(player, pos.getX(), pos.getY(), pos.getZ(), 2.0F, false);
     }
 
-    public void fillCuboid(World world, int x, int y, int z, int dx, int dy, int dz, IBlockState bs){
-        for(int i = Math.min(x, dx); i <= Math.max(x, dx); i++){
-            for(int j = Math.min(y, dy); j <= Math.max(y, dy); j++){
-                for(int k = Math.min(z, dz); k <= Math.max(z, dz); k++){
-                    BlockPos pos = new BlockPos(i, j, k);
-                    if(!replaceSelf() && world.getBlockState(pos).getBlock().getClass().equals(getClass())){
-                        continue;
-                    }
-                    world.setBlockState(pos, bs, 3);
-                }
-            }
+    public void fillCuboid(World world, BlockPos a, BlockPos b, IBlockState bs){
+        for(BlockPos pos : Common.cuboid(a, b)){
+            if(!replaceSelf() && world.getBlockState(pos).getBlock().getClass().equals(getClass()))
+                continue;
+            world.setBlockState(pos, bs, 3);
         }
     }
 
-    public boolean isCuboidEmpty(World world, int x, int y, int z, int dx, int dy, int dz){
-        for(int i = Math.min(x, dx); i <= Math.max(x, dx); i++){
-            for(int j = Math.min(y, dy); j <= Math.max(y, dy); j++){
-                for(int k = Math.min(z, dz); k <= Math.max(z, dz); k++){
-                    BlockPos pos = new BlockPos(i, j, k);
-                    IBlockState bs = world.getBlockState(pos);
-                    if(bs.getBlock().getClass().equals(getClass()))
-                        continue;
-                    if(!Common.shouldReplace(world, pos))
-                        return false;
-                    if(!worksInWater()){
-                        if(bs.getBlock() == Blocks.WATER || bs.getBlock() == Blocks.FLOWING_WATER)
-                            return false;
-                    }
-                }
-            }
-        }
-        return true;
+    public BlockPos[] tentCuboid(BlockPos pos){
+        int h = width() - 1; //Height
+        int r = h / 2; //Radius
+
+        return Common.cuboid(pos.add(-r, 0, -r), pos.add(r, h, r));
     }
 
     @Override
