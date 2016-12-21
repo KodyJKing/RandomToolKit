@@ -1,8 +1,6 @@
 package rtk.block;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,7 +15,6 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -25,7 +22,6 @@ import rtk.ModBlocks;
 import rtk.common.CNBT;
 import rtk.tileentity.TileEntityEnderTent;
 
-import java.util.List;
 import java.util.Random;
 
 public class BlockEnderTent extends BlockTent {
@@ -68,7 +64,7 @@ public class BlockEnderTent extends BlockTent {
     public boolean tryBuildTent(World world, BlockPos pos, EntityPlayer player, EnumFacing side) {
         TileEntityEnderTent te = getTileEntity(world, pos);
         boolean result = false;
-        if(te.isFirstDeploy())
+        if(te.neverDeployed())
             result = super.tryBuildTent(world, pos, player, side);
         else if(!te.isDeployed() && canBuildTent(world, pos)){
             placeContents(world, pos);
@@ -76,7 +72,7 @@ public class BlockEnderTent extends BlockTent {
         }
         if(result){
             te.setDeployed(true);
-            te.setFirstDeploy(false);
+            te.setNeverDeployed(false);
             world.playSound(null, pos, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.BLOCKS, 0.5F, 1F);
         }
         return result;
@@ -88,12 +84,10 @@ public class BlockEnderTent extends BlockTent {
 
     public void placeContents(World world, BlockPos pos) {
         TileEntityEnderTent te = getTileEntity(world, pos);
-        if(te.isFirstDeploy())
+        if(te.neverDeployed())
             return;
 
         BlockPos[] tentCube = tentCuboid(pos);
-
-        NBTTagList blockList = te.getBlockList();
 
 //        First set everything to dirt so nothing is without solid support during the building loop.
 //        This was "inspired" by the Minecraft CommandClone class.
@@ -108,12 +102,17 @@ public class BlockEnderTent extends BlockTent {
             world.setBlockState(otherPos, Blocks.DIRT.getDefaultState(), 2);
         }
 
+        NBTTagList blockList = te.getBlockList();
+
         int bsInd = 0;
         for(BlockPos otherPos : tentCube){
             if(!pos.equals(otherPos))
                 CNBT.placeBlockFromNBT(world, otherPos, blockList.getCompoundTagAt(bsInd));
             bsInd++;
         }
+
+        for(BlockPos otherPos : tentCube)
+            world.notifyNeighborsOfStateChange(otherPos, world.getBlockState(otherPos).getBlock());
     }
 
     public boolean tryGrabContents(World world, BlockPos pos){
@@ -146,7 +145,7 @@ public class BlockEnderTent extends BlockTent {
         //Finally we can actually delete everything.
         for(BlockPos otherPos : tentCube){
             if(!pos.equals(otherPos)) //Don't mess with the tent block!!!
-                world.setBlockState(otherPos, Blocks.AIR.getDefaultState(), 2);
+                world.setBlockState(otherPos, Blocks.AIR.getDefaultState(), 3);
         }
 
         world.playSound(null, pos, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.BLOCKS, 0.5F, 1F);
@@ -184,7 +183,7 @@ public class BlockEnderTent extends BlockTent {
 
         ItemStack drop = new ItemStack(ModBlocks.enderTent, 1);
         tryGrabContents(world, pos);
-        if(!te.isDeployed() && !te.isFirstDeploy())
+        if(!te.isDeployed() && !te.neverDeployed())
             drop.addEnchantment(Enchantments.INFINITY, 1); //This is just an indicator that the tent is full.
 
         getTileEntity(world, pos).writeTent(CNBT.ensureCompound(drop));

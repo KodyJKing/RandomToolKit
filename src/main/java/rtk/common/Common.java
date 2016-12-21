@@ -38,27 +38,6 @@ public class Common {
         return bs.getBlock().isReplaceable(world, pos) || !bs.isOpaqueCube() && bs.getBlockHardness(world, pos) < 0.01F || bs.getMaterial() == Material.AIR;
     }
 
-    public static BlockPos blockLookedAt(EntityPlayer player, double range){
-        World world = player.worldObj;
-
-        if(!world.isRemote)
-            return null;
-
-        if(Minecraft.getMinecraft().objectMouseOver.typeOfHit != RayTraceResult.Type.BLOCK)
-            return null;
-
-        BlockPos pos = Minecraft.getMinecraft().objectMouseOver.getBlockPos();
-        if(world.getBlockState(pos).getMaterial() == Material.AIR)
-            return null;
-
-        EnumFacing side = Minecraft.getMinecraft().objectMouseOver.sideHit;
-        double dist = pos.distanceSqToCenter(player.posX, player.posY, player.posZ);
-        if(dist > range * range)
-            return null;
-
-        return pos;
-    }
-
     public static Vec3d randomVector(double length){
         Vec3d result = new Vec3d(Common.random.nextGaussian(), Common.random.nextGaussian(), Common.random.nextGaussian());
         result = result.normalize();

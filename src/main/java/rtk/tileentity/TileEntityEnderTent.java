@@ -6,7 +6,7 @@ import net.minecraft.tileentity.TileEntity;
 
 public class TileEntityEnderTent extends TileEntity {
     private boolean deployed;
-    private boolean isFirstDeploy;
+    private boolean neverDeployed;
     private NBTTagList blockList;
 
     public boolean dontGrab;
@@ -14,7 +14,7 @@ public class TileEntityEnderTent extends TileEntity {
     public TileEntityEnderTent(){
         dontGrab = false;
         deployed = false;
-        isFirstDeploy = true;
+        neverDeployed = true;
         blockList = new NBTTagList();
     }
 
@@ -26,7 +26,7 @@ public class TileEntityEnderTent extends TileEntity {
 
     public void readTent(NBTTagCompound compound){
         setDeployed(compound.getBoolean("deployed"));
-        setFirstDeploy(compound.getBoolean("firstDeploy"));
+        setNeverDeployed(compound.getBoolean("firstDeploy"));
         setBlockList(compound.getTagList("blockList", 10));
     }
 
@@ -38,7 +38,7 @@ public class TileEntityEnderTent extends TileEntity {
 
     public NBTTagCompound writeTent(NBTTagCompound compound){
         compound.setBoolean("deployed", isDeployed());
-        compound.setBoolean("firstDeploy", isFirstDeploy());
+        compound.setBoolean("firstDeploy", neverDeployed());
         compound.setTag("blockList", blockList);
         return compound;
     }
@@ -54,12 +54,12 @@ public class TileEntityEnderTent extends TileEntity {
         markDirty();
     }
 
-    public boolean isFirstDeploy() {
-        return isFirstDeploy;
+    public boolean neverDeployed() {
+        return neverDeployed;
     }
 
-    public void setFirstDeploy(boolean firstDeploy) {
-        isFirstDeploy = firstDeploy;
+    public void setNeverDeployed(boolean firstDeploy) {
+        neverDeployed = firstDeploy;
         markDirty();
     }
 
