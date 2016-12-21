@@ -19,7 +19,7 @@ public class ModBlocks {
         emergencyTentWall = register(new BlockTentWall("emergencyTentWall"));
         emergencyTentLight = (BlockBase)register(new BlockTentWall("emergencyTentLight")).setLightLevel(1);
 
-        tent = register(new BlockTent("tent"));
+        tent = register(new BlockTentBreakable("tent"));
         tentWall = register(new BlockTentWall("tentWall"));
 
         diversTent = register(new BlockDiversTent("diversTent"));
@@ -37,7 +37,7 @@ public class ModBlocks {
 
         if (block instanceof BlockBase) {
             BlockBase b = (BlockBase)block;
-            b.registerItemModel(itemBlock);
+            b.init(itemBlock);
             if(b.hasTileEntity()){
                 GameRegistry.registerTileEntity(b.getTileEntityClass(), b.getUnlocalizedName());
             }

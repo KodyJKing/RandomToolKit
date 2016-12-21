@@ -11,7 +11,7 @@ import rtk.common.Common;
 
 import java.util.Random;
 
-public class BlockEmergencyTent extends BlockTent {
+public class BlockEmergencyTent extends BlockTentBreakable {
     public BlockEmergencyTent(String name){
         super(name);
     }

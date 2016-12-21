@@ -3,7 +3,7 @@ package rtk.block;
 import net.minecraft.block.state.IBlockState;
 import rtk.ModBlocks;
 
-public class BlockDiversTent extends BlockTent {
+public class BlockDiversTent extends BlockTentBreakable {
     public BlockDiversTent(String name) {
         super(name);
     }

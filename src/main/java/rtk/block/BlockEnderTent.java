@@ -16,6 +16,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import rtk.ModBlocks;
@@ -124,8 +125,10 @@ public class BlockEnderTent extends BlockTent {
 
         NBTTagList blockList = new NBTTagList();
 
-        for(BlockPos otherPos : tentCube)
+        for(BlockPos otherPos : tentCube){
             blockList.appendTag(CNBT.NBTFromBlock(world, otherPos));
+        }
+
 
         //Next set everything to a solid block so nothing loses support during deletion. (I'm talking about you torches!)
         for(BlockPos otherPos : tentCube){
