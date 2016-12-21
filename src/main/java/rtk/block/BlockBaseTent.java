@@ -44,11 +44,11 @@ public class BlockBaseTent extends BlockBase {
 
     public boolean canBuildTent(World world, BlockPos pos){
 
-        for(BlockPos other : tentCuboid(pos)){
-            IBlockState bs = world.getBlockState(other);
+        for(BlockPos otherPos : tentCuboid(pos)){
+            IBlockState bs = world.getBlockState(otherPos);
             if(bs.getBlock().getClass().equals(getClass()))
                 continue;
-            if(!Common.shouldReplace(world, other))
+            if(!Common.shouldReplace(world, otherPos))
                 return false;
             if(!worksInWater()){
                 if(bs.getBlock() == Blocks.WATER || bs.getBlock() == Blocks.FLOWING_WATER)
@@ -60,9 +60,6 @@ public class BlockBaseTent extends BlockBase {
     }
 
     public boolean tryBuildTent(World world, BlockPos pos, EntityPlayer player, EnumFacing side){
-        int x = pos.getX();
-        int y = pos.getY();
-        int z = pos.getZ();
 
         if(!canBuildTent(world, pos)){
             player.addChatComponentMessage(new TextComponentTranslation("tile.baseTent.blocked"));
