@@ -34,10 +34,8 @@ public class BlockEmergencyTent extends BlockBaseTent {
         int h = width() - 1;
         int r = h / 2;
 
-        Block light = ModBlocks.emergencyTentLight;
-
         Common.setBlock(world,x + r - 2, y,z + r - 2, ModBlocks.emergencyTentLight);
-        Common.setBlock(world,- r + 2, y, z + r - 2, ModBlocks.emergencyTentLight);
+        Common.setBlock(world,x - r + 2, y, z + r - 2, ModBlocks.emergencyTentLight);
         Common.setBlock(world,x + r - 2, y, z - r + 2, ModBlocks.emergencyTentLight);
         Common.setBlock(world,x - r + 2, y, z - r + 2, ModBlocks.emergencyTentLight);
 

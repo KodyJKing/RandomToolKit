@@ -15,6 +15,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import scala.actors.threadpool.Arrays;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -71,5 +72,29 @@ public class Common {
                 return i;
         }
         return -1;
+    }
+
+    public static BlockPos[] cuboid(BlockPos a, BlockPos b){
+        int xMin = Math.min(a.getX(), b.getX());
+        int yMin = Math.min(a.getY(), b.getY());
+        int zMin = Math.min(a.getZ(), b.getZ());
+
+        int xMax = Math.max(a.getX(), b.getX());
+        int yMax = Math.max(a.getY(), b.getY());
+        int zMax = Math.max(a.getZ(), b.getZ());
+
+
+        BlockPos[] positions = new BlockPos[(1 + xMax - xMin) * (1 + yMax - yMin) * (1 + zMax - zMin)];
+        int i = 0;
+
+        for(int x = xMin; x <= xMax; x++){
+            for(int y = yMin; y <= yMax; y++){
+                for(int z = zMin; z <= zMax; z++){
+                    positions[i++] = new BlockPos(x, y, z);
+                }
+            }
+        }
+
+        return positions;
     }
 }
