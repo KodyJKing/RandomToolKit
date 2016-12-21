@@ -17,23 +17,19 @@ public class BlockTentWall extends BlockBase {
         setResistance(0.5F);
     }
 
-    public static boolean isTentWall(World world, int x, int y, int z){
-        return world.getBlockState(new BlockPos(x, y, z)).getBlock() instanceof BlockTentWall;
+    public static boolean isTentWall(World world, BlockPos pos){
+        return world.getBlockState(pos).getBlock() instanceof BlockTentWall;
     }
 
-    public static void tryPop(World world, EntityPlayer player, int x, int y, int z, boolean silent){
-        if(isTentWall(world, x, y, z)){
+    public static void tryPop(World world, EntityPlayer player, BlockPos pos){
+        if(isTentWall(world, pos)){
 
-            world.setBlockToAir(new BlockPos(x, y, z));
-            if(!silent && !world.isRemote && Common.random.nextInt(15) == 0)
-                world.createExplosion(player, x, y, z, 1.0F, false);
+            world.setBlockToAir(pos);
+            if(!world.isRemote && Common.random.nextInt(15) == 0)
+                world.createExplosion(player, pos.getX(), pos.getY(), pos.getZ(), 1.0F, false);
 
-            for(int i = -1; i <= 1; i++){
-                for(int j = -1; j <= 1; j++){
-                    for(int k = -1; k <= 1; k++){
-                        tryPop(world, player, x + i, y + j, z + k, silent);
-                    }
-                }
+            for(BlockPos otherPos : Common.cuboid(pos.add(-1, -1, -1), pos.add(1, 1, 1))){
+                tryPop(world, player, otherPos);
             }
         }
     }

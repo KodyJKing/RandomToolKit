@@ -1,6 +1,5 @@
 package rtk.block;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -10,7 +9,9 @@ import net.minecraft.world.World;
 import rtk.ModBlocks;
 import rtk.common.Common;
 
-public class BlockEmergencyTent extends BlockBaseTent {
+import java.util.Random;
+
+public class BlockEmergencyTent extends BlockTent {
     public BlockEmergencyTent(String name){
         super(name);
     }
@@ -21,9 +22,10 @@ public class BlockEmergencyTent extends BlockBaseTent {
     }
 
     @Override
-    public boolean replaceSelf() {
-        return true;
-    }
+    public boolean hasFuel(EntityPlayer player) { return true; }
+
+    @Override
+    public void spendFuel(EntityPlayer player) {}
 
     @Override
     public void decorate(World world, BlockPos pos, EntityPlayer player, EnumFacing side){
@@ -48,5 +50,10 @@ public class BlockEmergencyTent extends BlockBaseTent {
         if(Common.random.nextInt(365) == 0){ //Happy Birthday!
             Common.setBlock(world, x + 3, y + 1, z + 3, Blocks.CAKE);
         }
+    }
+
+    @Override
+    public int quantityDropped(Random random) {
+        return 0;
     }
 }

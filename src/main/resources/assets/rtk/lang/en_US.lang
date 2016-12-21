@@ -17,6 +17,7 @@ item.toolbelt.name=Toolbelt
 item.toolbelt.tooltip=Swaps to the most effective tool when breaking blocks.;Must be equipped on hotbar.
 
 tile.baseTent.blocked=Something is blocking your tent!
+tile.baseTent.insufficientFuel=You need more fuel!
 
 tile.emergencyTent.name=Emergency Tent
 tile.emergencyTentWall.name=Emergency Tent Wall

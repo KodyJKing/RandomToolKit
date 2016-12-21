@@ -66,7 +66,7 @@ public class BlockEnderTent extends BlockTent {
         boolean result = false;
         if(te.neverDeployed())
             result = super.tryBuildTent(world, pos, player, side);
-        else if(!te.isDeployed() && canBuildTent(world, pos)){
+        else if(!te.isDeployed() && canBuildTent(world, pos, player)){
             placeContents(world, pos);
             result = true;
         }
