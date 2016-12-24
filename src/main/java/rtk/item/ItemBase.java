@@ -20,7 +20,7 @@ public class ItemBase extends Item {
         setRegistryName(name);
     }
 
-    public void registerItemModel() {
+    public void init() {
         RTK.proxy.registerItemRenderer(this, 0, name);
     }
 

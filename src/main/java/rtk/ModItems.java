@@ -22,7 +22,7 @@ public class ModItems {
         GameRegistry.register(item);
 
         if (item instanceof ItemBase) {
-            ((ItemBase)item).registerItemModel();
+            ((ItemBase)item).init();
         }
 
         return item;

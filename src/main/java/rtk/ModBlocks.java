@@ -11,7 +11,7 @@ public class ModBlocks {
             tent, tentWall,
             diversTent, diversTentWall,
             enderTent, enderTentWall,
-            transientBlock;
+            transientBlock, tentWallVariants;
 
     public static void init() {
 
@@ -29,6 +29,7 @@ public class ModBlocks {
         enderTentWall = register(new BlockTentWall("enderTentWall"));
 
         //transientBlock = register(new BlockTransient("transientBLock"));
+        tentWallVariants = register(new BlockTentWallVariants("twv"));
     }
 
     private static <T extends Block> T register(T block, ItemBlock itemBlock) {
