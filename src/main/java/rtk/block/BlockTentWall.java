@@ -1,13 +1,28 @@
 package rtk.block;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyInteger;
+import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import rtk.RTK;
 import rtk.common.Common;
+import rtk.item.ItemBlockVariants;
+
+import java.util.List;
 
 public class BlockTentWall extends BlockBase {
+
+    public static final PropertyInteger VARIANT = PropertyInteger.create("variant", 0 , 4);
 
     public BlockTentWall(String name){
         super(Material.CLOTH, name);
@@ -15,6 +30,8 @@ public class BlockTentWall extends BlockBase {
         setSoundType(SoundType.CLOTH);
         setHardness(0.5F);
         setResistance(0.5F);
+
+        this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, 0));
     }
 
     public static boolean isTentWall(World world, BlockPos pos){
@@ -32,5 +49,51 @@ public class BlockTentWall extends BlockBase {
                 tryPop(world, player, otherPos);
             }
         }
+    }
+
+    @Override
+    public void init(ItemBlock item) {
+        for(Integer i : VARIANT.getAllowedValues())
+            RTK.proxy.registerItemRenderer(item, i, name + "_"  + i.toString());
+    }
+
+    @Override
+    public int damageDropped(IBlockState state) {
+        return state.getValue(VARIANT);
+    }
+
+    @Override
+    public IBlockState getStateFromMeta(int meta) {
+        return this.getDefaultState().withProperty(VARIANT, meta);
+    }
+
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        return state.getValue(VARIANT);
+    }
+
+    @Override
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, new IProperty[] {VARIANT});
+    }
+
+    @Override
+    public ItemBlock createItemBlock(Block block) {
+        return new ItemBlockVariants(block);
+    }
+
+    @Override
+    public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+        for(Integer i : VARIANT.getAllowedValues())
+            list.add(new ItemStack(itemIn, 1, i));
+    }
+
+    public IBlockState variant(int i){
+        return getDefaultState().withProperty(VARIANT, i);
+    }
+
+    @Override
+    public int getLightValue(IBlockState state) {
+        return state.getValue(VARIANT) == 4 ? 15 : 0;
     }
 }

@@ -22,10 +22,6 @@ public class CNBT {
         return nbt.getInteger(name);
     }
 
-    public static int ensureInt(NBTTagCompound nbt, String name){
-        return ensureInt(nbt, name, 0);
-    }
-
     public static NBTTagCompound NBTFromBlock(World world, BlockPos pos){
         NBTTagCompound NBT = new NBTTagCompound();
 

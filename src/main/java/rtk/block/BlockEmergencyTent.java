@@ -18,7 +18,7 @@ public class BlockEmergencyTent extends BlockTentBreakable {
 
     @Override
     public IBlockState wall() {
-        return ModBlocks.emergencyTentWall.getDefaultState();
+        return ModBlocks.tentWall.variant(0);
     }
 
     @Override
@@ -36,20 +36,22 @@ public class BlockEmergencyTent extends BlockTentBreakable {
         int h = width() - 1;
         int r = h / 2;
 
-        Common.setBlock(world,x + r - 2, y,z + r - 2, ModBlocks.emergencyTentLight);
-        Common.setBlock(world,x - r + 2, y, z + r - 2, ModBlocks.emergencyTentLight);
-        Common.setBlock(world,x + r - 2, y, z - r + 2, ModBlocks.emergencyTentLight);
-        Common.setBlock(world,x - r + 2, y, z - r + 2, ModBlocks.emergencyTentLight);
+        IBlockState light = ModBlocks.tentWall.variant(4);
 
-        Common.setBlock(world,x + r - 2, y + h, z + r - 2, ModBlocks.emergencyTentLight);
-        Common.setBlock(world,x - r + 2, y + h, z + r - 2, ModBlocks.emergencyTentLight);
-        Common.setBlock(world,x + r - 2, y + h, z - r + 2, ModBlocks.emergencyTentLight);
-        Common.setBlock(world,x - r + 2, y + h, z - r + 2, ModBlocks.emergencyTentLight);
+        world.setBlockState(pos.add(r - 2, 0, r - 2), light);
+        world.setBlockState(pos.add(- r + 2, 0, r - 2), light);
+        world.setBlockState(pos.add(- r + 2, 0, - r + 2), light);
+        world.setBlockState(pos.add(r - 2, 0, - r + 2), light);
+
+        world.setBlockState(pos.add(r - 2, h, r - 2), light);
+        world.setBlockState(pos.add(- r + 2, h, r - 2), light);
+        world.setBlockState(pos.add(- r + 2, h, - r + 2), light);
+        world.setBlockState(pos.add(r - 2, h, - r + 2), light);
+
         world.createExplosion(player, x, y, z, 2.0F, false);
 
-        if(Common.random.nextInt(365) == 0){ //Happy Birthday!
-            Common.setBlock(world, x + 3, y + 1, z + 3, Blocks.CAKE);
-        }
+        if(Common.random.nextInt(365) == 0) //Happy Birthday!
+            world.setBlockState(pos.add(3, 1, 3), Blocks.CAKE.getDefaultState());
     }
 
     @Override

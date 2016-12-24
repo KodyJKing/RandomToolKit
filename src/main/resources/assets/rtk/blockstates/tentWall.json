@@ -2,7 +2,7 @@
   "forge_marker": 1,
   "defaults": {
     "textures": {
-      "all": "rtk:blocks/tentWall"
+      "all": "blocks/dirt"
     }
   },
   "variants": {
@@ -11,6 +11,11 @@
     },
     "inventory": {
       "model": "cube_all"
-    }
+    },
+    "variant=0" : {"model" : "rtk:tentWall_0"},
+    "variant=1" : {"model" : "rtk:tentWall_1"},
+    "variant=2" : {"model" : "rtk:tentWall_2"},
+    "variant=3" : {"model" : "rtk:tentWall_3"},
+    "variant=4" : {"model" : "rtk:tentWall_4"}
   }
 }

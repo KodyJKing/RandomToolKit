@@ -15,7 +15,7 @@ public class BlockDiversTent extends BlockTentBreakable {
 
     @Override
     public IBlockState wall() {
-        return ModBlocks.diversTentWall.getDefaultState();
+        return ModBlocks.tentWall.variant(2);
     }
 
     @Override

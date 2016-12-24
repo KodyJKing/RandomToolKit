@@ -7,29 +7,24 @@ import rtk.block.*;
 
 public class ModBlocks {
     public static BlockBase
-            emergencyTent, emergencyTentWall, emergencyTentLight,
-            tent, tentWall,
-            diversTent, diversTentWall,
-            enderTent, enderTentWall,
-            transientBlock, tentWallVariants;
+            emergencyTent,
+            tent,
+            diversTent,
+            enderTent;
+
+    public static BlockTentWall tentWall;
 
     public static void init() {
 
         emergencyTent = register(new BlockEmergencyTent("emergencyTent"));
-        emergencyTentWall = register(new BlockTentWall("emergencyTentWall"));
-        emergencyTentLight = (BlockBase)register(new BlockTentWall("emergencyTentLight")).setLightLevel(1);
 
         tent = register(new BlockTentBreakable("tent"));
-        tentWall = register(new BlockTentWall("tentWall"));
 
         diversTent = register(new BlockDiversTent("diversTent"));
-        diversTentWall = register(new BlockTentWall("diversTentWall"));
 
         enderTent = register(new BlockEnderTent("enderTent"));
-        enderTentWall = register(new BlockTentWall("enderTentWall"));
 
-        //transientBlock = register(new BlockTransient("transientBLock"));
-        tentWallVariants = register(new BlockTentWallVariants("twv"));
+        tentWall = register(new BlockTentWall("tentWall"));
     }
 
     private static <T extends Block> T register(T block, ItemBlock itemBlock) {
@@ -39,9 +34,8 @@ public class ModBlocks {
         if (block instanceof BlockBase) {
             BlockBase b = (BlockBase)block;
             b.init(itemBlock);
-            if(b.hasTileEntity()){
+            if(b.hasTileEntity())
                 GameRegistry.registerTileEntity(b.getTileEntityClass(), b.getUnlocalizedName());
-            }
         }
 
         return block;

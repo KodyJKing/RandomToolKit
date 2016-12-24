@@ -10,8 +10,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.scoreboard.IScoreCriteria;
-import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
@@ -33,7 +31,7 @@ public class BlockTent extends BlockBase {
     }
 
     public IBlockState wall(){
-        return ModBlocks.tentWall.getDefaultState();
+        return ModBlocks.tentWall.variant(1);
     }
 
     public int width(){

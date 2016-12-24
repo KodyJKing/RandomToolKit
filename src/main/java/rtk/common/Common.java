@@ -29,10 +29,6 @@ public class Common {
         target.addAll(Arrays.asList(lines));
     }
 
-    public static void setBlock(World world, int x, int y, int z, Block block){
-        world.setBlockState(new BlockPos(x, y, z), block.getDefaultState(), 3);
-    }
-
     public static boolean shouldReplace(World world, BlockPos pos){
         IBlockState bs = world.getBlockState(pos);
         return bs.getBlock().isReplaceable(world, pos) || !bs.isOpaqueCube() && bs.getBlockHardness(world, pos) < 0.01F || bs.getMaterial() == Material.AIR;

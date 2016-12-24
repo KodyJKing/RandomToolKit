@@ -16,7 +16,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import rtk.ModBlocks;
@@ -39,7 +38,7 @@ public class BlockEnderTent extends BlockTent {
 
     @Override
     public IBlockState wall() {
-        return ModBlocks.enderTentWall.getDefaultState();
+        return ModBlocks.tentWall.variant(3);
     }
 
     @Override

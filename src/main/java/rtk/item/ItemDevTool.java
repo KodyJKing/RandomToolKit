@@ -13,11 +13,4 @@ public class ItemDevTool extends ItemBase {
     public ItemDevTool(String name) {
         super(name);
     }
-
-    @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStack, World world, EntityPlayer player, EnumHand hand) {
-        if(world.isRemote && player.isSneaking())
-            player.inventory.addItemStackToInventory(new ItemStack(Items.DIAMOND));
-        return ActionResult.newResult(EnumActionResult.SUCCESS, itemStack);
-    }
 }
