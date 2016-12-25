@@ -84,7 +84,11 @@ public class InventoryToolbox implements IInventory {
     @Override
     public void openInventory(EntityPlayer player) {
         if(!player.worldObj.isRemote){
-            player.worldObj.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_CHEST_OPEN, SoundCategory.BLOCKS, 0.3F, 1.5F);
+            player.worldObj.playSound(
+                    null,
+                    player.posX, player.posY, player.posZ,
+                    SoundEvents.BLOCK_CHEST_OPEN, SoundCategory.BLOCKS,
+                    0.3F, 1.5F);
         }
         stack.getTagCompound().setBoolean("open", true);
     }
@@ -92,9 +96,16 @@ public class InventoryToolbox implements IInventory {
     @Override
     public void closeInventory(EntityPlayer player) {
         if(!player.worldObj.isRemote){
-            player.worldObj.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_CHEST_CLOSE, SoundCategory.BLOCKS, 0.3F, 1.5F);
+            player.worldObj.playSound(
+                    null,
+                    player.posX, player.posY, player.posZ,
+                    SoundEvents.BLOCK_CHEST_CLOSE, SoundCategory.BLOCKS,
+                    0.3F, 1.5F);
         }
+
+        //For some reason stack seems to point to a cloned object outside the player's inventory.
         stack = player.inventory.getStackInSlot(stack.getTagCompound().getInteger("index"));
+
         stack.getTagCompound().setBoolean("open", false);
     }
 
