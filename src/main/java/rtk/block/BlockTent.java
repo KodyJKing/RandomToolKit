@@ -121,7 +121,7 @@ public class BlockTent extends BlockBase {
     }
 
     public void decorate(World world, BlockPos pos, EntityPlayer player, EnumFacing side){
-        world.createExplosion(player, pos.getX(), pos.getY(), pos.getZ(), 2.0F, false);
+        world.createExplosion(player, pos.getX(), pos.getY(), pos.getZ(), 0.0F, false);
     }
 
     public void fillCuboid(World world, BlockPos a, BlockPos b, IBlockState bs){
@@ -144,11 +144,5 @@ public class BlockTent extends BlockBase {
         if(!world.isRemote)
             return tryBuildTent(world, pos, player, side);
         return true;
-    }
-
-    @Override
-    public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state) {
-        for(BlockPos neighbor : new BlockPos[]{pos.up(), pos.down(), pos.north(), pos.south(), pos.east(), pos.west()})
-            BlockTentWall.tryPop(worldIn, null, neighbor);
     }
 }

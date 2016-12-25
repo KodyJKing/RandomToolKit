@@ -53,7 +53,7 @@ public class ItemHotplate extends ItemBase {
                     if(etched && block == Blocks.STONE_STAIRS)
                         replace = Blocks.STONE_BRICK_STAIRS;
                     if(etched && block == Blocks.NETHERRACK)
-                        replace = Blocks.NETHERRACK;
+                        replace = Blocks.NETHER_BRICK;
 
                     if(replace != null){
                         didMelt = true;

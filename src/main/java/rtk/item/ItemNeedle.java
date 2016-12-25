@@ -19,7 +19,7 @@ public class ItemNeedle extends ItemBase {
 
     @Override
     public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        BlockTentWall.tryPop(world, player, pos);
+        BlockTentWall.tryPop(world, pos);
         return EnumActionResult.SUCCESS;
     }
 }

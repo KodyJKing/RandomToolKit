@@ -8,7 +8,6 @@ import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -19,6 +18,7 @@ import rtk.common.Common;
 import rtk.item.ItemBlockVariants;
 
 import java.util.List;
+import java.util.Random;
 
 public class BlockTentWall extends BlockBase {
 
@@ -28,7 +28,7 @@ public class BlockTentWall extends BlockBase {
         super(Material.CLOTH, name);
         //setCreativeTab(CreativeTabs.TOOLS);
         setSoundType(SoundType.CLOTH);
-        setHardness(0.5F);
+        setHardness(0.2F);
         setResistance(0.5F);
 
         this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, 0));
@@ -38,15 +38,15 @@ public class BlockTentWall extends BlockBase {
         return world.getBlockState(pos).getBlock() instanceof BlockTentWall;
     }
 
-    public static void tryPop(World world, EntityPlayer player, BlockPos pos){
+    public static void tryPop(World world, BlockPos pos){
         if(isTentWall(world, pos)){
 
             world.setBlockToAir(pos);
-            if(!world.isRemote && Common.random.nextInt(15) == 0)
-                world.createExplosion(player, pos.getX(), pos.getY(), pos.getZ(), 1.0F, false);
+            if(!world.isRemote && Common.random.nextInt(32) == 0)
+                world.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), 0.0F, false);
 
             for(BlockPos otherPos : Common.cuboid(pos.add(-1, -1, -1), pos.add(1, 1, 1))){
-                tryPop(world, player, otherPos);
+                tryPop(world, otherPos);
             }
         }
     }
@@ -95,5 +95,10 @@ public class BlockTentWall extends BlockBase {
     @Override
     public int getLightValue(IBlockState state) {
         return state.getValue(VARIANT) == 4 ? 15 : 0;
+    }
+
+    @Override
+    public int quantityDropped(IBlockState state, int fortune, Random random) {
+        return 0;
     }
 }

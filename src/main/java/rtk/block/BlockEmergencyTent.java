@@ -48,10 +48,10 @@ public class BlockEmergencyTent extends BlockTentBreakable {
         world.setBlockState(pos.add(- r + 2, h, - r + 2), light);
         world.setBlockState(pos.add(r - 2, h, - r + 2), light);
 
-        world.createExplosion(player, x, y, z, 2.0F, false);
-
         if(Common.random.nextInt(365) == 0) //Happy Birthday!
             world.setBlockState(pos.add(3, 1, 3), Blocks.CAKE.getDefaultState());
+
+        super.decorate(world, pos, player, side);
     }
 
     @Override
