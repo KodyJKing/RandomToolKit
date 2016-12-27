@@ -26,7 +26,8 @@ public class Common {
         if(!I18n.hasKey(key))
             return;
         String[] lines = I18n.format(key).split(";");
-        target.addAll(Arrays.asList(lines));
+        for(String line : lines)
+            target.add(line);
     }
 
     public static boolean shouldReplace(World world, BlockPos pos){
