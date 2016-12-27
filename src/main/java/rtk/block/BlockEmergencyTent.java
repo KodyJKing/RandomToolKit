@@ -1,12 +1,15 @@
 package rtk.block;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import rtk.ModBlocks;
+import rtk.ModItems;
 import rtk.common.Common;
 
 import java.util.Random;
@@ -57,5 +60,16 @@ public class BlockEmergencyTent extends BlockTentBreakable {
     @Override
     public int quantityDropped(Random random) {
         return 0;
+    }
+
+    @Override
+    public void onBlockDestroyedByPlayer(World world, BlockPos pos, IBlockState state) {
+        super.onBlockDestroyedByPlayer(world, pos, state);
+        if(state.getValue(DEPLOYED) || world.isRemote)
+            return;
+
+        ItemStack drop = new ItemStack(ModBlocks.emergencyTent);
+        EntityItem entity = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, drop);
+        world.spawnEntityInWorld(entity);
     }
 }
