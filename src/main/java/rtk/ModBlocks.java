@@ -10,7 +10,8 @@ public class ModBlocks {
             emergencyTent,
             tent,
             diversTent,
-            enderTent;
+            enderTent,
+            levitator;
 
     public static BlockTentWall tentWall;
 
@@ -25,6 +26,8 @@ public class ModBlocks {
         enderTent = register(new BlockEnderTent("enderTent"));
 
         tentWall = register(new BlockTentWall("tentWall"));
+
+        levitator = register(new BlockLevitator("levitator"));
     }
 
     private static <T extends Block> T register(T block, ItemBlock itemBlock) {
