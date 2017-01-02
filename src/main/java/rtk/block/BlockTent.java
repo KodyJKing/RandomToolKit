@@ -24,7 +24,7 @@ public class BlockTent extends BlockBase {
 
     public BlockTent(String name) {
         super(Material.CLOTH, name);
-        setCreativeTab(CreativeTabs.TOOLS);
+        setCreativeTab(CreativeTabs.TRANSPORTATION);
         setSoundType(SoundType.CLOTH);
         setHardness(0.5F);
         setResistance(0.5F);

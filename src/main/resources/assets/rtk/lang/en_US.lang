@@ -16,6 +16,8 @@ item.toolbox.tooltip=Can hold many unstackable items.
 item.toolbelt.name=Toolbelt
 item.toolbelt.tooltip=Swaps to the most effective tool when breaking blocks.;Must be equipped on hotbar.
 
+item.dolly.name=Dolly
+
 tile.baseTent.blocked=Something is blocking your tent!
 tile.baseTent.insufficientFuel=You need more fuel!
 
