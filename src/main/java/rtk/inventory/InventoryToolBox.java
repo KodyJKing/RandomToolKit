@@ -13,7 +13,7 @@ import rtk.common.CNBT;
 
 import javax.annotation.Nullable;
 
-public class InventoryToolbox implements IInventory {
+public class InventoryToolbox extends InventoryNBT {
 
     public ItemStack stack;
 
@@ -24,48 +24,14 @@ public class InventoryToolbox implements IInventory {
             clear();
     }
 
-    private NBTTagList getInventoryList(){
-        return stack.getTagCompound().getTagList("inventory", 10);
-    }
-
-    private NBTTagCompound NBTAt(int i){
-        return getInventoryList().getCompoundTagAt(i);
+    @Override
+    protected NBTTagCompound getNBT() {
+        return stack.getTagCompound();
     }
 
     @Override
     public int getSizeInventory() {
         return 54;
-    }
-
-    @Nullable
-    @Override
-    public ItemStack getStackInSlot(int index) {
-        NBTTagCompound nbt = NBTAt(index);
-        return ItemStack.loadItemStackFromNBT(nbt);
-    }
-
-    @Nullable
-    @Override
-    public ItemStack decrStackSize(int index, int count) {
-        if(count > 0)
-            return removeStackFromSlot(index);
-        return null;
-    }
-
-    @Nullable
-    @Override
-    public ItemStack removeStackFromSlot(int index) {
-        ItemStack result = getStackInSlot(index);
-        setInventorySlotContents(index, null);
-        return result;
-    }
-
-    @Override
-    public void setInventorySlotContents(int index, @Nullable ItemStack otherStack) {
-        NBTTagCompound nbt = new NBTTagCompound();
-        if(otherStack != null)
-            otherStack.writeToNBT(nbt);
-        getInventoryList().set(index, nbt);
     }
 
     @Override
@@ -126,15 +92,6 @@ public class InventoryToolbox implements IInventory {
     @Override
     public int getFieldCount() {
         return 0;
-    }
-
-    @Override
-    public void clear() {
-        NBTTagCompound nbt = CNBT.ensureCompound(stack);
-        NBTTagList list = new NBTTagList();
-        for(int i = 0; i < getSizeInventory(); i++)
-            list.appendTag(new NBTTagCompound());
-        nbt.setTag("inventory", list);
     }
 
     @Override

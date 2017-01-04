@@ -27,7 +27,7 @@ public abstract class InventoryNBT implements IInventory {
 
         ItemStack stackOut = stack.copy();
 
-        if(stack.stackSize < count){
+        if(stack.stackSize <= count){
             stackOut.stackSize = stack.stackSize;
             removeStackFromSlot(index);
         } else {
@@ -57,8 +57,10 @@ public abstract class InventoryNBT implements IInventory {
 
     @Override
     public void clear() {
+        NBTTagList list = new NBTTagList();
         for(int i = 0; i < getSizeInventory(); i++)
-            removeStackFromSlot(i);
+            list.appendTag(new NBTTagCompound());
+        getNBT().setTag("inventory", list);
     }
 
     protected abstract NBTTagCompound getNBT();
