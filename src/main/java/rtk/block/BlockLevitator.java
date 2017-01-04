@@ -28,9 +28,7 @@ import rtk.tileentity.TileEntityLevitator;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class BlockLevitator extends BlockBase {
-
-    public static final PropertyDirection FACING = BlockDirectional.FACING;
+public class BlockLevitator extends BlockBaseDirectional {
 
     public static final AxisAlignedBB DOWN_BOX = boundingBoxForDir(EnumFacing.DOWN);
     public static final AxisAlignedBB UP_BOX = boundingBoxForDir(EnumFacing.UP);
@@ -43,7 +41,6 @@ public class BlockLevitator extends BlockBase {
         super(Material.GLASS, name);
         setCreativeTab(CreativeTabs.TRANSPORTATION);
         setTickRandomly(true);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
     }
 
     @Override
@@ -54,26 +51,6 @@ public class BlockLevitator extends BlockBase {
     @Override
     public Class<? extends TileEntity> getTileEntityClass() {
         return TileEntityLevitator.class;
-    }
-
-    @Override
-    public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.getFront(meta & 7));
-    }
-
-    @Override
-    public int getMetaFromState(IBlockState state) {
-        return state.getValue(FACING).getIndex();
-    }
-
-    @Override
-    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, ItemStack stack) {
-        return this.getDefaultState().withProperty(FACING, facing);
-    }
-
-    protected BlockStateContainer createBlockState()
-    {
-        return new BlockStateContainer(this, new IProperty[] {FACING});
     }
 
     @Override
