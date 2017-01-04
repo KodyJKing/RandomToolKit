@@ -4,14 +4,14 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 
-public class TileEntityEnderTent extends TileEntity {
+public class TileEnderTent extends TileEntity {
     private boolean deployed;
     private boolean neverDeployed;
     private NBTTagList blockList;
 
     public boolean dontGrab;
 
-    public TileEntityEnderTent(){
+    public TileEnderTent(){
         dontGrab = false;
         deployed = false;
         neverDeployed = true;

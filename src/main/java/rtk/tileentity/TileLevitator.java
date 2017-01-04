@@ -17,7 +17,7 @@ import rtk.common.Common;
 
 import java.util.List;
 
-public class TileEntityLevitator extends TileEntity implements ITickable {
+public class TileLevitator extends TileEntity implements ITickable {
 
     @Override
     public void update() {

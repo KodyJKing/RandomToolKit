@@ -20,7 +20,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import rtk.ModBlocks;
 import rtk.common.CNBT;
-import rtk.tileentity.TileEntityEnderTent;
+import rtk.tileentity.TileEnderTent;
 
 import java.util.Random;
 
@@ -48,21 +48,21 @@ public class BlockEnderTent extends BlockTent {
 
     @Override
     public TileEntity createTileEntity(World world, IBlockState state) {
-        return new TileEntityEnderTent();
+        return new TileEnderTent();
     }
 
     @Override
     public Class<? extends TileEntity> getTileEntityClass() {
-        return TileEntityEnderTent.class;
+        return TileEnderTent.class;
     }
 
-    public TileEntityEnderTent getTileEntity(IBlockAccess world, BlockPos pos){
-        return (TileEntityEnderTent)world.getTileEntity(pos);
+    public TileEnderTent getTileEntity(IBlockAccess world, BlockPos pos){
+        return (TileEnderTent)world.getTileEntity(pos);
     }
 
     @Override
     public boolean tryBuildTent(World world, BlockPos pos, EntityPlayer player, EnumFacing side) {
-        TileEntityEnderTent te = getTileEntity(world, pos);
+        TileEnderTent te = getTileEntity(world, pos);
         boolean result = false;
         if(te.neverDeployed())
             result = super.tryBuildTent(world, pos, player, side);
@@ -84,7 +84,7 @@ public class BlockEnderTent extends BlockTent {
     }
 
     public void placeContents(World world, BlockPos pos) {
-        TileEntityEnderTent te = getTileEntity(world, pos);
+        TileEnderTent te = getTileEntity(world, pos);
         if(te.neverDeployed())
             return;
 
@@ -97,8 +97,8 @@ public class BlockEnderTent extends BlockTent {
                 continue;  //Don't mess with the tent block!!!
 
             TileEntity otherTileEntity = world.getTileEntity(otherPos);
-            if(otherTileEntity instanceof TileEntityEnderTent) //We don't want another ender tent collapsing in a collapsing ender tent!!!
-                ((TileEntityEnderTent)otherTileEntity).dontGrab = true;
+            if(otherTileEntity instanceof TileEnderTent) //We don't want another ender tent collapsing in a collapsing ender tent!!!
+                ((TileEnderTent)otherTileEntity).dontGrab = true;
 
             world.setBlockState(otherPos, Blocks.DIRT.getDefaultState(), 2);
         }
@@ -117,7 +117,7 @@ public class BlockEnderTent extends BlockTent {
     }
 
     public boolean tryGrabContents(World world, BlockPos pos){
-        TileEntityEnderTent te = getTileEntity(world, pos);
+        TileEnderTent te = getTileEntity(world, pos);
         if(!te.isDeployed())
             return false;
 
@@ -139,8 +139,8 @@ public class BlockEnderTent extends BlockTent {
             if(otherTileEntity instanceof IInventory)
                 ((IInventory)otherTileEntity).clear();
 
-            if(otherTileEntity instanceof TileEntityEnderTent) //We don't want another ender tent collapsing in a collapsing ender tent!!!
-                ((TileEntityEnderTent)otherTileEntity).dontGrab = true;
+            if(otherTileEntity instanceof TileEnderTent) //We don't want another ender tent collapsing in a collapsing ender tent!!!
+                ((TileEnderTent)otherTileEntity).dontGrab = true;
 
             world.setBlockState(otherPos, Blocks.DIRT.getDefaultState(), 2);
         }
@@ -180,7 +180,7 @@ public class BlockEnderTent extends BlockTent {
         if(world.isRemote)
             return;
 
-        TileEntityEnderTent te = getTileEntity(world, pos);
+        TileEnderTent te = getTileEntity(world, pos);
         if(te.dontGrab)
             return;
 

@@ -1,32 +1,17 @@
 package rtk.block;
 
-import net.minecraft.block.BlockDirectional;
-import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyDirection;
-import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import rtk.RTK;
-import rtk.tileentity.TileEntityLevitator;
+import rtk.tileentity.TileLevitator;
 
 import javax.annotation.Nullable;
-import java.util.Random;
 
 public class BlockLevitator extends BlockBaseDirectional {
 
@@ -45,12 +30,12 @@ public class BlockLevitator extends BlockBaseDirectional {
 
     @Override
     public TileEntity createTileEntity(World world, IBlockState state) {
-        return new TileEntityLevitator();
+        return new TileLevitator();
     }
 
     @Override
     public Class<? extends TileEntity> getTileEntityClass() {
-        return TileEntityLevitator.class;
+        return TileLevitator.class;
     }
 
     @Override
