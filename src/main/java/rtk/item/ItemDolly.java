@@ -30,6 +30,7 @@ public class ItemDolly extends ItemBase {
     public ItemDolly(String name) {
         super(name);
         setCreativeTab(CreativeTabs.TOOLS);
+        setMaxStackSize(1);
         addPropertyOverride(new ResourceLocation("full"), new IItemPropertyGetter() {
             @Override
             @SideOnly(Side.CLIENT)
@@ -76,7 +77,8 @@ public class ItemDolly extends ItemBase {
         if(stack.hasTagCompound() && stack.getTagCompound().hasKey("container")){
             NBTTagCompound content = stack.getTagCompound().getCompoundTag("container");
             IBlockState bs = Block.getStateById(content.getInteger("stateID"));
-            tooltip.add(TextFormatting.DARK_GRAY + "- " + bs.getBlock().getLocalizedName());
+            ItemStack fakeStack = new ItemStack(bs.getBlock(), 1, bs.getBlock().getMetaFromState(bs));
+            tooltip.add(TextFormatting.DARK_GRAY + "- " + fakeStack.getDisplayName());
         }
     }
 }

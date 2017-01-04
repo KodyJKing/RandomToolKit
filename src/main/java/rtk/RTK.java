@@ -20,7 +20,7 @@ public class RTK {
 
     public static final String modId = "rtk";
     public static final String name = "Random Tool Kit";
-    public static final String version = "1.0.2";
+    public static final String version = "1.1.0";
 
     @SidedProxy(clientSide = "rtk.proxy.ClientProxy", serverSide = "rtk.proxy.CommonProxy")
     public static CommonProxy proxy;
@@ -80,6 +80,11 @@ public class RTK {
                 "ILI",
                 "ICC",
                 "III", 'L', Items.LEATHER, 'I', Items.IRON_INGOT, 'C', Blocks.TRAPPED_CHEST);
+
+        GameRegistry.addRecipe(new ItemStack(ModItems.dolly, 1),
+                "I##",
+                "IC#",
+                "II#", 'I', Items.IRON_INGOT, 'C', Blocks.CHEST);
 
         GameRegistry.addShapelessRecipe(new ItemStack(ModItems.hotplateEtched), new Object[] {ModItems.hotplate, Blocks.STONEBRICK, Items.DIAMOND, Items.DIAMOND});
         GameRegistry.addShapelessRecipe(new ItemStack(ModItems.needle), new Object[] {Items.IRON_INGOT, Items.STRING});
