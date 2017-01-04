@@ -3,58 +3,52 @@ package rtk.inventory;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
+import org.lwjgl.Sys;
+import rtk.common.CNBT;
+import rtk.item.ItemUltraDispenser;
 import rtk.tileentity.TileUltraDispenser;
 
 import javax.annotation.Nullable;
 
-public class InventoryUltraDispenser implements IInventory {
+public class InventoryUltraDispenser extends InventoryNBT {
 
-    TileUltraDispenser tile;
-    ItemStack stack;
+    public ItemStack stack;
+    public int stackIndex;
+
+    public InventoryUltraDispenser(ItemStack stack, int stackIndex){
+        this.stack = stack;
+        this.stackIndex = stackIndex;
+        NBTTagCompound nbt = CNBT.ensureCompound(stack);
+        if(!nbt.hasKey("inventory"))
+            clear();
+    }
+
+    @Override
+    protected NBTTagCompound getNBT() {
+        return stack.getTagCompound();
+    }
 
     @Override
     public int getSizeInventory() {
-        return 0;
-    }
-
-    @Nullable
-    @Override
-    public ItemStack getStackInSlot(int index) {
-        return null;
-    }
-
-    @Nullable
-    @Override
-    public ItemStack decrStackSize(int index, int count) {
-        return null;
-    }
-
-    @Nullable
-    @Override
-    public ItemStack removeStackFromSlot(int index) {
-        return null;
-    }
-
-    @Override
-    public void setInventorySlotContents(int index, @Nullable ItemStack stack) {
-
+        return 9;
     }
 
     @Override
     public int getInventoryStackLimit() {
-        return 0;
+        return 64;
     }
 
     @Override
     public void markDirty() {
-
     }
 
     @Override
     public boolean isUseableByPlayer(EntityPlayer player) {
-        return false;
+        return player.getHeldItemMainhand() == stack || player.getHeldItemOffhand() == stack;
     }
 
     @Override
@@ -69,7 +63,7 @@ public class InventoryUltraDispenser implements IInventory {
 
     @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
-        return false;
+        return true;
     }
 
     @Override
@@ -79,7 +73,6 @@ public class InventoryUltraDispenser implements IInventory {
 
     @Override
     public void setField(int id, int value) {
-
     }
 
     @Override
@@ -88,13 +81,8 @@ public class InventoryUltraDispenser implements IInventory {
     }
 
     @Override
-    public void clear() {
-
-    }
-
-    @Override
     public String getName() {
-        return null;
+        return "ultraDispenser";
     }
 
     @Override
@@ -104,6 +92,6 @@ public class InventoryUltraDispenser implements IInventory {
 
     @Override
     public ITextComponent getDisplayName() {
-        return null;
+        return new TextComponentTranslation("tile.ultraDispenser.name");
     }
 }

@@ -16,9 +16,11 @@ import javax.annotation.Nullable;
 public class InventoryToolbox extends InventoryNBT {
 
     public ItemStack stack;
+    public int stackIndex;
 
-    public InventoryToolbox(ItemStack stack){
+    public InventoryToolbox(ItemStack stack, int stackIndex){
         this.stack = stack;
+        this.stackIndex = stackIndex;
         NBTTagCompound nbt = CNBT.ensureCompound(stack);
         if(!nbt.hasKey("inventory"))
             clear();
