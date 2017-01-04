@@ -72,7 +72,7 @@ public class InventoryToolbox extends InventoryNBT {
         }
 
         //For some reason stack seems to point to a cloned object outside the player's inventory.
-        stack = player.inventory.getStackInSlot(stack.getTagCompound().getInteger("index"));
+        stack = player.inventory.getStackInSlot(stackIndex);
 
         stack.getTagCompound().setBoolean("open", false);
     }
