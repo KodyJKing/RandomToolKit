@@ -27,6 +27,10 @@ public class InventoryUltraDispenser extends InventoryNBT {
             clear();
     }
 
+    public InventoryUltraDispenser(ItemStack stack){
+        this(stack, -1);
+    }
+
     @Override
     protected NBTTagCompound getNBT() {
         return stack.getTagCompound();
@@ -34,7 +38,7 @@ public class InventoryUltraDispenser extends InventoryNBT {
 
     @Override
     public int getSizeInventory() {
-        return 9;
+        return 3;
     }
 
     @Override

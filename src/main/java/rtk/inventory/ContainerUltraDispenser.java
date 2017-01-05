@@ -1,11 +1,9 @@
 package rtk.inventory;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ContainerDispenser;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
+import rtk.common.UltraDispenserHandler;
 
 import javax.annotation.Nullable;
 
@@ -16,13 +14,14 @@ public class ContainerUltraDispenser extends Container {
     {
         this.dispenserInventory = dispenserInventoryIn;
 
-        for (int row = 0; row < 3; ++row)
-        {
-            for (int column = 0; column < 3; ++column)
-            {
-                this.addSlotToContainer(new Slot(dispenserInventoryIn, column + row * 3, 62 + column * 18, 17 + row * 18));
+        this.addSlotToContainer(new SlotFurnaceFuel(dispenserInventoryIn, 0, 26, 35){
+            @Override
+            public boolean isItemValid(@Nullable ItemStack stack) {
+                return UltraDispenserHandler.isItemFuel(stack) || isBucket(stack);
             }
-        }
+        });
+        this.addSlotToContainer(new Slot(dispenserInventoryIn, 1, 80, 35));
+        this.addSlotToContainer(new Slot(dispenserInventoryIn, 2, 134, 35));
 
         for (int row = 0; row < 3; ++row)
         {
@@ -65,14 +64,14 @@ public class ContainerUltraDispenser extends Container {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
 
-            if (index < 9)
+            if (index < 3)
             {
-                if (!this.mergeItemStack(itemstack1, 9, 45, true))
+                if (!this.mergeItemStack(itemstack1, 3, 39, true))
                 {
                     return null;
                 }
             }
-            else if (!this.mergeItemStack(itemstack1, 0, 9, false))
+            else if (!this.mergeItemStack(itemstack1, 0, 3, false))
             {
                 return null;
             }

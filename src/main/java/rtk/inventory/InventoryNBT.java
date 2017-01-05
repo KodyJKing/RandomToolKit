@@ -8,6 +8,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.text.ITextComponent;
 
 import javax.annotation.Nullable;
+import java.awt.*;
 
 public abstract class InventoryNBT implements IInventory {
 
@@ -21,20 +22,35 @@ public abstract class InventoryNBT implements IInventory {
     @Nullable
     @Override
     public ItemStack decrStackSize(int index, int count) {
+//        System.out.println("decrStackSize");
+//
+//        ItemStack stack = getStackInSlot(index);
+//        if(stack.stackSize == 0)
+//            return null;
+//
+//        ItemStack stackOut = stack.copy();
+//        stack.splitStack(1);
+//
+//        if(stack.stackSize <= count){
+//            stackOut.stackSize = stack.stackSize;
+//            removeStackFromSlot(index);
+//        } else {
+//            stackOut.stackSize = count;
+//            stack.stackSize -= count;
+//            setInventorySlotContents(index, stack);
+//        }
+//
+//        return stackOut;
+        System.out.println("decrStackSize");
+
         ItemStack stack = getStackInSlot(index);
-        if(stack.stackSize == 0)
-            return null;
+        ItemStack stackOut = stack.splitStack(count);
 
-        ItemStack stackOut = stack.copy();
-
-        if(stack.stackSize <= count){
-            stackOut.stackSize = stack.stackSize;
-            removeStackFromSlot(index);
-        } else {
-            stackOut.stackSize = count;
-            stack.stackSize -= count;
-            setInventorySlotContents(index, stack);
+        if(stack.stackSize <= 0){
+            setInventorySlotContents(index, null);
         }
+        else
+            setInventorySlotContents(index, stack);
 
         return stackOut;
     }
@@ -42,6 +58,8 @@ public abstract class InventoryNBT implements IInventory {
     @Nullable
     @Override
     public ItemStack removeStackFromSlot(int index) {
+        System.out.println("removeStackFromSlot");
+
         ItemStack result = getStackInSlot(index);
         setInventorySlotContents(index, null);
         return result;
@@ -49,6 +67,8 @@ public abstract class InventoryNBT implements IInventory {
 
     @Override
     public void setInventorySlotContents(int index, @Nullable ItemStack stack) {
+        System.out.println("setInventorySlotContents");
+
         NBTTagCompound nbt = new NBTTagCompound();
         if(stack != null)
             stack.writeToNBT(nbt);
@@ -57,6 +77,8 @@ public abstract class InventoryNBT implements IInventory {
 
     @Override
     public void clear() {
+        System.out.println("clear");
+
         NBTTagList list = new NBTTagList();
         for(int i = 0; i < getSizeInventory(); i++)
             list.appendTag(new NBTTagCompound());

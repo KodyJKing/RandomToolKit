@@ -10,7 +10,7 @@ import rtk.inventory.ContainerUltraDispenser;
 import rtk.inventory.InventoryUltraDispenser;
 
 public class GuiUltraDispenser extends GuiContainer {
-    private static final ResourceLocation DISPENSER_GUI_TEXTURES = new ResourceLocation("textures/gui/container/dispenser.png");
+    private static final ResourceLocation DISPENSER_GUI_TEXTURES = new ResourceLocation("rtk:textures/gui/container/ultraDispenser.png");
     /** The player inventory bound to this GUI. */
     private final InventoryPlayer playerInventory;
     /** The inventory contained within the corresponding Dispenser. */
@@ -31,6 +31,16 @@ public class GuiUltraDispenser extends GuiContainer {
         String s = this.dispenserInventory.getDisplayName().getUnformattedText();
         this.fontRendererObj.drawString(s, this.xSize / 2 - this.fontRendererObj.getStringWidth(s) / 2, 6, 4210752);
         this.fontRendererObj.drawString(this.playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, 4210752);
+
+        int fuelWidth = fontRendererObj.getStringWidth("Fuel");
+        int payloadWidth = fontRendererObj.getStringWidth("Payload");
+        int modifierWidth = fontRendererObj.getStringWidth("Modifier");
+
+        int slotRadius = 7;
+
+        fontRendererObj.drawString("Fuel", 26 + slotRadius - fuelWidth / 2, 21, 4210752);
+        fontRendererObj.drawString("Payload", 80 + slotRadius - payloadWidth / 2, 21, 4210752);
+        fontRendererObj.drawString("Modifier", 134 + slotRadius - modifierWidth / 2, 21, 4210752);
     }
 
     /**

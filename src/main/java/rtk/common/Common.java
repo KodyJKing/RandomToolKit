@@ -42,6 +42,16 @@ public class Common {
         return result;
     }
 
+    public static Vec3d randomVector(double length, double angleSpread, Vec3d heading){
+        double maxDot = Math.cos(angleSpread) * length * heading.lengthVector();
+        for(int i = 0; i < 50; i++){
+            Vec3d result = randomVector(length);
+            if(result.dotProduct(heading) <= maxDot)
+                return result;
+        }
+        return heading; //If we didn't hit it after 50 tries the target must be small so using the heading is fair.
+    }
+
     public static int findExactStack(IInventory inventory, ItemStack stack){
         for(int i = 0; i < inventory.getSizeInventory(); i++){
             if(inventory.getStackInSlot(i) == stack)
