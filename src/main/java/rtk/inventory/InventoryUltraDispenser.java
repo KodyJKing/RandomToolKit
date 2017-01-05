@@ -22,9 +22,8 @@ public class InventoryUltraDispenser extends InventoryNBT {
     public InventoryUltraDispenser(ItemStack stack, int stackIndex){
         this.stack = stack;
         this.stackIndex = stackIndex;
-        NBTTagCompound nbt = CNBT.ensureCompound(stack);
-        if(!nbt.hasKey("inventory"))
-            clear();
+        CNBT.ensureCompound(stack);
+        loadAll();
     }
 
     public InventoryUltraDispenser(ItemStack stack){
@@ -44,10 +43,6 @@ public class InventoryUltraDispenser extends InventoryNBT {
     @Override
     public int getInventoryStackLimit() {
         return 64;
-    }
-
-    @Override
-    public void markDirty() {
     }
 
     @Override

@@ -1,88 +1,85 @@
 package rtk.inventory;
 
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.text.ITextComponent;
 
 import javax.annotation.Nullable;
-import java.awt.*;
 
 public abstract class InventoryNBT implements IInventory {
+
+    ItemStack[] inventory = new ItemStack[getSizeInventory()];
+
+    public void loadAll(){
+        if(!getNBT().hasKey("inventory")){
+            NBTTagList list = new NBTTagList();
+            for(int i = 0; i < getSizeInventory(); i++)
+                list.appendTag(new NBTTagCompound());
+            getNBT().setTag("inventory", list);
+        }
+
+        for(int i = 0; i < inventory.length; i++)
+            loadAt(i);
+    }
+
+    public void saveAll(){
+        for(int i = 0; i < inventory.length; i++)
+            saveAt(i);
+    }
+
+    public void loadAt(int index){
+        inventory[index] = ItemStack.loadItemStackFromNBT(getNBTAt(index));
+    }
+
+    public void saveAt(int index){
+        NBTTagCompound nbt = new NBTTagCompound();
+        if(inventory[index] != null)
+            inventory[index].writeToNBT(nbt);
+        getInventoryList().set(index, nbt);
+    }
+
+    @Override
+    public void markDirty() {
+        saveAll();
+    }
 
     @Nullable
     @Override
     public ItemStack getStackInSlot(int index) {
-        NBTTagCompound nbt = getNBTAt(index);
-        return ItemStack.loadItemStackFromNBT(nbt);
+        loadAt(index);
+        return inventory[index];
     }
 
     @Nullable
     @Override
     public ItemStack decrStackSize(int index, int count) {
-//        System.out.println("decrStackSize");
-//
-//        ItemStack stack = getStackInSlot(index);
-//        if(stack.stackSize == 0)
-//            return null;
-//
-//        ItemStack stackOut = stack.copy();
-//        stack.splitStack(1);
-//
-//        if(stack.stackSize <= count){
-//            stackOut.stackSize = stack.stackSize;
-//            removeStackFromSlot(index);
-//        } else {
-//            stackOut.stackSize = count;
-//            stack.stackSize -= count;
-//            setInventorySlotContents(index, stack);
-//        }
-//
-//        return stackOut;
-        System.out.println("decrStackSize");
-
-        ItemStack stack = getStackInSlot(index);
-        ItemStack stackOut = stack.splitStack(count);
-
-        if(stack.stackSize <= 0){
-            setInventorySlotContents(index, null);
-        }
-        else
-            setInventorySlotContents(index, stack);
-
-        return stackOut;
+        loadAt(index);
+        ItemStack result = ItemStackHelper.getAndSplit(inventory, index, count);
+        saveAt(index);
+        return result;
     }
 
     @Nullable
     @Override
     public ItemStack removeStackFromSlot(int index) {
-        System.out.println("removeStackFromSlot");
-
-        ItemStack result = getStackInSlot(index);
-        setInventorySlotContents(index, null);
+        loadAt(index);
+        ItemStack result = ItemStackHelper.getAndRemove(inventory, index);
+        saveAt(index);
         return result;
     }
 
     @Override
     public void setInventorySlotContents(int index, @Nullable ItemStack stack) {
-        System.out.println("setInventorySlotContents");
-
-        NBTTagCompound nbt = new NBTTagCompound();
-        if(stack != null)
-            stack.writeToNBT(nbt);
-        getInventoryList().set(index, nbt);
+        inventory[index] = stack;
+        saveAt(index);
     }
 
     @Override
     public void clear() {
-        System.out.println("clear");
-
-        NBTTagList list = new NBTTagList();
-        for(int i = 0; i < getSizeInventory(); i++)
-            list.appendTag(new NBTTagCompound());
-        getNBT().setTag("inventory", list);
+        inventory = new ItemStack[getSizeInventory()];
+        saveAll();
     }
 
     protected abstract NBTTagCompound getNBT();

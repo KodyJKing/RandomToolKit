@@ -21,9 +21,8 @@ public class InventoryToolbox extends InventoryNBT {
     public InventoryToolbox(ItemStack stack, int stackIndex){
         this.stack = stack;
         this.stackIndex = stackIndex;
-        NBTTagCompound nbt = CNBT.ensureCompound(stack);
-        if(!nbt.hasKey("inventory"))
-            clear();
+        CNBT.ensureCompound(stack);
+        loadAll();
     }
 
     @Override
@@ -40,9 +39,6 @@ public class InventoryToolbox extends InventoryNBT {
     public int getInventoryStackLimit() {
         return 1;
     }
-
-    @Override
-    public void markDirty() {}
 
     @Override
     public boolean isUseableByPlayer(EntityPlayer player) {
