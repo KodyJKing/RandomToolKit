@@ -40,9 +40,12 @@ public abstract class InventoryNBT implements IInventory {
         getInventoryList().set(index, nbt);
     }
 
+    public void onChange(){}
+
     @Override
     public void markDirty() {
         saveAll();
+        onChange();
     }
 
     @Nullable
@@ -58,6 +61,7 @@ public abstract class InventoryNBT implements IInventory {
         loadAt(index);
         ItemStack result = ItemStackHelper.getAndSplit(inventory, index, count);
         saveAt(index);
+        onChange();
         return result;
     }
 
@@ -67,6 +71,7 @@ public abstract class InventoryNBT implements IInventory {
         loadAt(index);
         ItemStack result = ItemStackHelper.getAndRemove(inventory, index);
         saveAt(index);
+        onChange();
         return result;
     }
 
@@ -74,12 +79,14 @@ public abstract class InventoryNBT implements IInventory {
     public void setInventorySlotContents(int index, @Nullable ItemStack stack) {
         inventory[index] = stack;
         saveAt(index);
+        onChange();
     }
 
     @Override
     public void clear() {
         inventory = new ItemStack[getSizeInventory()];
         saveAll();
+        onChange();
     }
 
     protected abstract NBTTagCompound getNBT();

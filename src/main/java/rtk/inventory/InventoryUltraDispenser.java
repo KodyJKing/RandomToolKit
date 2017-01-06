@@ -1,5 +1,6 @@
 package rtk.inventory;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -19,10 +20,18 @@ public class InventoryUltraDispenser extends InventoryNBT {
     public ItemStack stack;
     public int stackIndex;
 
+    TileUltraDispenser tile;
+
     public InventoryUltraDispenser(ItemStack stack, int stackIndex){
         this.stack = stack;
         this.stackIndex = stackIndex;
         CNBT.ensureCompound(stack);
+        loadAll();
+    }
+
+    public InventoryUltraDispenser(TileUltraDispenser tile){
+        stackIndex = -1;
+        this.tile = tile;
         loadAll();
     }
 
@@ -32,7 +41,7 @@ public class InventoryUltraDispenser extends InventoryNBT {
 
     @Override
     protected NBTTagCompound getNBT() {
-        return stack.getTagCompound();
+        return tile == null ? stack.getTagCompound() : tile.data;
     }
 
     @Override
@@ -57,7 +66,8 @@ public class InventoryUltraDispenser extends InventoryNBT {
 
     @Override
     public void closeInventory(EntityPlayer player) {
-
+        if(player.worldObj.isRemote)
+            clear();
     }
 
     @Override
@@ -92,5 +102,13 @@ public class InventoryUltraDispenser extends InventoryNBT {
     @Override
     public ITextComponent getDisplayName() {
         return new TextComponentTranslation("tile.ultraDispenser.name");
+    }
+
+    @Override
+    public void onChange() {
+        if(tile == null)
+            return;
+
+        tile.markDirty();
     }
 }

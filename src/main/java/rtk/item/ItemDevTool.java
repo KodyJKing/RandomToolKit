@@ -23,5 +23,15 @@ import rtk.common.Common;
 public class ItemDevTool extends ItemBase {
     public ItemDevTool(String name) {
         super(name);
+        setMaxStackSize(1);
+    }
+
+    @Override
+    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        TileEntity te = world.getTileEntity(pos);
+        if(te == null)
+            return EnumActionResult.PASS;
+        System.out.println(te.writeToNBT(new NBTTagCompound()));
+        return EnumActionResult.SUCCESS;
     }
 }

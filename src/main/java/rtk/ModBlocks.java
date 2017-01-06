@@ -34,8 +34,10 @@ public class ModBlocks {
         if (block instanceof BlockBase) {
             BlockBase b = (BlockBase)block;
             b.init(itemBlock);
-            if(b.hasTileEntity())
+            if(b.hasTileEntity()){
                 GameRegistry.registerTileEntity(b.getTileEntityClass(), b.getUnlocalizedName());
+                System.out.println("Registered tile entity: " + b.getUnlocalizedName());
+            }
         }
 
         return block;

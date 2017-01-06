@@ -24,7 +24,7 @@ public class UltraDispenserHandler {
             return 0;
         Item item = stack.getItem();
         if(item == Items.GUNPOWDER)
-            return 20000;
+            return 8000;
         if(item == Item.getItemFromBlock(Blocks.TNT))
             return 40000;
         return TileEntityFurnace.getItemBurnTime(stack);
@@ -43,7 +43,7 @@ public class UltraDispenserHandler {
         EntityArrow arrow = new EntityTippedArrow(world, pos.xCoord, pos.yCoord, pos.zCoord);
         arrow.shootingEntity = player;
         arrow.pickupStatus = EntityArrow.PickupStatus.ALLOWED;
-        arrow.setThrowableHeading(heading.xCoord, heading.yCoord, heading.zCoord, 1 + power * 0.000625F , 0);
+        arrow.setThrowableHeading(heading.xCoord, heading.yCoord, heading.zCoord, 3 + power * 0.000625F , 0);
         world.spawnEntityInWorld(arrow);
     }
 }
