@@ -1,29 +1,13 @@
 package rtk.item;
 
-import net.minecraft.block.*;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.init.MobEffects;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.BlockFluidBase;
-import rtk.ModBlocks;
-import rtk.block.BlockHole;
-import rtk.common.CNBT;
-import rtk.common.Common;
-import rtk.tileentity.TileHole;
 
 public class ItemDevTool extends ItemBase {
     public ItemDevTool(String name) {
@@ -36,8 +20,27 @@ public class ItemDevTool extends ItemBase {
         TileEntity te = world.getTileEntity(pos);
         if(te == null)
             return EnumActionResult.PASS;
-        System.out.println(te.writeToNBT(new NBTTagCompound()));
+        String nbtText = te.writeToNBT(new NBTTagCompound()).toString();
+        if(world.isRemote)
+            nbtText = "CLIENT: " + nbtText;
+        else
+            nbtText = "SERVER: " + nbtText;
+        player.addChatComponentMessage(new TextComponentString(nbtText));
         return EnumActionResult.SUCCESS;
     }
 
+    @Override
+    public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+        ItemStack otherStack = player.inventory.getStackInSlot(player.inventory.currentItem + 1);
+        if(otherStack == null || !otherStack.hasTagCompound())
+            return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);
+
+        String nbtText = otherStack.getTagCompound().toString();
+        if(world.isRemote)
+            nbtText = "CLIENT: " + nbtText;
+        else
+            nbtText = "SERVER: " + nbtText;
+        player.addChatComponentMessage(new TextComponentString(nbtText));
+        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
+    }
 }

@@ -29,7 +29,7 @@ public class TileLevitator extends TileEntity implements ITickable {
 
         int length = getLength();
 
-        List<Entity> entities = worldObj.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos.offset(dir), pos.south().east().up().offset(dir, length)));
+        List<Entity> entities = worldObj.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos, pos.south().east().up().offset(dir, length)));
         for(Entity e : entities){
             int sign = e.isSneaking() ? -1 : 1;
 

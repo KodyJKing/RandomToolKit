@@ -11,7 +11,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import rtk.item.ItemToolbelt;
 
-public class RTKEvents {
+public class ModEvents {
     @SubscribeEvent
     public void onPlayerInteract(PlayerInteractEvent.LeftClickBlock event){
         EntityPlayer player = event.getEntityPlayer();

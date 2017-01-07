@@ -24,7 +24,7 @@ public class BlockLevitator extends BlockBaseDirectional {
 
     public BlockLevitator(String name) {
         super(Material.GLASS, name);
-        setCreativeTab(CreativeTabs.TRANSPORTATION);
+        setCreativeTab(CreativeTabs.REDSTONE);
         setTickRandomly(true);
     }
 

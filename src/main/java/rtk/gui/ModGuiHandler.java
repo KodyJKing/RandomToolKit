@@ -17,7 +17,7 @@ import rtk.inventory.InventoryUltraDispenser;
 import rtk.item.ItemUltraDispenser;
 import rtk.tileentity.TileUltraDispenser;
 
-public class RTKGuiHandler implements IGuiHandler {
+public class ModGuiHandler implements IGuiHandler {
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         return getGuiElement(ID, player, world, new BlockPos(x, y, z), true);
