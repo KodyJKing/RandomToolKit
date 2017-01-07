@@ -2,24 +2,28 @@ package rtk.block;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import rtk.tileentity.TileHole;
 
 import javax.annotation.Nullable;
 
 public class BlockHole extends BlockBase {
-    protected BlockHole()
-    {
-        super(Material.AIR);
+
+    public BlockHole(String name) {
+        super(Material.AIR, name);
+        //setLightLevel(1);
     }
 
-    /**
-     * The type of render function called. MODEL for mixed tesr and static model, MODELBLOCK_ANIMATED for TESR-only,
-     * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
-     */
+    @Override
+    public void init(ItemBlock item) {
+    }
+
     public EnumBlockRenderType getRenderType(IBlockState state)
     {
         return EnumBlockRenderType.INVISIBLE;
@@ -31,9 +35,6 @@ public class BlockHole extends BlockBase {
         return NULL_AABB;
     }
 
-    /**
-     * Used to determine ambient occlusion and culling when rebuilding chunks for render
-     */
     public boolean isOpaqueCube(IBlockState state)
     {
         return false;
@@ -44,16 +45,10 @@ public class BlockHole extends BlockBase {
         return false;
     }
 
-    /**
-     * Spawns this Block's drops into the World as EntityItems.
-     */
     public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune)
     {
     }
 
-    /**
-     * Whether this Block can be replaced directly by other blocks (true for e.g. tall grass)
-     */
     public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos)
     {
         return true;
@@ -62,5 +57,15 @@ public class BlockHole extends BlockBase {
     public boolean isFullCube(IBlockState state)
     {
         return false;
+    }
+
+    @Override
+    public Class<? extends TileEntity> getTileEntityClass() {
+        return TileHole.class;
+    }
+
+    @Override
+    public TileEntity createTileEntity(World world, IBlockState state) {
+        return new TileHole();
     }
 }

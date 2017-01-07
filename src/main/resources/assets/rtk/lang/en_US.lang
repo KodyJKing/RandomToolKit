@@ -18,6 +18,12 @@ item.toolbelt.tooltip=Swaps to the most effective tool when breaking blocks.;Mus
 
 item.dolly.name=Dolly
 
+item.earthStrider.name=Earth Strider
+item.earthStrider.active=Activated!
+item.earthStrider.inactive=Deactivated!
+
+item.earthStrider_drained.name=Drained Earth Strider
+
 tile.baseTent.blocked=Something is blocking your tent!
 tile.baseTent.insufficientFuel=You need more fuel!
 
@@ -41,5 +47,5 @@ tile.tentWall.4.name=Emergency Tent Light
 
 tile.levitator.name=Levitator
 
-tile.ultraDispenser.name=Dispenser 9000
+tile.ultraDispenser.name=Dispenser 9000 (WIP)
 

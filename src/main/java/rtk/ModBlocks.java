@@ -6,7 +6,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import rtk.block.*;
 
 public class ModBlocks {
-    public static BlockBase emergencyTent, tent, diversTent, enderTent, levitator, ultraDispenser;
+    public static BlockBase emergencyTent, tent, diversTent, enderTent, levitator, ultraDispenser, hole;
 
     public static BlockTentWall tentWall;
 
@@ -25,6 +25,8 @@ public class ModBlocks {
         levitator = register(new BlockLevitator("levitator"));
 
         ultraDispenser = register(new BlockUltraDispenser("ultraDispenser"));
+
+        hole = register(new BlockHole("hole"));
     }
 
     private static <T extends Block> T register(T block, ItemBlock itemBlock) {

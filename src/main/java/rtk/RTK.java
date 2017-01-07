@@ -86,8 +86,15 @@ public class RTK {
                 "IC#",
                 "II#", 'I', Items.IRON_INGOT, 'C', Blocks.CHEST);
 
+        GameRegistry.addRecipe(new ItemStack(ModItems.earthStrider, 1),
+                "EDE",
+                "ENE",
+                "EEE", 'E', Items.ENDER_EYE, 'D', Items.DIAMOND_PICKAXE, 'N', Items.NETHER_STAR);
+
+
         GameRegistry.addShapelessRecipe(new ItemStack(ModItems.hotplateEtched), new Object[] {ModItems.hotplate, Blocks.STONEBRICK, Items.DIAMOND, Items.DIAMOND});
         GameRegistry.addShapelessRecipe(new ItemStack(ModItems.needle), new Object[] {Items.IRON_INGOT, Items.STRING});
+        GameRegistry.addShapelessRecipe(new ItemStack(ModItems.earthStrider), new Object[] {ModItems.earthStriderDrained, Items.ENDER_EYE, Items.DIAMOND});
 
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new RTKGuiHandler());
     }
