@@ -12,7 +12,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.*;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import rtk.ModBlocks;
@@ -59,7 +61,8 @@ public class ItemEarthStrider extends ItemBase {
             return;
 
         EntityPlayer player = (EntityPlayer)entity;
-        BlockPos foot = new BlockPos((int)player.posX,(int)(player.posY + 0.5), (int)player.posZ);
+        Vec3d center = Common.getTrueCenter(player);
+        BlockPos foot = new BlockPos(center.xCoord, player.posY + 0.5, center.zCoord);
 
         NBTTagCompound nbt = CNBT.ensureCompound(stack);
         if(player.isSneaking()){

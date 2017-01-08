@@ -102,7 +102,7 @@ public abstract class UDispenseBehavior{
 
                 if(modifier == Items.STRING)
                 {
-                    heading = Common.randomVector(velocity, Math.PI / 6, heading);
+                    heading = Common.randomVector(velocity, Math.PI / 12, heading);
                 }
 
                 EntityTNTPrimed tnt = new EntityTNTPrimed(world, pos.xCoord, pos.yCoord, pos.zCoord, player);

@@ -22,7 +22,6 @@ public class ItemUDispenser extends ItemBlock {
 
     @Override
     public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        //System.out.println("Use!");
         if(player.isSneaking())
             return super.onItemUse(stack, player, world, pos, hand, facing, hitX, hitY, hitZ);
         return tryFire(stack, player, world);
@@ -30,7 +29,6 @@ public class ItemUDispenser extends ItemBlock {
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
-        //System.out.println("Click!");
         if(player.isSneaking()){
             openGui(stack, player, world);
             return  new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
