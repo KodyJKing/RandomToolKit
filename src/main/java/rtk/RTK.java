@@ -7,6 +7,8 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+import rtk.common.UDispenseBehavior;
+import rtk.common.UDispenseHandler;
 import rtk.gui.ModGuiHandler;
 import rtk.proxy.CommonProxy;
 
@@ -33,6 +35,7 @@ public class RTK {
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         ModRecipes.buildRecipes();
+        UDispenseBehavior.registerBehaviors();
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new ModGuiHandler());
     }
 

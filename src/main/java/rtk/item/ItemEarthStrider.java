@@ -86,7 +86,7 @@ public class ItemEarthStrider extends ItemBase {
             if(state.getBlock() instanceof BlockHole){
                 TileHole hole = (TileHole) world.getTileEntity(pos);
                 if(!isEdge){
-                    hole.timeLeft = 5;
+                    hole.setTimeLeft(5);
                     holeVolume++;
                 } else {
                     hole.replace(true);
@@ -97,7 +97,7 @@ public class ItemEarthStrider extends ItemBase {
 
             world.setBlockState(pos, ModBlocks.hole.getDefaultState());
             TileHole hole = (TileHole) world.getTileEntity(pos);
-            hole.prevState = state;
+            hole.setPrevState(state);
         }
 
         if(holeVolume >= 200 && !player.capabilities.isCreativeMode){

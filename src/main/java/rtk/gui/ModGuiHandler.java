@@ -1,21 +1,18 @@
 package rtk.gui;
 
-import net.minecraft.client.gui.inventory.GuiDispenser;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ContainerDispenser;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import rtk.ModItems;
-import rtk.block.BlockUltraDispenser;
 import rtk.common.Common;
 import rtk.inventory.ContainerToolbox;
-import rtk.inventory.ContainerUltraDispenser;
+import rtk.inventory.ContainerUDispenser;
 import rtk.inventory.InventoryToolbox;
-import rtk.inventory.InventoryUltraDispenser;
-import rtk.item.ItemUltraDispenser;
-import rtk.tileentity.TileUltraDispenser;
+import rtk.inventory.InventoryUDispenser;
+import rtk.item.ItemUDispenser;
+import rtk.tileentity.TileUDispenser;
 
 public class ModGuiHandler implements IGuiHandler {
     @Override
@@ -56,26 +53,26 @@ public class ModGuiHandler implements IGuiHandler {
 
     public Object ultraDispenserGuiElement(EntityPlayer player, boolean serverSide){
         ItemStack stack = player.getHeldItemMainhand();
-        if(stack == null || !(stack.getItem() instanceof ItemUltraDispenser)){
+        if(stack == null || !(stack.getItem() instanceof ItemUDispenser)){
             stack = player.getHeldItemOffhand();
-            if(stack == null || !(stack.getItem() instanceof ItemUltraDispenser))
+            if(stack == null || !(stack.getItem() instanceof ItemUDispenser))
                 return null;
         }
 
-        InventoryUltraDispenser inv = new InventoryUltraDispenser(stack, Common.findExactStack(player.inventory, stack));
+        InventoryUDispenser inv = new InventoryUDispenser(stack, Common.findExactStack(player.inventory, stack));
 
         if(serverSide)
-            return new ContainerUltraDispenser(player.inventory, inv);
+            return new ContainerUDispenser(player.inventory, inv);
 
-        return new GuiUltraDispenser(player.inventory, inv);
+        return new GuiUDispenser(player.inventory, inv);
     }
 
     public Object ultraDispenserGuiTEElement(EntityPlayer player, BlockPos pos, boolean serverSide){
-        InventoryUltraDispenser inv = new InventoryUltraDispenser((TileUltraDispenser) player.worldObj.getTileEntity(pos));
+        TileUDispenser tile = (TileUDispenser) player.worldObj.getTileEntity(pos);
 
         if(serverSide)
-            return new ContainerUltraDispenser(player.inventory, inv);
+            return new ContainerUDispenser(player.inventory, tile);
 
-        return new GuiUltraDispenser(player.inventory, inv);
+        return new GuiUDispenser(player.inventory, tile);
     }
 }

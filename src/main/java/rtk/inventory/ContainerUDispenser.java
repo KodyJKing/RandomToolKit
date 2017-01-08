@@ -3,21 +3,21 @@ package rtk.inventory;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
-import rtk.common.UltraDispenserHandler;
+import rtk.common.UDispenseHandler;
 
 import javax.annotation.Nullable;
 
-public class ContainerUltraDispenser extends Container {
-    private final InventoryUltraDispenser dispenserInventory;
+public class ContainerUDispenser extends Container {
+    private final IInventory dispenserInventory;
 
-    public ContainerUltraDispenser(IInventory playerInventory, InventoryUltraDispenser dispenserInventoryIn)
+    public ContainerUDispenser(IInventory playerInventory, IInventory dispenserInventoryIn)
     {
         this.dispenserInventory = dispenserInventoryIn;
 
         this.addSlotToContainer(new SlotFurnaceFuel(dispenserInventoryIn, 0, 26, 35){
             @Override
             public boolean isItemValid(@Nullable ItemStack stack) {
-                return UltraDispenserHandler.isItemFuel(stack) || isBucket(stack);
+                return UDispenseHandler.isItemFuel(stack) || isBucket(stack);
             }
         });
         this.addSlotToContainer(new Slot(dispenserInventoryIn, 1, 80, 35));
@@ -34,7 +34,7 @@ public class ContainerUltraDispenser extends Container {
         for (int column = 0; column < 9; ++column)
         {
             Slot slot;
-            if(column == dispenserInventory.stackIndex)
+            if(dispenserInventory instanceof InventoryStack && column == ((InventoryStack)dispenserInventory).stackIndex)
                 slot = new SlotLocked(playerInventory, column, 8 + column * 18, 142);
             else
                 slot = new Slot(playerInventory, column, 8 + column * 18, 142);

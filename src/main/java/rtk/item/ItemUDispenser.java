@@ -11,10 +11,11 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import rtk.RTK;
-import rtk.common.UltraDispenserHandler;
+import rtk.common.UDispenseHandler;
+import rtk.inventory.InventoryUDispenser;
 
-public class ItemUltraDispenser extends ItemBlock {
-    public ItemUltraDispenser(Block block) {
+public class ItemUDispenser extends ItemBlock {
+    public ItemUDispenser(Block block) {
         super(block);
         setMaxStackSize(1);
     }
@@ -42,8 +43,10 @@ public class ItemUltraDispenser extends ItemBlock {
     }
 
     public EnumActionResult tryFire(ItemStack stack, EntityPlayer player, World world){
-        //System.out.println("Fire!");
-        UltraDispenserHandler.tryFire(stack, player.getPositionVector().addVector(0, player.getEyeHeight(), 0), player.getLookVec(), world, player);
+        UDispenseHandler.tryFire(
+                world, player.getPositionVector().addVector(0, player.getEyeHeight(), 0), player.getLookVec(), new InventoryUDispenser(stack),
+                player
+        );
         return EnumActionResult.SUCCESS;
     }
 }

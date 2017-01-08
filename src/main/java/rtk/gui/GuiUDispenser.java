@@ -1,24 +1,24 @@
 package rtk.gui;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.ContainerDispenser;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
-import rtk.inventory.ContainerUltraDispenser;
-import rtk.inventory.InventoryUltraDispenser;
+import rtk.inventory.ContainerUDispenser;
+import rtk.inventory.InventoryStack;
 
-public class GuiUltraDispenser extends GuiContainer {
+public class GuiUDispenser extends GuiContainer {
     private static final ResourceLocation DISPENSER_GUI_TEXTURES = new ResourceLocation("rtk:textures/gui/container/ultraDispenser.png");
     /** The player inventory bound to this GUI. */
     private final InventoryPlayer playerInventory;
     /** The inventory contained within the corresponding Dispenser. */
-    public InventoryUltraDispenser dispenserInventory;
+    public IInventory dispenserInventory;
 
-    public GuiUltraDispenser(InventoryPlayer playerInv, InventoryUltraDispenser dispenserInv)
+    public GuiUDispenser(InventoryPlayer playerInv, IInventory dispenserInv)
     {
-        super(new ContainerUltraDispenser(playerInv, dispenserInv));
+        super(new ContainerUDispenser(playerInv, dispenserInv));
         this.playerInventory = playerInv;
         this.dispenserInventory = dispenserInv;
     }
@@ -57,11 +57,12 @@ public class GuiUltraDispenser extends GuiContainer {
 
     @Override
     protected boolean checkHotbarKeys(int keyCode) {
-        if(dispenserInventory.stack == null)
+        if(!(dispenserInventory instanceof InventoryStack))
             return super.checkHotbarKeys(keyCode);
 
-        int stackIndex = dispenserInventory.stackIndex; //Don't put the tool box in itself!
-        if(stackIndex >= 0 && stackIndex < 9 && this.mc.gameSettings.keyBindsHotbar[stackIndex].isActiveAndMatches(keyCode))
+        InventoryStack invStack = (InventoryStack)dispenserInventory;
+        int stackIndex = invStack.stackIndex;
+        if(stackIndex >= 0 && stackIndex < 9 && Minecraft.getMinecraft().gameSettings.keyBindsHotbar[stackIndex].isActiveAndMatches(keyCode))
             return false;
         return super.checkHotbarKeys(keyCode);
     }

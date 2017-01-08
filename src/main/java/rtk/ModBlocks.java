@@ -24,7 +24,7 @@ public class ModBlocks {
 
         levitator = register(new BlockLevitator("levitator"));
 
-        ultraDispenser = register(new BlockUltraDispenser("ultraDispenser"));
+        ultraDispenser = register(new BlockUDispenser("ultraDispenser"));
 
         hole = register(new BlockHole("hole"));
     }

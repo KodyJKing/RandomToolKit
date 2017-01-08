@@ -72,11 +72,4 @@ public class CNBT {
             e.printStackTrace();
         }
     }
-
-    public static <T extends NBTBase> T ensure(NBTTagCompound nbt, String name, T defaultValue){
-        if(!nbt.hasKey(name))
-            nbt.setTag(name, defaultValue);
-        return (T)nbt.getTag(name);
-    }
-
 }

@@ -2,6 +2,7 @@ package rtk.block;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
@@ -17,6 +18,7 @@ public class BlockHole extends BlockBase {
 
     public BlockHole(String name) {
         super(Material.AIR, name);
+        setHardness(Float.MAX_VALUE);
         //setLightLevel(1);
     }
 

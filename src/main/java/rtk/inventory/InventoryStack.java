@@ -1,16 +1,35 @@
 package rtk.inventory;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import rtk.common.CNBT;
 
 import javax.annotation.Nullable;
 
-public abstract class InventoryNBT implements IInventory {
+public abstract class InventoryStack implements IInventory {
 
-    ItemStack[] inventory = new ItemStack[getSizeInventory()];
+    public ItemStack stack;
+    public int stackIndex;
+    ItemStack[] inventory;
+
+    public InventoryStack(ItemStack stack, int stackIndex){
+        this.stack = stack;
+        this.stackIndex = stackIndex;
+        CNBT.ensureCompound(stack);
+        inventory = new ItemStack[getSizeInventory()];
+        loadAll();
+    }
+
+    public InventoryStack(ItemStack stack){
+        this(stack, -1);
+    }
 
     public void loadAll(){
         if(!getNBT().hasKey("inventory")){
@@ -89,7 +108,24 @@ public abstract class InventoryNBT implements IInventory {
         onChange();
     }
 
-    protected abstract NBTTagCompound getNBT();
+    @Override
+    public boolean isUseableByPlayer(EntityPlayer player) {
+        return player.getHeldItemMainhand() == stack || player.getHeldItemOffhand() == stack;
+    }
+
+    @Override
+    public int getInventoryStackLimit() {
+        return 64;
+    }
+
+    @Override
+    public boolean isItemValidForSlot(int index, ItemStack stack) {
+        return true;
+    }
+
+    protected NBTTagCompound getNBT(){
+        return stack.getTagCompound();
+    }
 
     protected NBTTagCompound getNBTAt(int i){
         return getInventoryList().getCompoundTagAt(i);
@@ -100,6 +136,20 @@ public abstract class InventoryNBT implements IInventory {
     }
 
     //Boiler plate:
+
+    @Override
+    public void openInventory(EntityPlayer player) {
+    }
+
+    @Override
+    public void closeInventory(EntityPlayer player) {
+    }
+
+
+    @Override
+    public boolean hasCustomName() {
+        return false;
+    }
 
     @Override
     public int getField(int id) {
