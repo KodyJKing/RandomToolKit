@@ -20,6 +20,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import rtk.ModBlocks;
 import rtk.common.CNBT;
+import rtk.common.Common;
 import rtk.tileentity.TileEnderTent;
 
 import java.util.Random;
@@ -129,20 +130,16 @@ public class BlockEnderTent extends BlockTent {
             blockList.appendTag(CNBT.NBTFromBlock(world, otherPos));
         }
 
-
         //Next set everything to a solid block so nothing loses support during deletion. (I'm talking about you torches!)
         for(BlockPos otherPos : tentCube){
             if(pos.equals(otherPos))
                 continue;
 
             TileEntity otherTileEntity = world.getTileEntity(otherPos);
-            if(otherTileEntity instanceof IInventory)
-                ((IInventory)otherTileEntity).clear();
-
             if(otherTileEntity instanceof TileEnderTent) //We don't want another ender tent collapsing in a collapsing ender tent!!!
                 ((TileEnderTent)otherTileEntity).dontGrab = true;
 
-            world.setBlockState(otherPos, Blocks.DIRT.getDefaultState(), 2);
+            Common.safeReplaceBlock(world, otherPos, Blocks.DIRT.getDefaultState(), 2);
         }
 
         //Finally we can actually delete everything.

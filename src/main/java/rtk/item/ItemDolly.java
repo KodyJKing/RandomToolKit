@@ -5,6 +5,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.ItemStack;
@@ -50,10 +51,7 @@ public class ItemDolly extends ItemBase {
 
         if(canPickUp(world, pos) && !nbt.hasKey("container")){
             nbt.setTag("container", CNBT.NBTFromBlock(world, pos));
-            TileEntity te = world.getTileEntity(pos);
-            if(te instanceof IInventory)
-                ((IInventory)te).clear();
-            world.setBlockToAir(pos);
+            Common.safeReplaceBlock(world, pos, Blocks.AIR.getDefaultState(), 3);
             return EnumActionResult.SUCCESS;
         }
 
