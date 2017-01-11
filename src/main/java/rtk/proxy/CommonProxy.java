@@ -8,4 +8,6 @@ public class CommonProxy {
     }
 
     public void setCustomStateMap(Block block, Object stateMap){}
+
+    public void registerEntityRendering() {}
 }

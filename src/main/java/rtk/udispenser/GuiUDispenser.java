@@ -1,12 +1,12 @@
-package rtk.gui;
+package rtk.udispenser;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import rtk.inventory.ContainerUDispenser;
 import rtk.inventory.InventoryStack;
 
 public class GuiUDispenser extends GuiContainer {
@@ -21,6 +21,7 @@ public class GuiUDispenser extends GuiContainer {
         super(new ContainerUDispenser(playerInv, dispenserInv));
         this.playerInventory = playerInv;
         this.dispenserInventory = dispenserInv;
+        this.ySize = 182;
     }
 
     /**
@@ -38,9 +39,9 @@ public class GuiUDispenser extends GuiContainer {
 
         int slotRadius = 7;
 
-        fontRendererObj.drawString("Fuel", 26 + slotRadius - fuelWidth / 2, 21, 4210752);
-        fontRendererObj.drawString("Payload", 80 + slotRadius - payloadWidth / 2, 21, 4210752);
-        fontRendererObj.drawString("Modifier", 134 + slotRadius - modifierWidth / 2, 21, 4210752);
+        fontRendererObj.drawString("Fuel", 17 + slotRadius - fuelWidth / 2, 36, 4210752);
+        fontRendererObj.drawString("Payload", 71 + slotRadius - payloadWidth / 2, 36, 4210752);
+        fontRendererObj.drawString("Modifier", 125 + slotRadius - modifierWidth / 2, 18, 4210752);
     }
 
     /**

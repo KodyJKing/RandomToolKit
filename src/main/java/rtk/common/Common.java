@@ -1,25 +1,19 @@
 package rtk.common;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import scala.actors.threadpool.Arrays;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -39,21 +33,30 @@ public class Common {
         return bs.getBlock().isReplaceable(world, pos) || !bs.isOpaqueCube() && bs.getBlockHardness(world, pos) < 0.01F || bs.getMaterial() == Material.AIR;
     }
 
+    public static Vec3d randomVector(){
+        return new Vec3d(Common.random.nextGaussian(), Common.random.nextGaussian(), Common.random.nextGaussian());
+    }
+
     public static Vec3d randomVector(double length){
-        Vec3d result = new Vec3d(Common.random.nextGaussian(), Common.random.nextGaussian(), Common.random.nextGaussian());
-        result = result.normalize();
-        result = result.scale(length);
-        return result;
+        return randomVector().normalize().scale(length);
     }
 
     public static Vec3d randomVector(double length, double angleSpread, Vec3d heading){
+        if(Math.abs(angleSpread) < Math.PI / 180)
+            return heading;
+
         double minDot = Math.cos(angleSpread) * length * heading.lengthVector();
-        for(int i = 0; i < 50; i++){
+        for(int i = 0; i < 100; i++){
             Vec3d result = randomVector(length);
             if(result.dotProduct(heading) >= minDot)
                 return result;
         }
+
         return heading; //If we didn't hit it after 50 tries the target must be small so using the heading is fair.
+    }
+
+    public static Vec3d randomVector(Vec3d heading, double length, double inaccuracy){
+        return heading.normalize().add(randomVector().scale(0.007499999832361937D * inaccuracy)).normalize().scale(length);
     }
 
     public static int findExactStack(IInventory inventory, ItemStack stack){
@@ -106,5 +109,17 @@ public class Common {
         } catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public static ItemStack getRefill(EntityPlayer player, ItemStack stack, int amount){
+        IInventory inv = player.inventory;
+        for(int i = 0; i < inv.getSizeInventory(); i++){
+            ItemStack other = inv.getStackInSlot(i);
+            if(other != null && other.isItemEqual(stack)){
+                player.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 1, 2);
+                return inv.decrStackSize(i, amount);
+            }
+        }
+        return null;
     }
 }

@@ -1,9 +1,10 @@
-package rtk.inventory;
+package rtk.udispenser;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
-import rtk.common.UDispenseHandler;
+import rtk.inventory.InventoryStack;
+import rtk.inventory.SlotLocked;
 
 import javax.annotation.Nullable;
 
@@ -14,20 +15,25 @@ public class ContainerUDispenser extends Container {
     {
         this.dispenserInventory = dispenserInventoryIn;
 
-        this.addSlotToContainer(new SlotFurnaceFuel(dispenserInventoryIn, 0, 26, 35){
+        this.addSlotToContainer(new SlotFurnaceFuel(dispenserInventoryIn, 0, 17, 47){
             @Override
             public boolean isItemValid(@Nullable ItemStack stack) {
-                return UDispenseHandler.isItemFuel(stack) || isBucket(stack);
+                return UDispenser.isItemFuel(stack) || isBucket(stack);
             }
         });
-        this.addSlotToContainer(new Slot(dispenserInventoryIn, 1, 80, 35));
-        this.addSlotToContainer(new Slot(dispenserInventoryIn, 2, 134, 35));
+        this.addSlotToContainer(new Slot(dispenserInventoryIn, 1, 71, 47));
+        for(int row = 0; row < 3; row++){
+            for(int column = 0; column < 3; column++){
+                this.addSlotToContainer(new Slot(dispenserInventoryIn, row * 3 + column + 2, 107 + column * 18, 29 + row * 18));
+            }
+        }
+
 
         for (int row = 0; row < 3; ++row)
         {
             for (int column = 0; column < 9; ++column)
             {
-                this.addSlotToContainer(new Slot(playerInventory, column + row * 9 + 9, 8 + column * 18, 84 + row * 18));
+                this.addSlotToContainer(new Slot(playerInventory, column + row * 9 + 9, 8 + column * 18, 101 + row * 18));
             }
         }
 
@@ -35,9 +41,9 @@ public class ContainerUDispenser extends Container {
         {
             Slot slot;
             if(dispenserInventory instanceof InventoryStack && column == ((InventoryStack)dispenserInventory).stackIndex)
-                slot = new SlotLocked(playerInventory, column, 8 + column * 18, 142);
+                slot = new SlotLocked(playerInventory, column, 8 + column * 18, 159);
             else
-                slot = new Slot(playerInventory, column, 8 + column * 18, 142);
+                slot = new Slot(playerInventory, column, 8 + column * 18, 159);
             this.addSlotToContainer(slot);
         }
     }
@@ -64,14 +70,14 @@ public class ContainerUDispenser extends Container {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
 
-            if (index < 3)
+            if (index < 11)
             {
-                if (!this.mergeItemStack(itemstack1, 3, 39, true))
+                if (!this.mergeItemStack(itemstack1, 11, 47, true))
                 {
                     return null;
                 }
             }
-            else if (!this.mergeItemStack(itemstack1, 0, 3, false))
+            else if (!this.mergeItemStack(itemstack1, 0, 11, false))
             {
                 return null;
             }

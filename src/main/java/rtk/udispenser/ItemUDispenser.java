@@ -1,9 +1,11 @@
-package rtk.item;
+package rtk.udispenser;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -11,8 +13,8 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import rtk.RTK;
-import rtk.common.UDispenseHandler;
-import rtk.inventory.InventoryUDispenser;
+import rtk.common.CNBT;
+import rtk.common.Common;
 
 public class ItemUDispenser extends ItemBlock {
     public ItemUDispenser(Block block) {
@@ -41,10 +43,12 @@ public class ItemUDispenser extends ItemBlock {
     }
 
     public EnumActionResult tryFire(ItemStack stack, EntityPlayer player, World world){
-        UDispenseHandler.tryFire(
-                world, player.getPositionVector().addVector(0, player.getEyeHeight(), 0), player.getLookVec(), new InventoryUDispenser(stack),
-                player
-        );
+        if(!world.isRemote){
+            UDispenser.tryDispense(
+                    world, player.getPositionVector().addVector(0, player.getEyeHeight(), 0), player.getLookVec(), new InventoryUDispenser(stack),
+                    player
+            );
+        }
         return EnumActionResult.SUCCESS;
     }
 }

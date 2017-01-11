@@ -1,8 +1,9 @@
-package rtk.inventory;
+package rtk.udispenser;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
+import rtk.inventory.InventoryStack;
 
 public class InventoryUDispenser extends InventoryStack {
 
@@ -16,13 +17,14 @@ public class InventoryUDispenser extends InventoryStack {
 
     @Override
     public int getSizeInventory() {
-        return 3;
+        return 11;
     }
 
     @Override
     public int getInventoryStackLimit() {
         return 64;
     }
+
 
     @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {

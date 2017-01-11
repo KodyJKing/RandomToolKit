@@ -7,8 +7,10 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
-import rtk.common.UDispenseBehavior;
-import rtk.common.UDispenseHandler;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
+import rtk.entity.EntityRtkArrow;
+import rtk.entity.EntityRtkTNT;
+import rtk.udispenser.UDispenseBehavior;
 import rtk.gui.ModGuiHandler;
 import rtk.proxy.CommonProxy;
 
@@ -30,6 +32,8 @@ public class RTK {
         System.out.println(name + " is loading!");
         ModItems.init();
         ModBlocks.init();
+        EntityRegistry.registerModEntity(EntityRtkTNT.class, "RtkTNT", 0, this, 180, 1, true);
+        EntityRegistry.registerModEntity(EntityRtkArrow.class, "RtkArrow", 1, this, 180, 1, true);
     }
 
     @Mod.EventHandler
@@ -42,6 +46,7 @@ public class RTK {
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(new ModEvents());
+        proxy.registerEntityRendering();
     }
 
 }

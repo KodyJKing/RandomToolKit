@@ -1,4 +1,4 @@
-package rtk.block;
+package rtk.udispenser;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -14,9 +14,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import rtk.RTK;
-import rtk.common.UDispenseHandler;
-import rtk.item.ItemUDispenser;
-import rtk.tileentity.TileUDispenser;
+import rtk.block.BlockBaseDirectional;
 
 import javax.annotation.Nullable;
 
@@ -62,7 +60,7 @@ public class BlockUDispenser extends BlockBaseDirectional {
         if(powered && !tile.isPowered()){
             Vec3d dirVec = new Vec3d(state.getValue(FACING).getDirectionVec());
             Vec3d startVec = new Vec3d(pos).add(dirVec.scale(0.7)).addVector(0.5, 0.5, 0.5);
-            UDispenseHandler.tryFire(world, startVec, dirVec, tile, null);
+            UDispenser.tryDispense(world, startVec, dirVec, tile, null);
         }
 
         tile.setPowered(powered);

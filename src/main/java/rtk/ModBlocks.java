@@ -3,6 +3,7 @@ package rtk;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import rtk.udispenser.BlockUDispenser;
 import rtk.block.*;
 
 public class ModBlocks {

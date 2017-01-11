@@ -6,13 +6,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import rtk.ModItems;
+import rtk.udispenser.*;
 import rtk.common.Common;
 import rtk.inventory.ContainerToolbox;
-import rtk.inventory.ContainerUDispenser;
 import rtk.inventory.InventoryToolbox;
-import rtk.inventory.InventoryUDispenser;
-import rtk.item.ItemUDispenser;
-import rtk.tileentity.TileUDispenser;
 
 public class ModGuiHandler implements IGuiHandler {
     @Override

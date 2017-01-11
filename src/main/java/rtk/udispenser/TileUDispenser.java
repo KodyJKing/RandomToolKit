@@ -1,4 +1,4 @@
-package rtk.tileentity;
+package rtk.udispenser;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -9,16 +9,16 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
-import rtk.common.UDispenseHandler;
 
 import javax.annotation.Nullable;
 public class TileUDispenser extends TileEntity implements IInventory{
 
-    private ItemStack[] inventory = new ItemStack[3];
+    private ItemStack[] inventory;
     private boolean powered = false;
 
     public TileUDispenser() {
         super();
+        inventory = new ItemStack[getSizeInventory()];
     }
 
     public boolean isPowered() {
@@ -60,7 +60,7 @@ public class TileUDispenser extends TileEntity implements IInventory{
 
     @Override
     public int getSizeInventory() {
-        return 3;
+        return 11;
     }
 
     @Nullable
@@ -115,7 +115,7 @@ public class TileUDispenser extends TileEntity implements IInventory{
 
     @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
-        return index != 0 || UDispenseHandler.isItemFuel(stack);
+        return index != 0 || UDispenser.isItemFuel(stack);
     }
 
     @Override
