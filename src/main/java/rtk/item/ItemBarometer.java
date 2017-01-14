@@ -9,6 +9,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -21,13 +22,13 @@ public class ItemBarometer extends ItemBase {
         setCreativeTab(CreativeTabs.TOOLS);
     }
 
-    String getMessage(EntityPlayer player){
-        return I18n.format("item.barometer.elevation") + ": " + Integer.toString((int)player.posY);
+    TextComponentTranslation getMessage(EntityPlayer player){
+        return new TextComponentTranslation("item.barometer.elevation", new Object[]{Integer.toString((int)player.posY)});
     }
 
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
-        tooltip.add(getMessage(player));
+        tooltip.add(getMessage(player).getFormattedText());
         super.addInformation(stack, player, tooltip, advanced);
     }
 
@@ -49,7 +50,7 @@ public class ItemBarometer extends ItemBase {
     @Override
     public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
         if(!world.isRemote)
-            player.addChatComponentMessage(new TextComponentString(getMessage(player)));
+            player.addChatComponentMessage(getMessage(player));
         return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
     }
 }

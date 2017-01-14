@@ -25,7 +25,7 @@ item.earthStrider.inactive=Deactivated!
 item.earthStrider_drained.name=Drained Earth Strider
 
 item.barometer.name=Barometer
-item.barometer.elevation=Elevation
+item.barometer.elevation=Elevation: %s
 
 tile.baseTent.blocked=Something is blocking your tent!
 tile.baseTent.insufficientFuel=You need more fuel!
