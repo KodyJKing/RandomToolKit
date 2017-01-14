@@ -7,6 +7,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.RayTraceResult;
+import rtk.common.Common;
 
 public class ItemToolbelt extends ItemBase {
     public ItemToolbelt(String name) {
@@ -19,7 +20,7 @@ public class ItemToolbelt extends ItemBase {
         if(itemSlot > 8)
             return;
 
-        RayTraceResult trace = player.rayTrace(5, 0);
+        RayTraceResult trace = Common.traceLook(player, 5F); //player.rayTrace(5, 0);
         if(trace.getBlockPos() == null)
             return;
         IBlockState bs = player.getEntityWorld().getBlockState(trace.getBlockPos());

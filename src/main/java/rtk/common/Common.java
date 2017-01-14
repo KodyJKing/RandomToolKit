@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -121,5 +122,12 @@ public class Common {
             }
         }
         return null;
+    }
+
+    public static RayTraceResult traceLook(Entity entity, Float distance){
+        Vec3d eyePos = new Vec3d(entity.posX, entity.posY + (double)entity.getEyeHeight(), entity.posZ);
+        Vec3d look = entity.getLookVec();
+        Vec3d endPoint = eyePos.add(look.scale(distance));
+        return entity.worldObj.rayTraceBlocks(eyePos, endPoint, false, false, true);
     }
 }
