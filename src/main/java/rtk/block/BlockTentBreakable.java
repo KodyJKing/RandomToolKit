@@ -23,7 +23,7 @@ public class BlockTentBreakable extends BlockTent {
     @Override
     public void init(ItemBlock item) {
         super.init(item);
-        RTK.proxy.setCustomStateMap(this, (new StateMap.Builder()).ignore(DEPLOYED).build());
+        RTK.proxy.ignoreProperty(this, DEPLOYED);
     }
 
     @Override

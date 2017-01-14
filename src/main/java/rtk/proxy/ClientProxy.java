@@ -1,6 +1,7 @@
 package rtk.proxy;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.client.renderer.entity.Render;
@@ -23,8 +24,8 @@ public class ClientProxy extends CommonProxy {
     }
 
     @Override
-    public void setCustomStateMap(Block block, Object stateMap){
-        ModelLoader.setCustomStateMapper(block, (StateMap)stateMap);
+    public void ignoreProperty(Block block, IProperty property) {
+        ModelLoader.setCustomStateMapper(block, (new StateMap.Builder()).ignore(property).build());
     }
 
     @Override
