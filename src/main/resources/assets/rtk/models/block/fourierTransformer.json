@@ -1,0 +1,9 @@
+{
+	"forge_marker": 1,
+    "parent": "block/orientable",
+    "textures": {
+        "top": "rtk:blocks/fourierTransformer_top",
+        "front": "rtk:blocks/fourierTransformer_front",
+        "side": "rtk:blocks/fourierTransformer_side"
+    }
+}

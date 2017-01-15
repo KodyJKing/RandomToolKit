@@ -3,6 +3,7 @@ package rtk;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ModRecipes {
@@ -74,5 +75,10 @@ public class ModRecipes {
         GameRegistry.addShapelessRecipe(new ItemStack(ModItems.hotplateEtched), new Object[] {ModItems.hotplate, Blocks.STONEBRICK, Items.DIAMOND, Items.DIAMOND});
         GameRegistry.addShapelessRecipe(new ItemStack(ModItems.needle), new Object[] {Items.IRON_INGOT, Items.STRING});
         GameRegistry.addShapelessRecipe(new ItemStack(ModItems.earthStrider), new Object[] {ModItems.earthStriderDrained, Items.ENDER_EYE, Items.DIAMOND});
+
+        GameRegistry.addSmelting(new ItemStack(Items.IRON_SWORD), new ItemStack(ModItems.hotSword, 1, 3), 0);
+        for(int i = 1; i <= 3; i++)
+            GameRegistry.addSmelting(new ItemStack(ModItems.hotSword, 1, i), new ItemStack(ModItems.hotSword, 1, i - 1), 0);
+
     }
 }

@@ -1,6 +1,8 @@
 package rtk.item;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
@@ -14,6 +16,7 @@ public class ItemNeedle extends ItemBase {
     public ItemNeedle(String name){
         super(name);
         setMaxStackSize(1);
+        setMaxDamage(3);
         setCreativeTab(CreativeTabs.TOOLS);
     }
 
@@ -21,5 +24,16 @@ public class ItemNeedle extends ItemBase {
     public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         BlockTentWall.tryPop(world, pos);
         return EnumActionResult.SUCCESS;
+    }
+
+    @Override
+    public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
+        if(target instanceof EntitySlime){
+            target.worldObj.createExplosion(attacker, target.posX,  target.posY,  target.posZ, ((EntitySlime) target).getSlimeSize(), false);
+            stack.damageItem(1, attacker);
+            return true;
+        }
+
+        return false;
     }
 }

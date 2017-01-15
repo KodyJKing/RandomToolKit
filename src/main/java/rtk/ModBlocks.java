@@ -7,7 +7,7 @@ import rtk.udispenser.BlockUDispenser;
 import rtk.block.*;
 
 public class ModBlocks {
-    public static BlockBase emergencyTent, tent, diversTent, enderTent, levitator, ultraDispenser, hole;
+    public static BlockBase emergencyTent, tent, diversTent, enderTent, levitator, ultraDispenser, hole, fourierTransformer;
 
     public static BlockTentWall tentWall;
 
@@ -28,6 +28,8 @@ public class ModBlocks {
         ultraDispenser = register(new BlockUDispenser("ultraDispenser"));
 
         hole = register(new BlockHole("hole"));
+
+        fourierTransformer = register(new BlockFourierTransformer("fourierTransformer"));
     }
 
     private static <T extends Block> T register(T block, ItemBlock itemBlock) {

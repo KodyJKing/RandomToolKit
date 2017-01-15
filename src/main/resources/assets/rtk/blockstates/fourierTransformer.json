@@ -1,0 +1,22 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "all": "blocks/iron_block"
+    }
+  },
+  "variants": {
+    "normal": {
+      "model": "rtk:fourierTransformer"
+    },
+    "inventory": {
+      "model": "rtk:fourierTransformer"
+    },
+    "facing=down":  { "model": "rtk:fourierTransformer", "x": 90 },
+    "facing=up":    { "model": "rtk:fourierTransformer", "x" : -90},
+    "facing=north": { "model": "rtk:fourierTransformer" },
+    "facing=south": { "model": "rtk:fourierTransformer", "y": 180 },
+    "facing=west":  { "model": "rtk:fourierTransformer", "y": 270 },
+    "facing=east":  { "model": "rtk:fourierTransformer", "y": 90 }
+  }
+}
