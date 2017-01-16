@@ -2,8 +2,6 @@ package rtk.tileentity;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
@@ -11,9 +9,8 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import org.lwjgl.Sys;
 import rtk.block.BlockLevitator;
-import rtk.common.Common;
+import rtk.common.CMath;
 
 import java.util.List;
 
@@ -57,8 +54,8 @@ public class TileLevitator extends TileEntity implements ITickable {
 
         for(int i = 1; i <= length; i++){
             BlockPos p = pos.offset(dir, i);
-            Vec3d posVec = Common.randomVector(0.5).addVector(0.5, 0.5, 0.5).addVector(p.getX(), p.getY(), p.getZ());
-            Vec3d vel = Common.randomVector(0.1).addVector(dir.getFrontOffsetX() * -1, dir.getFrontOffsetY() * -1, dir.getFrontOffsetZ() * -1);
+            Vec3d posVec = CMath.randomVector(0.5).addVector(0.5, 0.5, 0.5).addVector(p.getX(), p.getY(), p.getZ());
+            Vec3d vel = CMath.randomVector(0.1).addVector(dir.getFrontOffsetX() * -1, dir.getFrontOffsetY() * -1, dir.getFrontOffsetZ() * -1);
             worldObj.spawnParticle(EnumParticleTypes.ENCHANTMENT_TABLE, posVec.xCoord, posVec.yCoord, posVec.zCoord, vel.xCoord, vel.yCoord, vel.zCoord);
         }
 

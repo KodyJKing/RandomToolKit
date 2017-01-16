@@ -17,6 +17,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import rtk.common.CNBT;
+import rtk.common.CWorld;
 import rtk.common.Common;
 
 import java.util.ArrayList;
@@ -101,7 +102,7 @@ public class ItemTrowel extends ItemBase {
         for(int i = 0; i < length; i++){
             BlockPos pos = new BlockPos(x, y, z);
 
-            if(!Common.shouldReplace(world, pos) || live && !useBlock(player))
+            if(!CWorld.shouldReplace(world, pos) || live && !useBlock(player))
                 break;
 
             if(live)

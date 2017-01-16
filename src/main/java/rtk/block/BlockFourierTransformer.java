@@ -15,14 +15,13 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import rtk.RTK;
-import rtk.common.Common;
+import rtk.common.CMath;
 
 import java.util.*;
 
@@ -91,7 +90,7 @@ public class BlockFourierTransformer extends BlockBaseDirectional {
             for(BlockPos node : currentDepth){
                 visited.add(node);
 
-                for(BlockPos neighbor : Common.cuboid(node.add(-1, -1, -1), node.add(1, 1, 1))){
+                for(BlockPos neighbor : CMath.cuboid(node.add(-1, -1, -1), node.add(1, 1, 1))){
                     if(!isConnected(world, node, neighbor) || visited.contains(neighbor))
                         continue;
 

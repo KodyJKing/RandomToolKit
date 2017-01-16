@@ -9,8 +9,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import rtk.ModBlocks;
-import rtk.ModItems;
-import rtk.common.Common;
+import rtk.common.CMath;
 
 import java.util.Random;
 
@@ -51,7 +50,7 @@ public class BlockEmergencyTent extends BlockTentBreakable {
         world.setBlockState(pos.add(- r + 2, h, - r + 2), light);
         world.setBlockState(pos.add(r - 2, h, - r + 2), light);
 
-        if(Common.random.nextInt(365) == 0) //Happy Birthday!
+        if(CMath.random.nextInt(365) == 0) //Happy Birthday!
             world.setBlockState(pos.add(3, 1, 3), Blocks.CAKE.getDefaultState());
 
         super.decorate(world, pos, player, side);

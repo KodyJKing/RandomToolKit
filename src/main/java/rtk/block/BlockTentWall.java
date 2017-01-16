@@ -14,7 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import rtk.RTK;
-import rtk.common.Common;
+import rtk.common.CMath;
 import rtk.item.ItemBlockVariants;
 
 import java.util.List;
@@ -41,10 +41,10 @@ public class BlockTentWall extends BlockBase {
         if(isTentWall(world, pos)){
 
             world.setBlockToAir(pos);
-            if(!world.isRemote && Common.random.nextInt(32) == 0)
+            if(!world.isRemote && CMath.random.nextInt(32) == 0)
                 world.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), 0.0F, false);
 
-            for(BlockPos otherPos : Common.cuboid(pos.add(-1, -1, -1), pos.add(1, 1, 1))){
+            for(BlockPos otherPos : CMath.cuboid(pos.add(-1, -1, -1), pos.add(1, 1, 1))){
                 tryPop(world, otherPos);
             }
         }

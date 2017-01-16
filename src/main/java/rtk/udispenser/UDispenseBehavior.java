@@ -1,22 +1,16 @@
 package rtk.udispenser;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityEnderPearl;
-import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.entity.projectile.EntityTippedArrow;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import rtk.common.Common;
+import rtk.common.CMath;
 import rtk.entity.EntityRtkArrow;
 import rtk.entity.EntityRtkTNT;
 
@@ -78,7 +72,7 @@ public abstract class UDispenseBehavior{
                 EntityRtkTNT tnt = new EntityRtkTNT(world, pos.xCoord + heading.xCoord, pos.yCoord + heading.yCoord, pos.zCoord + heading.zCoord, player);
                 tnt.setVelocity(heading.xCoord, heading.yCoord, heading.zCoord);
 
-                int fuse = 8 + Common.random.nextInt(3);
+                int fuse = 8 + CMath.random.nextInt(3);
                 if(dispenser.hasModifier(Items.STRING))
                     fuse *= 2;
                 else if(dispenser.hasModifier(Items.SHEARS))
@@ -109,8 +103,8 @@ public abstract class UDispenseBehavior{
                 dispenser.spendPayload(8);
                 dispenser.spendFuel(1);
 
-                world.playSound(null, pos.xCoord, pos.yCoord, pos.zCoord, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.BLOCKS, 0.7F, 0.5F + Common.random.nextFloat());
-                world.playSound(null, pos.xCoord, pos.yCoord, pos.zCoord, SoundEvents.ENTITY_COW_HURT, SoundCategory.NEUTRAL, 0.7F, 0.5F + Common.random.nextFloat());
+                world.playSound(null, pos.xCoord, pos.yCoord, pos.zCoord, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.BLOCKS, 0.7F, 0.5F + CMath.random.nextFloat());
+                world.playSound(null, pos.xCoord, pos.yCoord, pos.zCoord, SoundEvents.ENTITY_COW_HURT, SoundCategory.NEUTRAL, 0.7F, 0.5F + CMath.random.nextFloat());
             }
         });
     }

@@ -12,7 +12,7 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import rtk.common.Common;
+import rtk.common.CMath;
 
 public class ItemHotplate extends ItemBase {
 
@@ -72,7 +72,7 @@ public class ItemHotplate extends ItemBase {
         }
 
         if(didMelt)
-            world.playSound(null, x, y, z, SoundEvents.BLOCK_REDSTONE_TORCH_BURNOUT, SoundCategory.BLOCKS, 0.1F + Common.random.nextFloat() * 0.2F, 1.0F);
+            world.playSound(null, x, y, z, SoundEvents.BLOCK_REDSTONE_TORCH_BURNOUT, SoundCategory.BLOCKS, 0.1F + CMath.random.nextFloat() * 0.2F, 1.0F);
 
         player.swingArm(hand);
         return EnumActionResult.SUCCESS;
@@ -80,8 +80,8 @@ public class ItemHotplate extends ItemBase {
 
     public void spawnSmoke(World world, int x, int y, int z){
         for(int i = 0; i <= 10; i++){
-            Vec3d pos = Common.randomVector(0.5F);
-            Vec3d dir = Common.randomVector(0.1F);
+            Vec3d pos = CMath.randomVector(0.5F);
+            Vec3d dir = CMath.randomVector(0.1F);
             world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL,
                     x + 0.5 + pos.xCoord, y + 0.5 + pos.yCoord, z + 0.5 + pos.zCoord,
                     dir.xCoord, dir.yCoord, dir.zCoord);

@@ -16,7 +16,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import rtk.ModBlocks;
-import rtk.common.Common;
+import rtk.common.CMath;
+import rtk.common.CWorld;
 
 import javax.annotation.Nullable;
 
@@ -70,7 +71,7 @@ public class BlockTent extends BlockBase {
             IBlockState bs = world.getBlockState(otherPos);
             if(bs.getBlock().getClass().equals(getClass()))
                 continue;
-            if(!Common.shouldReplace(world, otherPos))
+            if(!CWorld.shouldReplace(world, otherPos))
                 return false;
             if(!worksInWater()){
                 if(bs.getBlock() == Blocks.WATER || bs.getBlock() == Blocks.FLOWING_WATER)
@@ -125,7 +126,7 @@ public class BlockTent extends BlockBase {
     }
 
     public void fillCuboid(World world, BlockPos a, BlockPos b, IBlockState bs){
-        for(BlockPos pos : Common.cuboid(a, b)){
+        for(BlockPos pos : CMath.cuboid(a, b)){
             if(world.getBlockState(pos).getBlock().getClass().equals(getClass()))
                 continue;
             world.setBlockState(pos, bs, 3);
@@ -136,7 +137,7 @@ public class BlockTent extends BlockBase {
         int h = width() - 1; //Height
         int r = h / 2; //Radius
 
-        return Common.cuboid(pos.add(-r, 0, -r), pos.add(r, h, r));
+        return CMath.cuboid(pos.add(-r, 0, -r), pos.add(r, h, r));
     }
 
     @Override

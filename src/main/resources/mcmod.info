@@ -3,7 +3,7 @@
   "modid": "rtk",
   "name": "Random Tool Kit",
   "description": "Just a random assortment of tools.",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",

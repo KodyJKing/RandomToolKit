@@ -22,7 +22,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import rtk.common.CNBT;
-import rtk.common.Common;
+import rtk.common.CWorld;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -51,11 +51,11 @@ public class ItemDolly extends ItemBase {
 
         if(canPickUp(world, pos) && !nbt.hasKey("container")){
             nbt.setTag("container", CNBT.NBTFromBlock(world, pos));
-            Common.safeReplaceBlock(world, pos, Blocks.AIR.getDefaultState(), 3);
+            CWorld.safeReplaceBlock(world, pos, Blocks.AIR.getDefaultState(), 3);
             return EnumActionResult.SUCCESS;
         }
 
-        if(nbt.hasKey("container") && Common.shouldReplace(world, pos.offset(side))){
+        if(nbt.hasKey("container") && CWorld.shouldReplace(world, pos.offset(side))){
             CNBT.placeBlockFromNBT(world, pos.offset(side), nbt.getCompoundTag("container"), player, side, hitX, hitY, hitZ);
             nbt.removeTag("container");
             return EnumActionResult.SUCCESS;

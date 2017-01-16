@@ -12,7 +12,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.*;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -20,6 +19,7 @@ import net.minecraft.world.World;
 import rtk.ModBlocks;
 import rtk.ModItems;
 import rtk.block.BlockHole;
+import rtk.common.CMath;
 import rtk.common.CNBT;
 import rtk.common.Common;
 import rtk.tileentity.TileHole;
@@ -76,7 +76,7 @@ public class ItemEarthStrider extends ItemBase {
         int holeVolume = 0;
 
         int edgeDist = 7;
-        for(BlockPos pos : Common.cuboid(foot.add(-edgeDist, 0, -edgeDist), foot.add(edgeDist, 3, edgeDist))){
+        for(BlockPos pos : CMath.cuboid(foot.add(-edgeDist, 0, -edgeDist), foot.add(edgeDist, 3, edgeDist))){
             int dx = pos.getX() - foot.getX();
             int dy = pos.getY() - foot.getY();
             int dz = pos.getZ() - foot.getZ();

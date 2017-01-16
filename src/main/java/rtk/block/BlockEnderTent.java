@@ -8,7 +8,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
@@ -20,7 +19,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import rtk.ModBlocks;
 import rtk.common.CNBT;
-import rtk.common.Common;
+import rtk.common.CWorld;
 import rtk.tileentity.TileEnderTent;
 
 import java.util.Random;
@@ -139,7 +138,7 @@ public class BlockEnderTent extends BlockTent {
             if(otherTileEntity instanceof TileEnderTent) //We don't want another ender tent collapsing in a collapsing ender tent!!!
                 ((TileEnderTent)otherTileEntity).dontGrab = true;
 
-            Common.safeReplaceBlock(world, otherPos, Blocks.DIRT.getDefaultState(), 2);
+            CWorld.safeReplaceBlock(world, otherPos, Blocks.DIRT.getDefaultState(), 2);
         }
 
         //Finally we can actually delete everything.
