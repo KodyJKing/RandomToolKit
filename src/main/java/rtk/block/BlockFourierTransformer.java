@@ -12,9 +12,11 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -77,6 +79,8 @@ public class BlockFourierTransformer extends BlockBaseDirectional {
                 e.setLocationAndAngles(destination.xCoord, destination.yCoord, destination.zCoord, e.rotationYaw, e.rotationPitch);
         }
 
+        world.playSound(null, pos, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.BLOCKS, 0.5F, 1F);
+        world.playSound(null, destination.xCoord, destination.yCoord, destination.zCoord, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.BLOCKS, 0.5F, 1F);
     }
 
     //Breadth first search for a suitable exit.
