@@ -21,10 +21,10 @@ public class CWorld {
     }
 
     public static void safeRemoveBlock(World world, BlockPos pos){
-        world.setTileEntity(pos, null);
-
         if(world.getBlockState(pos).getBlock() == Blocks.AIR)
             return;
+
+        world.removeTileEntity(pos);
 
         int dx = pos.getX() & 15;
         int dz = pos.getZ() & 15;

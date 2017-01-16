@@ -17,15 +17,19 @@ item.toolbelt.name=Toolbelt
 item.toolbelt.tooltip=Swaps to the most effective tool when breaking blocks.;Must be equipped on hotbar.
 
 item.dolly.name=Dolly
+item.dolly.tooltip=Can pick up most blocks with an inventory.;Can also pick up monster spawners.
 
 item.earthStrider.name=Earth Strider
 item.earthStrider.active=Activated!
 item.earthStrider.inactive=Deactivated!
+item.earthStrider.tooltip=Allows user to see and walk through stone.;Right click to toggle.
 
 item.earthStrider_drained.name=Drained Earth Strider
+item.earthStrider_drained.tooltip=Repair with a diamond and Eye of Ender in a crafting table.
 
 item.barometer.name=Barometer
 item.barometer.elevation=Elevation: %s
+item.barometer.tooltip=Right click to show elevation.
 
 item.hotSword.name=Glowing 1000 Degree Sword
 
@@ -51,8 +55,11 @@ tile.tentWall.3.name=Ender Tent Wall
 tile.tentWall.4.name=Emergency Tent Light
 
 tile.levitator.name=Levitator
+tile.levitator.tooltip=Emits a magic beam which pushes entities along.;Requires a redstone signal.
 
 tile.ultraDispenser.name=Dispenser 9000
+tile.ultraDispenser.tooltip=Right click to fire.;Shift right click to place.
 
 tile.fourierTransformer.name=Fourier Transformer
+tile.fourierTransformer.tooltip=Sends and recieves entities across redstone wires.;The reiciever must be powered by redstone.;The sender must be given a redstone pulse.
 

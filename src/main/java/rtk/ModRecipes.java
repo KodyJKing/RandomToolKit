@@ -72,6 +72,11 @@ public class ModRecipes {
                 "G#G",
                 "GWG", 'G', Blocks.GLASS, 'W', Items.WATER_BUCKET);
 
+        GameRegistry.addRecipe(new ItemStack(ModBlocks.fourierTransformer, 1),
+                "RRR",
+                "PCE",
+                "RRR", 'R', Items.REPEATER, 'P', Items.ENDER_PEARL, 'C', Items.COMPARATOR, 'E', Items.ENDER_EYE);
+
         GameRegistry.addShapelessRecipe(new ItemStack(ModItems.hotplateEtched), new Object[] {ModItems.hotplate, Blocks.STONEBRICK, Items.DIAMOND, Items.DIAMOND});
         GameRegistry.addShapelessRecipe(new ItemStack(ModItems.needle), new Object[] {Items.IRON_INGOT, Items.STRING});
         GameRegistry.addShapelessRecipe(new ItemStack(ModItems.earthStrider), new Object[] {ModItems.earthStriderDrained, Items.ENDER_EYE, Items.DIAMOND});
