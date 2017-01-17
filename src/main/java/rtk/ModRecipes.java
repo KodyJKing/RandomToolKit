@@ -50,7 +50,7 @@ public class ModRecipes {
         GameRegistry.addRecipe(new ItemStack(ModItems.toolbox, 1),
                 "ILI",
                 "ICC",
-                "III", 'L', Items.LEATHER, 'I', Items.IRON_INGOT, 'C', Blocks.TRAPPED_CHEST);
+                "III", 'L', Items.LEATHER, 'I', Items.IRON_INGOT, 'C', Blocks.CHEST);
 
         GameRegistry.addRecipe(new ItemStack(ModBlocks.levitator, 1),
                 "#F#",

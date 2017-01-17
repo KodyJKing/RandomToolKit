@@ -26,7 +26,6 @@ public class ItemHotSword extends ItemSword {
         this.name = name;
         setUnlocalizedName(name);
         setRegistryName(name);
-        setHasSubtypes(true);
         setMaxDamage(3);
 
         RTK.proxy.registerItemRenderer(this, 0, name);
