@@ -27,6 +27,12 @@ public class CNBT {
         return nbt.getInteger(name);
     }
 
+    public static NBTTagCompound ensureCompound(NBTTagCompound nbt, String name){
+        if(!nbt.hasKey(name))
+            nbt.setTag(name, new NBTTagCompound());
+        return nbt.getCompoundTag(name);
+    }
+
     public static NBTTagCompound NBTFromBlock(World world, BlockPos pos){
         NBTTagCompound NBT = new NBTTagCompound();
 

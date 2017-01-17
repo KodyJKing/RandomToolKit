@@ -1,6 +1,5 @@
 package rtk;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -11,6 +10,9 @@ import net.minecraft.world.storage.MapStorage;
 
 import java.util.HashSet;
 
+/**
+ * I don't use this anymore but I keep it around as an example.
+ */
 public class WorldSavedDataPlayers extends WorldSavedData {
     public static final String DATA_NAME = RTK.modId + "_Players";
     NBTTagList players;
