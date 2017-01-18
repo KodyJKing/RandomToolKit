@@ -20,15 +20,7 @@ public class ItemDevTool extends ItemBase {
 
     @Override
     public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-//        if(world.isRemote)
-//            return EnumActionResult.SUCCESS;
-//
-//        IBlockState state = world.getBlockState(pos);
-//        world.setBlockToAir(pos);
-//
-//        EntityFallingBlock entity = new EntityFallingBlock(world, pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, state);;
-//        world.spawnEntityInWorld(entity);
-        return EnumActionResult.SUCCESS;
+        return documentTileEntity(pos, player) ? EnumActionResult.SUCCESS : EnumActionResult.FAIL;
     }
 
     @Override

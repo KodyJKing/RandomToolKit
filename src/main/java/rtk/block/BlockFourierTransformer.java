@@ -3,6 +3,7 @@ package rtk.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.BlockRedstoneWire;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
@@ -21,6 +22,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import rtk.RTK;
 import rtk.common.CMath;
@@ -34,6 +36,8 @@ public class BlockFourierTransformer extends BlockBaseDirectional {
     public BlockFourierTransformer(String name) {
         super(Material.GLASS, name);
         setCreativeTab(CreativeTabs.REDSTONE);
+        setDefaultState(this.blockState.getBaseState().withProperty(TRIGGERED, false));
+        setSoundType(SoundType.STONE);
     }
 
     @Override
