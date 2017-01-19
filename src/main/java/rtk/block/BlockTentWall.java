@@ -22,7 +22,7 @@ import java.util.Random;
 
 public class BlockTentWall extends BlockBase {
 
-    public static final PropertyInteger VARIANT = PropertyInteger.create("variant", 0 , 4);
+    public static final PropertyInteger VARIANT = PropertyInteger.create("variant", 0 , 5);
 
     public BlockTentWall(String name){
         super(Material.CLOTH, name);

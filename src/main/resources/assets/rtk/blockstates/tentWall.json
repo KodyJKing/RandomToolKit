@@ -16,6 +16,7 @@
     "variant=1" : {"model" : "rtk:tentWall_1"},
     "variant=2" : {"model" : "rtk:tentWall_2"},
     "variant=3" : {"model" : "rtk:tentWall_3"},
-    "variant=4" : {"model" : "rtk:tentWall_4"}
+    "variant=4" : {"model" : "rtk:tentWall_4"},
+    "variant=5" : {"model" : "rtk:tentWall_5"}
   }
 }

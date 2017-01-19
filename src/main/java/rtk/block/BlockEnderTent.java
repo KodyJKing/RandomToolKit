@@ -42,11 +42,6 @@ public class BlockEnderTent extends BlockTent {
     }
 
     @Override
-    public boolean worksInWater() {
-        return true;
-    }
-
-    @Override
     public TileEntity createTileEntity(World world, IBlockState state) {
         return new TileEnderTent();
     }
@@ -180,7 +175,7 @@ public class BlockEnderTent extends BlockTent {
         if(te.dontGrab)
             return;
 
-        ItemStack drop = new ItemStack(ModBlocks.enderTent, 1);
+        ItemStack drop = tentDrop();
         tryGrabContents(world, pos);
         if(!te.isDeployed() && !te.neverDeployed())
             drop.addEnchantment(Enchantments.INFINITY, 1); //This is just an indicator that the tent is full.
@@ -188,5 +183,9 @@ public class BlockEnderTent extends BlockTent {
         getTileEntity(world, pos).writeTent(CNBT.ensureCompound(drop));
         EntityItem item = new EntityItem(world, pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F, drop);
         world.spawnEntityInWorld(item);
+    }
+
+    public ItemStack tentDrop(){
+        return new ItemStack(ModBlocks.enderTent, 1);
     }
 }

@@ -31,6 +31,15 @@ public class ModRecipes {
                 "ETE",
                 "BCB", 'E', Blocks.END_STONE, 'B', Items.BLAZE_ROD, 'T', ModBlocks.tent, 'C', Blocks.ENDER_CHEST);
 
+        GameRegistry.addRecipe(new ItemStack(ModBlocks.diversEnderTent, 1),
+                "BEB",
+                "ETE",
+                "BCB", 'E', Blocks.END_STONE, 'B', Items.BLAZE_ROD, 'T', ModBlocks.diversTent, 'C', Blocks.ENDER_CHEST);
+
+        GameRegistry.addRecipe(new ItemStack(ModBlocks.diversEnderTent),
+                "ISI",
+                "SES",
+                "IFI", 'S', Items.SLIME_BALL, 'E', ModBlocks.enderTent, 'I', Blocks.IRON_BLOCK, 'F', Blocks.FURNACE);
 
         GameRegistry.addRecipe(new ItemStack(ModItems.trowel, 1),
                 "II#",
