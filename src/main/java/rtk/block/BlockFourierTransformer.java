@@ -36,7 +36,8 @@ public class BlockFourierTransformer extends BlockBaseDirectional {
     public BlockFourierTransformer(String name) {
         super(Material.GLASS, name);
         setCreativeTab(CreativeTabs.REDSTONE);
-        setDefaultState(this.blockState.getBaseState().withProperty(TRIGGERED, false));
+        //setDefaultState(this.blockState.getBaseState().withProperty(TRIGGERED, false));
+        setDefaultState(this.getDefaultState().withProperty(TRIGGERED, false));
         setSoundType(SoundType.STONE);
     }
 

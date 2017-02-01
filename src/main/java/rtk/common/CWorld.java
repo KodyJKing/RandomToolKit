@@ -16,8 +16,8 @@ public class CWorld {
 
     public static void safeReplaceBlock(World world, BlockPos pos, IBlockState state, int flags){
         safeRemoveBlock(world, pos);
+        world.notifyBlockUpdate(pos, Blocks.AIR.getDefaultState(), state, flags);
         world.setBlockState(pos, state, flags);
-
     }
 
     public static void safeRemoveBlock(World world, BlockPos pos){

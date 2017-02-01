@@ -39,6 +39,11 @@ public class ItemHotSword extends ItemSword {
         });
     }
 
+    @Override
+    public int getMetadata(int damage) {
+        return damage;
+    }
+
     public int getHeat(ItemStack stack){
         return 4 - stack.getMetadata();
     }

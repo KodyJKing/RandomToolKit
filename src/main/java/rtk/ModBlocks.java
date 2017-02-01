@@ -23,7 +23,7 @@ public class ModBlocks {
         diversEnderTent = register(new BlockDiversEnderTent("diversEnderTent"));
         tentWall = register(new BlockTentWall("tentWall"));
         levitator = register(new BlockLevitator("levitator"));
-        ultraDispenser = register(new BlockUDispenser("ultraDispenser"));
+        //ultraDispenser = register(new BlockUDispenser("ultraDispenser"));
         hole = register(new BlockHole("hole"));
         fourierTransformer = register(new BlockFourierTransformer("fourierTransformer"));
     }

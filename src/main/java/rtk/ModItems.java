@@ -8,7 +8,7 @@ public class ModItems {
     public static Item devTool, trowel, hotplate, hotplateEtched, needle, toolbox, toolbelt, dolly, earthStrider, earthStriderDrained, barometer, hotSword;
 
     public static void init() {
-        devTool = register(new ItemDevTool("devTool"));
+        //devTool = register(new ItemDevTool("devTool"));
 
         trowel = register(new ItemTrowel("trowel"));
         hotplate = register(new ItemHotplate("hotplate", false));
