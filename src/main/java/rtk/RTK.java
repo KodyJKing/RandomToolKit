@@ -8,6 +8,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
+import rtk.entity.EntityEyeOfNether;
 import rtk.entity.EntityRtkArrow;
 import rtk.entity.EntityRtkTNT;
 import rtk.udispenser.UDispenseBehavior;
@@ -19,7 +20,7 @@ public class RTK {
 
     public static final String modId = "rtk";
     public static final String name = "Random Tool Kit";
-    public static final String version = "1.2.7";
+    public static final String version = "1.2.8";
 
     @SidedProxy(clientSide = "rtk.proxy.ClientProxy", serverSide = "rtk.proxy.CommonProxy")
     public static CommonProxy proxy;
@@ -32,8 +33,12 @@ public class RTK {
         System.out.println(name + " is loading!");
         ModItems.init();
         ModBlocks.init();
+
         EntityRegistry.registerModEntity(EntityRtkTNT.class, "RtkTNT", 0, this, 180, 1, true);
         EntityRegistry.registerModEntity(EntityRtkArrow.class, "RtkArrow", 1, this, 180, 1, true);
+        EntityRegistry.registerModEntity(EntityEyeOfNether.class, "eyeOfNether", 2, this, 80, 1, true);
+
+        proxy.registerEntityRendering();
     }
 
     @Mod.EventHandler
@@ -46,7 +51,6 @@ public class RTK {
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(new ModEvents());
-        proxy.registerEntityRendering();
     }
 
 }

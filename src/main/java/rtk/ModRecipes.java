@@ -86,9 +86,15 @@ public class ModRecipes {
                 "PCE",
                 "RRR", 'R', Items.REPEATER, 'P', Items.ENDER_PEARL, 'C', Items.COMPARATOR, 'E', Items.ENDER_EYE);
 
+        GameRegistry.addRecipe(new ItemStack(ModItems.netherPearl),
+                "OOO",
+                "OBO",
+                "OOO", 'O', Blocks.OBSIDIAN, 'B', Items.BLAZE_POWDER);
+
         GameRegistry.addShapelessRecipe(new ItemStack(ModItems.hotplateEtched), new Object[] {ModItems.hotplate, Blocks.STONEBRICK, Items.DIAMOND, Items.DIAMOND});
         GameRegistry.addShapelessRecipe(new ItemStack(ModItems.needle), new Object[] {Items.IRON_INGOT, Items.STRING});
         GameRegistry.addShapelessRecipe(new ItemStack(ModItems.earthStrider), new Object[] {ModItems.earthStriderDrained, Items.ENDER_EYE, Items.DIAMOND});
+        GameRegistry.addShapelessRecipe(new ItemStack(ModItems.eyeOfNether), new Object[] {ModItems.netherPearl, Items.BLAZE_ROD});
 
         GameRegistry.addSmelting(new ItemStack(Items.IRON_SWORD), new ItemStack(ModItems.hotSword, 1, 3), 0);
         for(int i = 1; i <= 3; i++)

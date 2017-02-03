@@ -32,6 +32,13 @@ item.barometer.elevation=Elevation: %s
 item.barometer.tooltip=Right click to show elevation.
 
 item.hotSword.name=Glowing 1000 Degree Sword
+item.hotSword.tooltip=Deals heavy fire damage but cools off quickly.
+
+item.netherPearl.name=Nether Pearl
+item.eyeOfNether.tooltip=Teleport to and from the nether instantly.
+
+item.eyeOfNether.name=Eye Of Nether
+item.eyeOfNether.tooltip=Enrages and lures visible Endermen.
 
 tile.baseTent.blocked=Something is blocking your tent!
 tile.baseTent.insufficientFuel=You need more fuel!
@@ -67,3 +74,4 @@ tile.ultraDispenser.tooltip=Right click to fire.;Shift right click to place.
 tile.fourierTransformer.name=Fourier Transformer
 tile.fourierTransformer.tooltip=Sends and recieves entities across redstone wires.;The reiciever must be powered by redstone.;The sender must be given a redstone pulse.
 
+entity.rtk.eyeOfNether.name=Eye Of Nether

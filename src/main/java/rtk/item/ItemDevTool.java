@@ -15,6 +15,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
+import rtk.entity.EntityEyeOfNether;
 
 public class ItemDevTool extends ItemBase {
     public ItemDevTool(String name) {
@@ -34,7 +35,6 @@ public class ItemDevTool extends ItemBase {
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
-        //ActionResult<ItemStack> result = new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
         return new ActionResult<ItemStack>(documentItem(player) ? EnumActionResult.SUCCESS : EnumActionResult.FAIL, stack);
     }
 
