@@ -11,6 +11,7 @@ import net.minecraftforge.fml.common.registry.EntityRegistry;
 import rtk.entity.EntityEyeOfNether;
 import rtk.entity.EntityRtkArrow;
 import rtk.entity.EntityRtkTNT;
+import rtk.entity.EntitySkeletonPriest;
 import rtk.udispenser.UDispenseBehavior;
 import rtk.gui.ModGuiHandler;
 import rtk.proxy.CommonProxy;
@@ -34,9 +35,10 @@ public class RTK {
         ModItems.init();
         ModBlocks.init();
 
-        EntityRegistry.registerModEntity(EntityRtkTNT.class, "RtkTNT", 0, this, 180, 1, true);
-        EntityRegistry.registerModEntity(EntityRtkArrow.class, "RtkArrow", 1, this, 180, 1, true);
+        //EntityRegistry.registerModEntity(EntityRtkTNT.class, "RtkTNT", 0, this, 180, 1, true);
+        //EntityRegistry.registerModEntity(EntityRtkArrow.class, "RtkArrow", 1, this, 180, 1, true);
         EntityRegistry.registerModEntity(EntityEyeOfNether.class, "eyeOfNether", 2, this, 80, 1, true);
+        EntityRegistry.registerModEntity(EntitySkeletonPriest.class, "skeletonPriest", 3, this, 80, 1, true, 0xf2f2f2, 0x330000);
 
         proxy.registerEntityRendering();
     }

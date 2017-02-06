@@ -57,4 +57,8 @@ public class CMath {
 
         return positions;
     }
+
+    public static Vec3d lerp(Vec3d start, Vec3d end, double amount){
+        return start.add(end.subtract(start).scale(amount));
+    }
 }

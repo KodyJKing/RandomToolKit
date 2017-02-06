@@ -16,6 +16,8 @@ import rtk.RTK;
 import rtk.entity.EntityEyeOfNether;
 import rtk.entity.EntityRtkArrow;
 import rtk.entity.EntityRtkTNT;
+import rtk.entity.EntitySkeletonPriest;
+import rtk.render.RenderSkeletonPriest;
 
 public class ClientProxy extends CommonProxy {
     @Override
@@ -30,24 +32,31 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void registerEntityRendering() {
-        RenderingRegistry.registerEntityRenderingHandler(EntityRtkTNT.class, new IRenderFactory<EntityRtkTNT>() {
-            @Override
-            public Render<? super EntityRtkTNT> createRenderFor(RenderManager manager) {
-                return new RenderTNTPrimed(manager);
-            }
-        });
-
-        RenderingRegistry.registerEntityRenderingHandler(EntityRtkArrow.class, new IRenderFactory<EntityRtkArrow>() {
-            @Override
-            public Render<? super EntityRtkArrow> createRenderFor(RenderManager manager) {
-                return new RenderTippedArrow(manager);
-            }
-        });
+//        RenderingRegistry.registerEntityRenderingHandler(EntityRtkTNT.class, new IRenderFactory<EntityRtkTNT>() {
+//            @Override
+//            public Render<? super EntityRtkTNT> createRenderFor(RenderManager manager) {
+//                return new RenderTNTPrimed(manager);
+//            }
+//        });
+//
+//        RenderingRegistry.registerEntityRenderingHandler(EntityRtkArrow.class, new IRenderFactory<EntityRtkArrow>() {
+//            @Override
+//            public Render<? super EntityRtkArrow> createRenderFor(RenderManager manager) {
+//                return new RenderTippedArrow(manager);
+//            }
+//        });
 
         RenderingRegistry.registerEntityRenderingHandler(EntityEyeOfNether.class, new IRenderFactory<EntityEyeOfNether>() {
             @Override
             public Render<? super EntityEyeOfNether> createRenderFor(RenderManager manager) {
                 return new RenderSnowball<EntityEyeOfNether>(manager, ModItems.eyeOfNether, Minecraft.getMinecraft().getRenderItem());
+            }
+        });
+
+        RenderingRegistry.registerEntityRenderingHandler(EntitySkeletonPriest.class, new IRenderFactory<EntitySkeletonPriest>() {
+            @Override
+            public Render<? super EntitySkeletonPriest> createRenderFor(RenderManager manager) {
+                return new RenderSkeletonPriest(manager);
             }
         });
 
