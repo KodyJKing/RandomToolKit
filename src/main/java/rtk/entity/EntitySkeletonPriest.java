@@ -214,7 +214,7 @@ public class EntitySkeletonPriest extends EntityMob {
         bossInfo.removePlayer(player);
     }
 
-    class EntityAIHurtByPlayerTarget extends EntityAIHurtByTarget{
+    class EntityAIHurtByPlayerTarget extends EntityAIHurtByTarget {
         public EntityAIHurtByPlayerTarget(EntityCreature creatureIn, boolean entityCallsForHelpIn, Class<?>[] targetClassesIn) {
             super(creatureIn, entityCallsForHelpIn, targetClassesIn);
         }
