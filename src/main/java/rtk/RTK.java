@@ -45,6 +45,7 @@ public class RTK {
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
+        ModDimensions.init();
         ModRecipes.buildRecipes();
         UDispenseBehavior.registerBehaviors();
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new ModGuiHandler());
