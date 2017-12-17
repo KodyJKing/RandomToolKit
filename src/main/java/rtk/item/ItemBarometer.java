@@ -1,5 +1,6 @@
 package rtk.item;
 
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -10,6 +11,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemBarometer extends ItemBase {
@@ -24,11 +26,11 @@ public class ItemBarometer extends ItemBase {
         return new TextComponentTranslation("item.barometer.elevation", new Object[]{Integer.toString((int)player.posY)});
     }
 
-    @Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
-        tooltip.add(getMessage(player).getFormattedText());
-        super.addInformation(stack, player, tooltip, advanced);
-    }
+//    @Override
+//    public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
+//        tooltip.add(getMessage(player).getFormattedText());
+//        super.addInformation(stack, player, tooltip, advanced);
+//    }
 
     @Override
     public void onUpdate(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) {
