@@ -4,8 +4,8 @@ item.trowel.tooltip=Legt eine Blockreihe in die Richtung, in die du schaust.;Lin
 item.hotplate.name=Heizplatte
 item.hotplate.tooltip=Schmelzt Bruchstein in einem 3x3-Bereich zu Stein.
 
-item.hotplateEtched.name=Ätzende Heizplatte
-item.hotplateEtched.tooltip=Schmelzt und ätzt Bruchstein und;Stein in einem 3x3-Bereich zu Steinziegeln.
+item.hotplateetched.name=Ätzende Heizplatte
+item.hotplateetched.tooltip=Schmelzt und ätzt Bruchstein und;Stein in einem 3x3-Bereich zu Steinziegeln.
 
 item.needle.name=Nadel
 item.needle.tooltip=Auf Zeltwände benutzen, um alle auf einmal abzubauen.;Zerstört den Haupt-Zeltblock nicht.
@@ -19,13 +19,13 @@ item.toolbelt.tooltip=Wechselt zum effektivsten Werkzeug beim Blockabbau.;Muss i
 item.dolly.name=Sackkarre
 item.dolly.tooltip=Kann die meisten Blöcke mit einem Inventar aufnehmen.;Kann außerdem Monsterspawner aufnehmen.
 
-item.earthStrider.name=Erdläufer
-item.earthStrider.active=Aktiviert!
-item.earthStrider.inactive=Deaktiviert!
-item.earthStrider.tooltip=Ermöglicht dem Benutzer, durch Stein zu sehen und zu laufen.;Rechtsklick zum Umschalten.
+item.earthstrider.name=Erdläufer
+item.earthstrider.active=Aktiviert!
+item.earthstrider.inactive=Deaktiviert!
+item.earthstrider.tooltip=Ermöglicht dem Benutzer, durch Stein zu sehen und zu laufen.;Rechtsklick zum Umschalten.
 
-item.earthStrider_drained.name=Verbrauchter Erdläufer
-item.earthStrider_drained.tooltip=Reparieren mit einem Diamanten und einem Enderauge in einer Werkbank.
+item.earthstrider_drained.name=Verbrauchter Erdläufer
+item.earthstrider_drained.tooltip=Reparieren mit einem Diamanten und einem Enderauge in einer Werkbank.
 
 item.barometer.name=Barometer
 item.barometer.elevation=Höhe: %s
@@ -71,8 +71,8 @@ tile.levitator.tooltip=Sendet einen magischen Strahl aus, der Lebewesen fortbewe
 tile.ultraDispenser.name=Spender 9000
 tile.ultraDispenser.tooltip=Rechtsklick zum Abfeuern.;Shift-Rechtsklick zum Platzieren.
 
-tile.fourierTransformer.name=Fourier-Transformer
-tile.fourierTransformer.tooltip=Sendet und empfängt Lebewesen über Redstone-Leitungen.;Der Empfänger muss mit Redstone versorgt werden.;Der Absender muss einen Redstone-Impuls bekommen.
+tile.fouriertransformer.name=Fourier-Transformer
+tile.fouriertransformer.tooltip=Sendet und empfängt Lebewesen über Redstone-Leitungen.;Der Empfänger muss mit Redstone versorgt werden.;Der Absender muss einen Redstone-Impuls bekommen.
 
 entity.rtk.eyeOfNether.name=Netherauge
 entity.rtk.skeletonPriest.name=Skelettpriester

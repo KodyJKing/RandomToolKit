@@ -4,8 +4,8 @@ item.trowel.tooltip=Lays a line of blocks in the direction you're facing.;Put to
 item.hotplate.name=Hot Plate
 item.hotplate.tooltip=Melts cobblestone into stone in a 3x3 pattern.
 
-item.hotplateEtched.name=Etched Hot Plate
-item.hotplateEtched.tooltip=Melts and etches cobblestone and;stone into stone bricks in a 3x3 pattern.
+item.hotplateetched.name=Etched Hot Plate
+item.hotplateetched.tooltip=Melts and etches cobblestone and;stone into stone bricks in a 3x3 pattern.
 
 item.needle.name=Needle
 item.needle.tooltip=Use on tent walls to pop them all at once.;Doesn't destroy main tent block.
@@ -19,13 +19,13 @@ item.toolbelt.tooltip=Swaps to the most effective tool when breaking blocks.;Mus
 item.dolly.name=Dolly
 item.dolly.tooltip=Can pick up most blocks with an inventory.;Can also pick up monster spawners.
 
-item.earthStrider.name=Earth Strider
-item.earthStrider.active=Activated!
-item.earthStrider.inactive=Deactivated!
-item.earthStrider.tooltip=Allows user to see and walk through stone.;Right click to toggle.
+item.earthstrider.name=Earth Strider
+item.earthstrider.active=Activated!
+item.earthstrider.inactive=Deactivated!
+item.earthstrider.tooltip=Allows user to see and walk through stone.;Right click to toggle.
 
-item.earthStrider_drained.name=Drained Earth Strider
-item.earthStrider_drained.tooltip=Repair with a diamond and Eye of Ender in a crafting table.
+item.earthstrider_drained.name=Drained Earth Strider
+item.earthstrider_drained.tooltip=Repair with a diamond and Eye of Ender in a crafting table.
 
 item.barometer.name=Barometer
 item.barometer.elevation=Elevation: %s
@@ -71,8 +71,8 @@ tile.levitator.tooltip=Emits a magic beam which pushes entities along.;Requires 
 tile.ultraDispenser.name=Dispenser 9000
 tile.ultraDispenser.tooltip=Right click to fire.;Shift right click to place.
 
-tile.fourierTransformer.name=Fourier Transformer
-tile.fourierTransformer.tooltip=Sends and recieves entities across redstone wires.;The reiciever must be powered by redstone.;The sender must be given a redstone pulse.
+tile.fouriertransformer.name=Fourier Transformer
+tile.fouriertransformer.tooltip=Sends and recieves entities across redstone wires.;The reiciever must be powered by redstone.;The sender must be given a redstone pulse.
 
 entity.rtk.eyeOfNether.name=Eye Of Nether
 entity.rtk.skeletonPriest.name=Skeleton Priest

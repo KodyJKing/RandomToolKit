@@ -1,6 +1,6 @@
 {
 	"parent": "item/generated",
 	"textures": {
-		"layer0": "rtk:items/earthStrider_drained"
+		"layer0": "rtk:items/earthstrider_drained"
 	}
 }

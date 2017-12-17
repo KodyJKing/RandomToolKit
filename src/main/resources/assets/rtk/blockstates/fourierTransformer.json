@@ -7,16 +7,16 @@
   },
   "variants": {
     "normal": {
-      "model": "rtk:fourierTransformer"
+      "model": "rtk:fouriertransformer"
     },
     "inventory": {
-      "model": "rtk:fourierTransformer"
+      "model": "rtk:fouriertransformer"
     },
-    "facing=down":  { "model": "rtk:fourierTransformer", "x": 90 },
-    "facing=up":    { "model": "rtk:fourierTransformer", "x" : -90},
-    "facing=north": { "model": "rtk:fourierTransformer" },
-    "facing=south": { "model": "rtk:fourierTransformer", "y": 180 },
-    "facing=west":  { "model": "rtk:fourierTransformer", "y": 270 },
-    "facing=east":  { "model": "rtk:fourierTransformer", "y": 90 }
+    "facing=down":  { "model": "rtk:fouriertransformer", "x": 90 },
+    "facing=up":    { "model": "rtk:fouriertransformer", "x" : -90},
+    "facing=north": { "model": "rtk:fouriertransformer" },
+    "facing=south": { "model": "rtk:fouriertransformer", "y": 180 },
+    "facing=west":  { "model": "rtk:fouriertransformer", "y": 270 },
+    "facing=east":  { "model": "rtk:fouriertransformer", "y": 90 }
   }
 }

@@ -3,6 +3,7 @@ package rtk;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import rtk.proxy.CommonProxy;
 
@@ -23,6 +24,11 @@ public class RTK {
     public void preInit(FMLPreInitializationEvent event) {
         System.out.println(name + " is loading!");
         MinecraftForge.EVENT_BUS.register(new ModItems());
+        MinecraftForge.EVENT_BUS.register(new ModBlocks());
     }
 
+    @Mod.EventHandler
+    public void postInit(FMLPostInitializationEvent event) {
+        MinecraftForge.EVENT_BUS.register(new ModEvents());
+    }
 }
