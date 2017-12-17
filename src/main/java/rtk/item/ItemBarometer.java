@@ -1,6 +1,5 @@
 package rtk.item;
 
-import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -8,7 +7,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 
@@ -48,9 +46,10 @@ public class ItemBarometer extends ItemBase {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+        ItemStack stack = player.getHeldItem(hand);
         if(!world.isRemote)
-            player.addChatComponentMessage(getMessage(player));
-        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
+            player.sendMessage(getMessage(player));
+        return new ActionResult<>(EnumActionResult.SUCCESS, stack);
     }
 }

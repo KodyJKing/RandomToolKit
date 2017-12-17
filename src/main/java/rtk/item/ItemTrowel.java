@@ -9,6 +9,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
@@ -50,7 +51,7 @@ public class ItemTrowel extends ItemBase {
         if(!player.capabilities.isCreativeMode)
             inv.decrStackSize(nextItem, 1);
 
-        if(stack.stackSize == 0)
+        if(stack.getCount() == 0)
             tryRefill(player, stack, nextItem);
         return true;
     }
@@ -94,7 +95,8 @@ public class ItemTrowel extends ItemBase {
             Block block = Block.getBlockFromItem(material.getItem());
             if(block == null)
                 return;
-            bs = block.onBlockPlaced(world, new BlockPos(x, y, z), facing, x, y, z, material.getMetadata(), player);
+//            bs = block.onBlockPlaced(world, new BlockPos(x, y, z), facing, x, y, z, material.getMetadata(), player);
+            bs = block.getDefaultState();
         }
 
         NBTTagCompound nbt = CNBT.ensureCompound(stack);
@@ -116,7 +118,8 @@ public class ItemTrowel extends ItemBase {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+        ItemStack stack = player.getHeldItem(hand);
         if(player.isSneaking() && !world.isRemote){
             NBTTagCompound nbt = CNBT.ensureCompound(stack);
             int length = CNBT.ensureInt(nbt, "length", 1) + 1;
@@ -124,7 +127,7 @@ public class ItemTrowel extends ItemBase {
             if(length > maxLength)
                 length = 1;
 
-            player.addChatComponentMessage(new TextComponentString(Integer.toString(length)));
+            player.sendMessage(new TextComponentString(Integer.toString(length)));
             player.swingArm(hand);
 
             nbt.setInteger("length", length);
@@ -133,7 +136,8 @@ public class ItemTrowel extends ItemBase {
     }
 
     @Override
-    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        ItemStack stack = player.getHeldItem(hand);
         buildOrSelect(stack, player, world, pos.getX(), pos.getY(), pos.getZ(), facing, null);
         player.swingArm(hand);
         return EnumActionResult.SUCCESS;

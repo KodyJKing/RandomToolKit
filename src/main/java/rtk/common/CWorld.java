@@ -15,12 +15,12 @@ public class CWorld {
     }
 
     public static void safeReplaceBlock(World world, BlockPos pos, IBlockState state, int flags){
-        safeRemoveBlock(world, pos);
-        world.notifyBlockUpdate(pos, Blocks.AIR.getDefaultState(), state, flags);
+        safeRemoveBlock(world, pos, flags);
+//        world.notifyBlockUpdate(pos, Blocks.AIR.getDefaultState(), state, flags);
         world.setBlockState(pos, state, flags);
     }
 
-    public static void safeRemoveBlock(World world, BlockPos pos){
+    public static void safeRemoveBlock(World world, BlockPos pos, int flags){
         if(world.getBlockState(pos).getBlock() == Blocks.AIR)
             return;
 
@@ -37,7 +37,10 @@ public class CWorld {
         if (extendedblockstorage == Chunk.NULL_BLOCK_STORAGE)
             return;
 
-        extendedblockstorage.set(dx, y & 15, dz, Blocks.AIR.getDefaultState());
+        extendedblockstorage.set(dx, y & 15, dz, Blocks.STONE.getDefaultState());
         chunk.setModified(true);
+
+        // Set it to air using the standard method so Minecraft can do bookkeeping like light updates.
+        world.setBlockState(pos, Blocks.AIR.getDefaultState(), flags);
     }
 }

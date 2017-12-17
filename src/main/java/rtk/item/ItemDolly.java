@@ -2,6 +2,7 @@ package rtk.item;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -43,7 +44,8 @@ public class ItemDolly extends ItemBase {
     }
 
     @Override
-    public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+    public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+        ItemStack stack = player.getHeldItem(hand);
         NBTTagCompound nbt = CNBT.ensureCompound(stack);
 
         if(world.isRemote)
@@ -56,7 +58,7 @@ public class ItemDolly extends ItemBase {
         }
 
         if(nbt.hasKey("container") && CWorld.shouldReplace(world, pos.offset(side))){
-            CNBT.placeBlockFromNBT(world, pos.offset(side), nbt.getCompoundTag("container"), player, side, hitX, hitY, hitZ);
+            CNBT.placeBlockFromNBT(world, pos.offset(side), nbt.getCompoundTag("container"), player, hand, side, hitX, hitY, hitZ);
             nbt.removeTag("container");
             return EnumActionResult.SUCCESS;
         }
@@ -70,8 +72,8 @@ public class ItemDolly extends ItemBase {
     }
 
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
-        super.addInformation(stack, player, tooltip, advanced);
+    public void addInformation(ItemStack stack, @Nullable World world, List<String> tooltip, ITooltipFlag flag) {
+        super.addInformation(stack, world, tooltip, flag);
         if(stack.hasTagCompound() && stack.getTagCompound().hasKey("container")){
             NBTTagCompound content = stack.getTagCompound().getCompoundTag("container");
             IBlockState bs = Block.getStateById(content.getInteger("stateID"));

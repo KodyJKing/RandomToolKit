@@ -1,43 +1,31 @@
 package rtk;
 
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.event.RegistryEvent.Register;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.registries.IForgeRegistry;
 import rtk.item.*;
 
 public class ModItems {
     public static Item
             devTool, trowel, hotplate,
-            hotplateEtched, needle, toolbox,
-            toolbelt, dolly, earthStrider,
-            earthStriderDrained, barometer,
-            hotSword, netherPearl, eyeOfNether;
+            hotplateEtched, dolly, barometer;
 
-    public static void init() {
-        devTool = register(new ItemDevTool("devTool"));
+    @SubscribeEvent
+    public void onItemRegistry(Register<Item> event) {
+        IForgeRegistry<Item> registry = event.getRegistry();
 
-        trowel = register(new ItemTrowel("trowel"));
-        hotplate = register(new ItemHotplate("hotplate", false));
-        hotplateEtched = register(new ItemHotplate("hotplateEtched", true));
-        needle = register(new ItemNeedle("needle"));
-        toolbox = register(new ItemToolbox("toolbox"));
-        toolbelt = register(new ItemToolbelt("toolbelt"));
-        dolly = register(new ItemDolly("dolly"));
-        earthStrider = register(new ItemEarthStrider("earthStrider"));
-        earthStriderDrained = register(new ItemBase("earthStrider_drained"));
-        barometer = register(new ItemBarometer("barometer"));
-        hotSword = register(new ItemHotSword("hotSword"));
-        netherPearl = register(new ItemBase("netherPearl")).setMaxStackSize(16);
-        eyeOfNether = register(new ItemEyeOfNether("eyeOfNether"));
+        devTool = register(new ItemDevTool("devtool"), registry);
+
+        barometer = register(new ItemBarometer("barometer"), registry);
+        trowel = register(new ItemTrowel("trowel"), registry);
+        hotplate = register(new ItemHotplate("hotplate", false), registry);
+        hotplateEtched = register(new ItemHotplate("hotplateetched", true), registry);
+        dolly = register(new ItemDolly("dolly"), registry);
     }
 
-    private static <T extends Item> T register(T item) {
-        GameRegistry.register(item);
-
-        if (item instanceof ItemBase) {
-            ((ItemBase)item).init();
-        }
-
+    private static <T extends Item> T register(T item, IForgeRegistry<Item> registry) {
+        registry.register(item);
         return item;
     }
 }

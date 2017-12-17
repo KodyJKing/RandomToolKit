@@ -9,6 +9,4 @@ public class CommonProxy {
     }
 
     public void ignoreProperty(Block block, IProperty property){}
-
-    public void registerEntityRendering() {}
 }
