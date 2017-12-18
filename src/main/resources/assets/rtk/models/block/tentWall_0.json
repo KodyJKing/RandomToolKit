@@ -3,12 +3,12 @@
   "forge_marker": 1,
    "parent": "block/cube",
     "textures": {
-        "down": "rtk:blocks/emergencyTentWall",
-        "up":  "rtk:blocks/emergencyTentWall",
-        "north":  "rtk:blocks/emergencyTentWall",
-        "east":  "rtk:blocks/emergencyTentWall",
-        "south":  "rtk:blocks/emergencyTentWall",
-        "west":  "rtk:blocks/emergencyTentWall",
-        "particle":  "rtk:blocks/emergencyTentWall"
+        "down": "rtk:blocks/emergencytentwall",
+        "up":  "rtk:blocks/emergencytentwall",
+        "north":  "rtk:blocks/emergencytentwall",
+        "east":  "rtk:blocks/emergencytentwall",
+        "south":  "rtk:blocks/emergencytentwall",
+        "west":  "rtk:blocks/emergencytentwall",
+        "particle":  "rtk:blocks/emergencytentwall"
     }
 }

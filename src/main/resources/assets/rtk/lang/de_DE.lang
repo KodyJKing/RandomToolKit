@@ -31,48 +31,48 @@ item.barometer.name=Barometer
 item.barometer.elevation=Höhe: %s
 item.barometer.tooltip=Rechtsklick zum Anzeigen der Höhe.
 
-item.hotSword.name=Glühendes 1000 Grad-Schwert
-item.hotSword.tooltip=Bereitet schweren Feuerschaden, aber kühlt schnell ab.
+item.hotsword.name=Glühendes 1000 Grad-Schwert
+item.hotsword.tooltip=Bereitet schweren Feuerschaden, aber kühlt schnell ab.
 
-item.netherPearl.name=Netherperle
-item.eyeOfNether.tooltip=Teleportiert den Spieler direkt zum und aus dem Nether.
+item.netherpearl.name=Netherperle
+item.eyeofnether.tooltip=Teleportiert den Spieler direkt zum und aus dem Nether.
 
-item.eyeOfNether.name=Netherauge
-item.eyeOfNether.tooltip=Erzürnt and lockt sichtbare Endermen an.
+item.eyeofnether.name=Netherauge
+item.eyeofnether.tooltip=Erzürnt and lockt sichtbare Endermen an.
 
-tile.baseTent.blocked=Etwas blockiert dein Zelt!
-tile.baseTent.insufficientFuel=Du brauchst mehr Brennstoff!
+tile.basetent.blocked=Etwas blockiert dein Zelt!
+tile.basetent.insufficientFuel=Du brauchst mehr Brennstoff!
 
-tile.emergencyTent.name=Notfallzelt
-tile.emergencyTent.tooltip=Ein unmittelbares 9x9-Zelt für schwere Zeiten.;Rechtsklick zum Aufstellen.
+tile.emergencytent.name=Notfallzelt
+tile.emergencytent.tooltip=Ein unmittelbares 9x9-Zelt für schwere Zeiten.;Rechtsklick zum Aufstellen.
 
 tile.tent.name=Zelt
 tile.tent.tooltip=Ein wiederverwendbares Zelt.;Rechtsklick mit 8 Kohle/Holzkohle zum Aufstellen.
 
-tile.diversTent.name=Zelt des Tauchers
-tile.diversTent.tooltip=Funktioniert unter Wasser!;Rechtsklick mit 32 Kohle/Holzkohle zum Aufstellen.
+tile.diverstent.name=Zelt des Tauchers
+tile.diverstent.tooltip=Funktioniert unter Wasser!;Rechtsklick mit 32 Kohle/Holzkohle zum Aufstellen.
 
-tile.enderTent.name=Enderzelt
-tile.enderTent.tooltip=Ein Zauberzelt, das bei der Aufnahme seinen Innenraum behalten kann.;Rechtsklick mit 16 Enderperlen zum Aufstellen.
+tile.endertent.name=Enderzelt
+tile.endertent.tooltip=Ein Zauberzelt, das bei der Aufnahme seinen Innenraum behalten kann.;Rechtsklick mit 16 Enderperlen zum Aufstellen.
 
-tile.diversEnderTent.name=Enderzelt des Tauchers
-tile.diversEnderTent.tooltip=Kombiniert das Zelt des Tauchers mit dem Enderzelt.;Rechtsklick mit 16 Enderperlen zum Aufstellen.
+tile.diversendertent.name=Enderzelt des Tauchers
+tile.diversendertent.tooltip=Kombiniert das Zelt des Tauchers mit dem Enderzelt.;Rechtsklick mit 16 Enderperlen zum Aufstellen.
 
-tile.tentWall.0.name=Notfallzeltwand
-tile.tentWall.1.name=Zeltwand
-tile.tentWall.2.name=Zelt des Tauchers-Wand
-tile.tentWall.3.name=Enderzeltwand
-tile.tentWall.4.name=Notfallzeltwand
-tile.tentWall.5.name=Enderzelt des Tauchers-Wand
+tile.tentwall.0.name=Notfallzeltwand
+tile.tentwall.1.name=Zeltwand
+tile.tentwall.2.name=Zelt des Tauchers-Wand
+tile.tentwall.3.name=Enderzeltwand
+tile.tentwall.4.name=Notfallzeltwand
+tile.tentwall.5.name=Enderzelt des Tauchers-Wand
 
 tile.levitator.name=Schweber
 tile.levitator.tooltip=Sendet einen magischen Strahl aus, der Lebewesen fortbewegt.;Benötigt ein Redstone-Signal.
 
-tile.ultraDispenser.name=Spender 9000
-tile.ultraDispenser.tooltip=Rechtsklick zum Abfeuern.;Shift-Rechtsklick zum Platzieren.
+tile.ultradispenser.name=Spender 9000
+tile.ultradispenser.tooltip=Rechtsklick zum Abfeuern.;Shift-Rechtsklick zum Platzieren.
 
 tile.fouriertransformer.name=Fourier-Transformer
 tile.fouriertransformer.tooltip=Sendet und empfängt Lebewesen über Redstone-Leitungen.;Der Empfänger muss mit Redstone versorgt werden.;Der Absender muss einen Redstone-Impuls bekommen.
 
-entity.rtk.eyeOfNether.name=Netherauge
-entity.rtk.skeletonPriest.name=Skelettpriester
+entity.rtk.eyeofnether.name=Netherauge
+entity.rtk.skeletonpriest.name=Skelettpriester

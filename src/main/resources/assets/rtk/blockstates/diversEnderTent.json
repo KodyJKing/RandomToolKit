@@ -2,7 +2,7 @@
   "forge_marker": 1,
   "defaults": {
     "textures": {
-      "all": "rtk:blocks/diversEnderTent"
+      "all": "rtk:blocks/diversendertent"
     }
   },
   "variants": {

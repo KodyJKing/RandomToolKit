@@ -7,16 +7,16 @@
   },
   "variants": {
     "normal": {
-      "model": "rtk:ultraDispenser"
+      "model": "rtk:ultradispenser"
     },
     "inventory": {
-      "model": "rtk:ultraDispenser"
+      "model": "rtk:ultradispenser"
     },
-    "facing=down":  { "model": "rtk:ultraDispenser_vertical", "x": 180 },
-    "facing=up":    { "model": "rtk:ultraDispenser_vertical" },
-    "facing=north": { "model": "rtk:ultraDispenser" },
-    "facing=south": { "model": "rtk:ultraDispenser", "y": 180 },
-    "facing=west":  { "model": "rtk:ultraDispenser", "y": 270 },
-    "facing=east":  { "model": "rtk:ultraDispenser", "y": 90 }
+    "facing=down":  { "model": "rtk:ultradispenser_vertical", "x": 180 },
+    "facing=up":    { "model": "rtk:ultradispenser_vertical" },
+    "facing=north": { "model": "rtk:ultradispenser" },
+    "facing=south": { "model": "rtk:ultradispenser", "y": 180 },
+    "facing=west":  { "model": "rtk:ultradispenser", "y": 270 },
+    "facing=east":  { "model": "rtk:ultradispenser", "y": 90 }
   }
 }

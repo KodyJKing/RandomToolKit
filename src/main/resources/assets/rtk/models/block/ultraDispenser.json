@@ -3,7 +3,7 @@
     "parent": "block/orientable",
     "textures": {
         "top": "blocks/iron_block",
-        "front": "rtk:blocks/ultraDispenser_front_horizontal",
-        "side": "rtk:blocks/ultraDispenser_side"
+        "front": "rtk:blocks/ultradispenser_front_horizontal",
+        "side": "rtk:blocks/ultradispenser_side"
     }
 }

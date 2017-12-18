@@ -17,7 +17,8 @@ public class ModItems {
     public static Item
             devTool, trowel, hotplate,
             hotplateEtched, dolly, barometer,
-            toolbelt, earthStrider, earthStriderDrained;
+            toolbelt, earthStrider, earthStriderDrained,
+            hotSword;
 
     public ModItems() {
         devTool = add(new ItemDevTool("devtool"));
@@ -29,6 +30,7 @@ public class ModItems {
         toolbelt = add(new ItemToolbelt("toolbelt"));
         earthStrider = add(new ItemEarthStrider("earthstrider"));
         earthStriderDrained = add(new ItemBase("earthstrider_drained"));
+        hotSword = add(new ItemHotSword("hotsword"));
     }
 
     @SubscribeEvent
