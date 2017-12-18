@@ -23,7 +23,7 @@ public class BlockHole extends BlockBase {
     }
 
     @Override
-    public void initItem(ItemBlock item) {
+    public void init(ItemBlock item) {
     }
 
     public EnumBlockRenderType getRenderType(IBlockState state)

@@ -11,6 +11,7 @@ import rtk.RTK;
 public class ClientProxy extends CommonProxy {
     @Override
     public void registerItemRenderer(Item item, int meta, String name) {
+//        System.out.println("Registering rendering for ITEM: " + item.getUnlocalizedName() + " with NAME: " + name);
         ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(RTK.modId + ":" + name, "inventory"));
     }
 

@@ -1,7 +1,6 @@
 package rtk.block;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.BlockRedstoneWire;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -15,14 +14,12 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import rtk.RTK;
 import rtk.common.CMath;
@@ -42,8 +39,8 @@ public class BlockFourierTransformer extends BlockBaseDirectional {
     }
 
     @Override
-    public void initItem(ItemBlock item) {
-        super.initItem(item);
+    public void init(ItemBlock item) {
+        super.init(item);
         RTK.proxy.ignoreProperty(this, TRIGGERED);
     }
 

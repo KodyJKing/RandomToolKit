@@ -32,7 +32,7 @@ public class BlockBase extends Block {
         setRegistryName(name);
     }
 
-    public void initItem(ItemBlock item) {
+    public void init(ItemBlock item) {
         RTK.proxy.registerItemRenderer(item, 0, name);
     }
 

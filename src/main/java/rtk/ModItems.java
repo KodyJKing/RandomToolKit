@@ -1,9 +1,12 @@
 package rtk;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
+import rtk.block.BlockBase;
 import rtk.item.*;
 
 import java.util.ArrayList;
@@ -33,7 +36,14 @@ public class ModItems {
         IForgeRegistry<Item> registry = event.getRegistry();
         for (Item item: toRegister) {
             registry.register(item);
-            if (item instanceof ItemBase)((ItemBase)item).init();
+            if (item instanceof ItemBase) {
+                ((ItemBase)item).init();
+            } else if (item instanceof ItemBlock) {
+                ItemBlock itemBlock = (ItemBlock)item;
+                Block block = itemBlock.getBlock();
+                if (block instanceof BlockBase)
+                    ((BlockBase)block).init(itemBlock);
+            }
         }
     }
 

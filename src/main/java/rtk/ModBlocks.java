@@ -1,7 +1,6 @@
 package rtk;
 
 import net.minecraft.block.Block;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.event.RegistryEvent;
@@ -21,7 +20,7 @@ public class ModBlocks {
     public ModBlocks() {
         levitator = add(new BlockLevitator("levitator"));
         hole = add(new BlockHole("hole"));
-//        fourierTransformer = add(new BlockFourierTransformer("fouriertransformer"));
+        fourierTransformer = add(new BlockFourierTransformer("fouriertransformer"));
     }
 
     @SubscribeEvent
@@ -30,7 +29,7 @@ public class ModBlocks {
         for (Block block: toRegister) registry.register(block);
     }
 
-    static HashSet<Class<? extends TileEntity>> registeredTEs = new HashSet<Class<? extends TileEntity>>();
+    static HashSet<Class<? extends TileEntity>> registeredTEs = new HashSet<>();
     public static <T extends Block> T add(T block) {
         toRegister.add(block);
 
@@ -45,12 +44,12 @@ public class ModBlocks {
         if (block instanceof BlockBase) {
             BlockBase b = (BlockBase)block;
 
-            b.initItem(itemBlock);
+//            b.init(itemBlock);
 
             if(b.hasTileEntity() && !registeredTEs.contains(b.getTileEntityClass())){
                 registeredTEs.add(b.getTileEntityClass());
                 GameRegistry.registerTileEntity(b.getTileEntityClass(), b.getUnlocalizedName());
-                System.out.println("Registered tile entity: " + b.getUnlocalizedName());
+//                System.out.println("Registered tile entity: " + b.getUnlocalizedName());
             }
         }
 
