@@ -41,7 +41,7 @@ item.eyeofnether.name=Netherauge
 item.eyeofnether.tooltip=Erzürnt and lockt sichtbare Endermen an.
 
 tile.basetent.blocked=Etwas blockiert dein Zelt!
-tile.basetent.insufficientFuel=Du brauchst mehr Brennstoff!
+tile.basetent.insufficientfuel=Du brauchst mehr Brennstoff!
 
 tile.emergencytent.name=Notfallzelt
 tile.emergencytent.tooltip=Ein unmittelbares 9x9-Zelt für schwere Zeiten.;Rechtsklick zum Aufstellen.

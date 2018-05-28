@@ -2,11 +2,19 @@ package rtk.proxy;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMap;
+import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.client.registry.IRenderFactory;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import rtk.ModItems;
 import rtk.RTK;
+import rtk.entity.EntityEyeOfNether;
 
 public class ClientProxy extends CommonProxy {
     @Override
@@ -18,5 +26,14 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void ignoreProperty(Block block, IProperty property) {
         ModelLoader.setCustomStateMapper(block, (new StateMap.Builder()).ignore(property).build());
+    }
+
+    @Override
+    public void preInit() {
+        RenderingRegistry.registerEntityRenderingHandler(
+                EntityEyeOfNether.class,
+                (RenderManager manager) ->
+                        new RenderSnowball<>(manager, ModItems.eyeOfNether, Minecraft.getMinecraft().getRenderItem())
+        );
     }
 }

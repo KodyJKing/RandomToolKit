@@ -41,7 +41,7 @@ item.eyeofnether.name=Eye Of Nether
 item.eyeofnether.tooltip=Enrages and lures visible Endermen.
 
 tile.basetent.blocked=Something is blocking your tent!
-tile.basetent.insufficientFuel=You need more fuel!
+tile.basetent.insufficientfuel=You need more fuel!
 
 tile.emergencytent.name=Emergency Tent
 tile.emergencytent.tooltip=An instant 9x9 for dire straits.;Right click to deploy.

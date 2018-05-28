@@ -15,12 +15,19 @@ import java.util.List;
 
 public class ModBlocks {
     private static List<Block> toRegister = new ArrayList<>();
-    public static BlockBase levitator, hole, fourierTransformer;
+    public static BlockBase levitator, hole, fourierTransformer, tent, emergencyTent, diversTent, enderTent, diversEnderTent;
+    public static BlockTentWall tentWall;
 
     public ModBlocks() {
         levitator = add(new BlockLevitator("levitator"));
         hole = add(new BlockHole("hole"));
         fourierTransformer = add(new BlockFourierTransformer("fouriertransformer"));
+        tent = add(new BlockTentBreakable("tent"));
+        emergencyTent = add(new BlockEmergencyTent("emergencytent"));
+        diversTent = add(new BlockDiversTent("diverstent"));
+        enderTent = add(new BlockEnderTent("endertent"));
+        diversEnderTent = add(new BlockDiversEnderTent("diversendertent"));
+        tentWall = add(new BlockTentWall("tentwall"));
     }
 
     @SubscribeEvent

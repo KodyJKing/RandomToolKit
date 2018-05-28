@@ -18,7 +18,7 @@ public class ModItems {
             devTool, trowel, hotplate,
             hotplateEtched, dolly, barometer,
             toolbelt, earthStrider, earthStriderDrained,
-            hotSword;
+            hotSword, eyeOfNether;
 
     public ModItems() {
         devTool = add(new ItemDevTool("devtool"));
@@ -31,6 +31,7 @@ public class ModItems {
         earthStrider = add(new ItemEarthStrider("earthstrider"));
         earthStriderDrained = add(new ItemBase("earthstrider_drained"));
         hotSword = add(new ItemHotSword("hotsword"));
+        eyeOfNether = add(new ItemEyeOfNether("eyeofnether"));
     }
 
     @SubscribeEvent

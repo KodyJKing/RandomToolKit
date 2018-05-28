@@ -1,10 +1,13 @@
 package rtk;
 
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
+import rtk.entity.EntityEyeOfNether;
 import rtk.proxy.CommonProxy;
 
 @Mod(modid = RTK.modId, name = RTK.name, version = RTK.version, acceptedMinecraftVersions = "[1.12.2]")
@@ -25,6 +28,13 @@ public class RTK {
         System.out.println(name + " is loading!");
         MinecraftForge.EVENT_BUS.register(new ModItems());
         MinecraftForge.EVENT_BUS.register(new ModBlocks());
+        proxy.preInit();
+
+        EntityRegistry.registerModEntity(
+                new ResourceLocation(modId, "eyeofnether"),
+                EntityEyeOfNether.class, modId + ".eyeofnether",
+                2, this, 80, 1,
+                true);
     }
 
     @Mod.EventHandler
