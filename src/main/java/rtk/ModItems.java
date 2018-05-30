@@ -1,43 +1,64 @@
 package rtk;
 
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraft.item.ItemBlock;
+import net.minecraftforge.event.RegistryEvent.Register;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.registries.IForgeRegistry;
+import rtk.block.BlockBase;
 import rtk.item.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ModItems {
+    private static List<Item> toRegister = new ArrayList<>();
     public static Item
             devTool, trowel, hotplate,
-            hotplateEtched, needle, toolbox,
-            toolbelt, dolly, earthStrider,
-            earthStriderDrained, barometer,
-            hotSword, netherPearl, eyeOfNether;
+            hotplateEtched, needle, dolly, barometer,
+            toolbelt, earthStrider, earthStriderDrained,
+            hotSword, netherPearl, eyeOfNether, toolbox;
 
-    public static void init() {
-        devTool = register(new ItemDevTool("devTool"));
-
-        trowel = register(new ItemTrowel("trowel"));
-        hotplate = register(new ItemHotplate("hotplate", false));
-        hotplateEtched = register(new ItemHotplate("hotplateEtched", true));
-        needle = register(new ItemNeedle("needle"));
-        toolbox = register(new ItemToolbox("toolbox"));
-        toolbelt = register(new ItemToolbelt("toolbelt"));
-        dolly = register(new ItemDolly("dolly"));
-        earthStrider = register(new ItemEarthStrider("earthStrider"));
-        earthStriderDrained = register(new ItemBase("earthStrider_drained"));
-        barometer = register(new ItemBarometer("barometer"));
-        hotSword = register(new ItemHotSword("hotSword"));
-        netherPearl = register(new ItemBase("netherPearl")).setMaxStackSize(16);
-        eyeOfNether = register(new ItemEyeOfNether("eyeOfNether"));
+    public void init() {
+        devTool = add(new ItemDevTool("devtool"));
+        barometer = add(new ItemBarometer("barometer"));
+        trowel = add(new ItemTrowel("trowel"));
+        hotplate = add(new ItemHotplate("hotplate", false));
+        hotplateEtched = add(new ItemHotplate("hotplateetched", true));
+        needle = add(new ItemNeedle("needle"));
+        dolly = add(new ItemDolly("dolly"));
+        toolbelt = add(new ItemToolbelt("toolbelt"));
+        earthStrider = add(new ItemEarthStrider("earthstrider"));
+        earthStriderDrained = add(new ItemBase("earthstrider_drained"));
+        hotSword = add(new ItemHotSword("hotsword"));
+        netherPearl = add(new ItemBase("netherpearl")).setMaxStackSize(16);
+        eyeOfNether = add(new ItemEyeOfNether("eyeofnether"));
+        toolbox = add(new ItemToolbox("toolbox"));
     }
 
-    private static <T extends Item> T register(T item) {
-        GameRegistry.register(item);
-
-        if (item instanceof ItemBase) {
-            ((ItemBase)item).init();
+    @SubscribeEvent
+    public void onItemRegistry(Register<Item> event) {
+        init();
+        System.out.println("RTK is registering items...");
+        IForgeRegistry<Item> registry = event.getRegistry();
+        for (Item item: toRegister) {
+            registry.register(item);
+            if (item instanceof ItemBase) {
+                ((ItemBase)item).init();
+            } else if (item instanceof ItemBlock) {
+                ItemBlock itemBlock = (ItemBlock)item;
+                Block block = itemBlock.getBlock();
+                if (block instanceof BlockBase)
+                    ((BlockBase)block).init(itemBlock);
+            }
         }
+        toRegister.clear();
+    }
 
+
+    public static <T extends Item> T add(T item) {
+        toRegister.add(item);
         return item;
     }
 }

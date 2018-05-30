@@ -43,7 +43,7 @@ public class EntityEyeOfNether extends EntityLiving {
         motionY = 0;
         motionZ = 0;
 
-        List<EntityEnderman> endermen = worldObj.getEntitiesWithinAABB(EntityEnderman.class, getEntityBoundingBox().expandXyz(100));
+        List<EntityEnderman> endermen = world.getEntitiesWithinAABB(EntityEnderman.class, getEntityBoundingBox().grow(100));
         for(EntityEnderman entity: endermen){
             if(cooldown-- > 0 || entity.getAttackTarget() == this)
                 continue;
@@ -51,7 +51,7 @@ public class EntityEyeOfNether extends EntityLiving {
             Vec3d pos = getPositionVector();
             Vec3d eye = entity.getPositionVector().addVector(0, entity.getEyeHeight(), 0);
 
-            RayTraceResult hit = worldObj.rayTraceBlocks(pos, eye);
+            RayTraceResult hit = world.rayTraceBlocks(pos, eye);
             if(hit != null && hit.typeOfHit != RayTraceResult.Type.MISS && hit.hitVec.squareDistanceTo(pos) < eye.squareDistanceTo(pos))
                 continue;
 
@@ -60,17 +60,18 @@ public class EntityEyeOfNether extends EntityLiving {
         }
 
 
-        if(worldObj.isRemote){
+        if(world.isRemote){
             Vec3d pos = getPositionVector().add(CMath.randomVector(0.2));
             Vec3d vel = CMath.randomVector(0.1).addVector(0, 0.2, 0);
-            worldObj.spawnParticle(EnumParticleTypes.FLAME, pos.xCoord, pos.yCoord, pos.zCoord, vel.xCoord, vel.yCoord, vel.zCoord);
+            world.spawnParticle(EnumParticleTypes.FLAME, pos.x, pos.y, pos.z, vel.x, vel.y, vel.z);
 
             pos = getPositionVector().add(CMath.randomVector(0.3));
             vel = CMath.randomVector(0.1).addVector(0, 0.1, 0);
-            worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, pos.xCoord, pos.yCoord, pos.zCoord, vel.xCoord, vel.yCoord, vel.zCoord);
+            world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, pos.x, pos.y, pos.z, vel.x, vel.y, vel.z);
         }
     }
 
+    @Override
     public float getCollisionBorderSize()
     {
         return 0.2F;
@@ -78,22 +79,22 @@ public class EntityEyeOfNether extends EntityLiving {
 
     @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
-        if(!worldObj.isRemote && isEntityAlive()){
+        if(!world.isRemote && isEntityAlive()){
             setDead();
             entityDropItem(new ItemStack(ModItems.eyeOfNether), 0);
-            worldObj.playSound(null, posX, posY, posZ, SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.BLOCKS, 1, 1);
+            world.playSound(null, posX, posY, posZ, SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.BLOCKS, 1, 1);
         }
         return true;
     }
 
-    public float getBrightness(float partialTicks)
-    {
+    @Override
+    public float getBrightness() {
         return 1.0F;
     }
 
     @SideOnly(Side.CLIENT)
-    public int getBrightnessForRender(float partialTicks)
-    {
+    @Override
+    public int getBrightnessForRender() {
         return 15728880;
     }
 }

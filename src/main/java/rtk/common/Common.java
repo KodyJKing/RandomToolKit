@@ -51,7 +51,7 @@ public class Common {
         Vec3d eyePos = new Vec3d(entity.posX, entity.posY + (double)entity.getEyeHeight(), entity.posZ);
         Vec3d look = entity.getLookVec();
         Vec3d endPoint = eyePos.add(look.scale(distance));
-        return entity.worldObj.rayTraceBlocks(eyePos, endPoint, false, false, true);
+        return entity.world.rayTraceBlocks(eyePos, endPoint, false, false, true);
     }
 
 }

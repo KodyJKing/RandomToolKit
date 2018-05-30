@@ -1,17 +1,14 @@
 package rtk.inventory;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import rtk.common.CNBT;
 
-import javax.annotation.Nullable;
+import java.util.Arrays;
 
 public abstract class InventoryStack implements IInventory {
 
@@ -48,14 +45,11 @@ public abstract class InventoryStack implements IInventory {
             saveAt(i);
     }
 
-    public void loadAt(int index){
-        inventory[index] = ItemStack.loadItemStackFromNBT(getNBTAt(index));
-    }
+    public void loadAt(int index){ inventory[index] = new ItemStack(getNBTAt(index)); }
 
     public void saveAt(int index){
         NBTTagCompound nbt = new NBTTagCompound();
-        if(inventory[index] != null)
-            inventory[index].writeToNBT(nbt);
+        inventory[index].writeToNBT(nbt);
         getInventoryList().set(index, nbt);
     }
 
@@ -67,35 +61,32 @@ public abstract class InventoryStack implements IInventory {
         onChange();
     }
 
-    @Nullable
     @Override
     public ItemStack getStackInSlot(int index) {
         loadAt(index);
         return inventory[index];
     }
 
-    @Nullable
     @Override
     public ItemStack decrStackSize(int index, int count) {
         loadAt(index);
-        ItemStack result = ItemStackHelper.getAndSplit(inventory, index, count);
+        ItemStack result = ItemStackHelper.getAndSplit(Arrays.asList(inventory), index, count);
         saveAt(index);
         onChange();
         return result;
     }
 
-    @Nullable
     @Override
     public ItemStack removeStackFromSlot(int index) {
         loadAt(index);
-        ItemStack result = ItemStackHelper.getAndRemove(inventory, index);
+        ItemStack result = ItemStackHelper.getAndRemove(Arrays.asList(inventory), index);
         saveAt(index);
         onChange();
         return result;
     }
 
     @Override
-    public void setInventorySlotContents(int index, @Nullable ItemStack stack) {
+    public void setInventorySlotContents(int index, ItemStack stack) {
         inventory[index] = stack;
         saveAt(index);
         onChange();
@@ -109,7 +100,7 @@ public abstract class InventoryStack implements IInventory {
     }
 
     @Override
-    public boolean isUseableByPlayer(EntityPlayer player) {
+    public boolean isUsableByPlayer(EntityPlayer player) {
         return player.getHeldItemMainhand() == stack || player.getHeldItemOffhand() == stack;
     }
 

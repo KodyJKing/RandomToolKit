@@ -2,13 +2,9 @@ package rtk.inventory;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import rtk.common.Common;
-
-import javax.annotation.Nullable;
 
 public class ContainerToolbox extends Container {
     private final InventoryToolbox toolboxInv;
@@ -51,18 +47,19 @@ public class ContainerToolbox extends Container {
     /**
      * Determines whether supplied player can use this container
      */
+    @Override
     public boolean canInteractWith(EntityPlayer playerIn)
     {
-        return this.toolboxInv.isUseableByPlayer(playerIn);
+        return this.toolboxInv.isUsableByPlayer(playerIn);
     }
 
     /**
      * Take a stack from the specified inventory slot.
      */
-    @Nullable
+    @Override
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
     {
-        ItemStack itemstack = null;
+        ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = (Slot)this.inventorySlots.get(index);
 
         if (slot != null && slot.getHasStack())
@@ -74,17 +71,17 @@ public class ContainerToolbox extends Container {
             {
                 if (!this.mergeItemStack(itemstack1, this.numRows * 9, this.inventorySlots.size(), true))
                 {
-                    return null;
+                    return ItemStack.EMPTY;
                 }
             }
             else if (!this.mergeItemStack(itemstack1, 0, this.numRows * 9, false))
             {
-                return null;
+                return ItemStack.EMPTY;
             }
 
-            if (itemstack1.stackSize == 0)
+            if (itemstack1.getCount() == 0)
             {
-                slot.putStack((ItemStack)null);
+                slot.putStack(ItemStack.EMPTY);
             }
             else
             {
@@ -98,6 +95,7 @@ public class ContainerToolbox extends Container {
     /**
      * Called when the container is closed.
      */
+    @Override
     public void onContainerClosed(EntityPlayer playerIn)
     {
         this.toolboxInv.closeInventory(playerIn);

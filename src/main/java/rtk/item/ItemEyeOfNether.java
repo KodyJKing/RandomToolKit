@@ -18,16 +18,18 @@ public class ItemEyeOfNether extends ItemBase {
     }
 
     @Override
-    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        ItemStack stack = player.getHeldItem(hand);
+
         if(world.isRemote)
             return EnumActionResult.SUCCESS;
 
         EntityEyeOfNether e = new EntityEyeOfNether(world);
         pos = pos.offset(facing);
         e.setLocationAndAngles(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 0, 0);
-        world.spawnEntityInWorld(e);
+        world.spawnEntity(e);
 
-        stack.stackSize--;
+        stack.setCount(stack.getCount() - 1);
 
         return EnumActionResult.SUCCESS;
     }

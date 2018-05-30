@@ -8,16 +8,15 @@ import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import rtk.RTK;
 import rtk.common.CMath;
 import rtk.item.ItemBlockVariants;
 
-import java.util.List;
 import java.util.Random;
 
 public class BlockTentWall extends BlockBase {
@@ -82,9 +81,9 @@ public class BlockTentWall extends BlockBase {
     }
 
     @Override
-    public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
         for(Integer i : VARIANT.getAllowedValues())
-            list.add(new ItemStack(itemIn, 1, i));
+            items.add(new ItemStack(this, 1, i));
     }
 
     public IBlockState variant(int i){

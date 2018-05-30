@@ -5,10 +5,7 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.item.Item;
 
 public class CommonProxy {
-    public void registerItemRenderer(Item item, int meta, String name){
-    }
-
+    public void registerItemRenderer(Item item, int meta, String name){}
     public void ignoreProperty(Block block, IProperty property){}
-
-    public void registerEntityRendering() {}
+    public void preInit() {}
 }

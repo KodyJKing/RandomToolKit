@@ -16,12 +16,12 @@ public class GuiToolbox extends GuiContainer {
     private static final ResourceLocation CHEST_GUI_TEXTURE = new ResourceLocation("textures/gui/container/generic_54.png");
     private final InventoryPlayer playerInv;
     private final InventoryToolbox toolboxInv;
-    /** window height is calculated with these values; the more rows, the heigher */
+    /** window height is calculated with these values; the more rows, the higher */
     private final int inventoryRows;
 
     public GuiToolbox(InventoryPlayer upperInv, InventoryToolbox lowerInv)
     {
-        super(new ContainerToolbox(upperInv, lowerInv, Minecraft.getMinecraft().thePlayer));
+        super(new ContainerToolbox(upperInv, lowerInv, Minecraft.getMinecraft().player));
         this.playerInv = upperInv;
         this.toolboxInv = lowerInv;
         this.allowUserInput = false;
@@ -32,17 +32,30 @@ public class GuiToolbox extends GuiContainer {
     }
 
     /**
+     * Draws the screen and all the components in it.
+     */
+    @Override
+    public void drawScreen(int mouseX, int mouseY, float partialTicks)
+    {
+        this.drawDefaultBackground();
+        super.drawScreen(mouseX, mouseY, partialTicks);
+        this.renderHoveredToolTip(mouseX, mouseY);
+    }
+
+    /**
      * Draw the foreground layer for the GuiContainer (everything in front of the items)
      */
+    @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
     {
-        this.fontRendererObj.drawString(this.toolboxInv.getDisplayName().getUnformattedText(), 8, 6, 4210752);
-        this.fontRendererObj.drawString(this.playerInv.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, 4210752);
+        this.fontRenderer.drawString(this.toolboxInv.getDisplayName().getUnformattedText(), 8, 6, 4210752);
+        this.fontRenderer.drawString(this.playerInv.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, 4210752);
     }
 
     /**
      * Draws the background layer of this container (behind the items).
      */
+    @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)
     {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
@@ -60,4 +73,6 @@ public class GuiToolbox extends GuiContainer {
             return false;
         return super.checkHotbarKeys(keyCode);
     }
+
+
 }

@@ -108,7 +108,7 @@ public class BlockEnderTent extends BlockTent {
         }
 
         for(BlockPos otherPos : tentCube)
-            world.notifyNeighborsOfStateChange(otherPos, world.getBlockState(otherPos).getBlock());
+            world.notifyNeighborsOfStateChange(otherPos, world.getBlockState(otherPos).getBlock(), true);
     }
 
     public boolean tryGrabContents(World world, BlockPos pos){
@@ -155,7 +155,7 @@ public class BlockEnderTent extends BlockTent {
             getTileEntity(world, pos).readTent(stack.getTagCompound());
 
         EntityPlayer player = (EntityPlayer)placer;
-        if(player != null && player.capabilities.isCreativeMode && stack.stackSize == 1)
+        if(player != null && player.capabilities.isCreativeMode && stack.getCount() == 1)
             player.inventory.deleteStack(stack);
 
         super.onBlockPlacedBy(world, pos, state, placer, stack);
@@ -182,7 +182,7 @@ public class BlockEnderTent extends BlockTent {
 
         getTileEntity(world, pos).writeTent(CNBT.ensureCompound(drop));
         EntityItem item = new EntityItem(world, pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F, drop);
-        world.spawnEntityInWorld(item);
+        world.spawnEntity(item);
     }
 
     public ItemStack tentDrop(){

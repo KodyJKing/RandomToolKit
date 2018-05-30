@@ -1,7 +1,6 @@
 package rtk.block;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.BlockRedstoneWire;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -15,14 +14,12 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import rtk.RTK;
 import rtk.common.CMath;
@@ -48,12 +45,12 @@ public class BlockFourierTransformer extends BlockBaseDirectional {
     }
 
     @Override
-    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, ItemStack stack) {
-        return this.getDefaultState().withProperty(FACING, BlockPistonBase.getFacingFromEntity(pos, placer));
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+        return this.getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer));
     }
 
     @Override
-    public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn) {
+    public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn, BlockPos fromPos) {
         if(world.isRemote)
             return;
 
@@ -79,13 +76,13 @@ public class BlockFourierTransformer extends BlockBaseDirectional {
 
         for(Entity e : entities){
             if(e instanceof EntityPlayerMP)
-                ((EntityPlayerMP) e).connection.setPlayerLocation(destination.xCoord, destination.yCoord, destination.zCoord, e.rotationYaw, e.rotationPitch);
+                ((EntityPlayerMP) e).connection.setPlayerLocation(destination.x, destination.y, destination.z, e.rotationYaw, e.rotationPitch);
             else
-                e.setLocationAndAngles(destination.xCoord, destination.yCoord, destination.zCoord, e.rotationYaw, e.rotationPitch);
+                e.setLocationAndAngles(destination.x, destination.y, destination.z, e.rotationYaw, e.rotationPitch);
         }
 
         world.playSound(null, pos, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.BLOCKS, 0.5F, 1F);
-        world.playSound(null, destination.xCoord, destination.yCoord, destination.zCoord, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.BLOCKS, 0.5F, 1F);
+        world.playSound(null, destination.x, destination.y, destination.z, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.BLOCKS, 0.5F, 1F);
     }
 
     //Breadth first search for a suitable exit.

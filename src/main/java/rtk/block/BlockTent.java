@@ -31,9 +31,7 @@ public class BlockTent extends BlockBase {
         setResistance(0.5F);
     }
 
-    public IBlockState wall(){
-        return ModBlocks.tentWall.variant(1);
-    }
+    public IBlockState wall(){ return ModBlocks.tentWall.variant(1); }
 
     public int width(){
         return 9;
@@ -52,7 +50,7 @@ public class BlockTent extends BlockBase {
             return true;
         InventoryPlayer inv = player.inventory;
         ItemStack cur = inv.getCurrentItem();
-        return cur != null && cur.getItem() == fuelType() && cur.stackSize >= fuelCost();
+        return cur != null && cur.getItem() == fuelType() && cur.getCount() >= fuelCost();
     }
 
     public void spendFuel(EntityPlayer player){
@@ -60,7 +58,7 @@ public class BlockTent extends BlockBase {
             return;
         InventoryPlayer inv = player.inventory;
         ItemStack cur = inv.getCurrentItem();
-        if(cur.getItem() == fuelType() && cur.stackSize >= fuelCost()){
+        if(cur.getItem() == fuelType() && cur.getCount() >= fuelCost()){
             inv.decrStackSize(inv.currentItem, fuelCost());
         }
     }
@@ -84,12 +82,12 @@ public class BlockTent extends BlockBase {
 
     public boolean canBuildTent(World world, BlockPos pos, EntityPlayer player){
         if(!hasRoom(world, pos)){
-            player.addChatComponentMessage(new TextComponentTranslation("tile.baseTent.blocked"));
+            player.sendMessage(new TextComponentTranslation("tile.basetent.blocked"));
             return false;
         }
 
         if(!hasFuel(player)){
-            player.addChatComponentMessage(new TextComponentTranslation("tile.baseTent.insufficientFuel"));
+            player.sendMessage(new TextComponentTranslation("tile.basetent.insufficientfuel"));
             return false;
         }
 
@@ -141,7 +139,7 @@ public class BlockTent extends BlockBase {
     }
 
     @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, @Nullable ItemStack stack, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         if(!world.isRemote)
             return tryBuildTent(world, pos, player, side);
         return true;

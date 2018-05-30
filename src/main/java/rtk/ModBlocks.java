@@ -3,57 +3,67 @@ package rtk;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import rtk.udispenser.BlockUDispenser;
+import net.minecraftforge.registries.IForgeRegistry;
 import rtk.block.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 public class ModBlocks {
-    public static BlockBase emergencyTent, tent, diversTent, enderTent, diversEnderTent, levitator, ultraDispenser, hole, fourierTransformer;
-
+    private static List<Block> toRegister = new ArrayList<>();
+    public static BlockBase levitator, hole, fourierTransformer, tent, emergencyTent, diversTent, enderTent, diversEnderTent;
     public static BlockTentWall tentWall;
 
-    public static void init() {
-
-        emergencyTent = register(new BlockEmergencyTent("emergencyTent"));
-        tent = register(new BlockTentBreakable("tent"));
-        diversTent = register(new BlockDiversTent("diversTent"));
-        enderTent = register(new BlockEnderTent("enderTent"));
-        diversEnderTent = register(new BlockDiversEnderTent("diversEnderTent"));
-        tentWall = register(new BlockTentWall("tentWall"));
-        levitator = register(new BlockLevitator("levitator"));
-        //ultraDispenser = register(new BlockUDispenser("ultraDispenser"));
-        hole = register(new BlockHole("hole"));
-        fourierTransformer = register(new BlockFourierTransformer("fourierTransformer"));
+    public void init() {
+        levitator = add(new BlockLevitator("levitator"));
+        hole = add(new BlockHole("hole"));
+        fourierTransformer = add(new BlockFourierTransformer("fouriertransformer"));
+        tent = add(new BlockTentBreakable("tent"));
+        emergencyTent = add(new BlockEmergencyTent("emergencytent"));
+        diversTent = add(new BlockDiversTent("diverstent"));
+        enderTent = add(new BlockEnderTent("endertent"));
+        diversEnderTent = add(new BlockDiversEnderTent("diversendertent"));
+        tentWall = add(new BlockTentWall("tentwall"));
     }
 
-    static HashSet<Class<? extends TileEntity>> registeredTEs = new HashSet<Class<? extends TileEntity>>();
-    private static <T extends Block> T register(T block, ItemBlock itemBlock) {
-        GameRegistry.register(block);
-        GameRegistry.register(itemBlock);
-
-        if (block instanceof BlockBase) {
-            BlockBase b = (BlockBase)block;
-            b.init(itemBlock);
-            if(b.hasTileEntity() && !registeredTEs.contains(b.getTileEntityClass())){
-                registeredTEs.add(b.getTileEntityClass());
-                GameRegistry.registerTileEntity(b.getTileEntityClass(), b.getUnlocalizedName());
-                System.out.println("Registered tile entity: " + b.getUnlocalizedName());
-            }
-        }
-
-        return block;
+    @SubscribeEvent
+    public void onItemRegistry(RegistryEvent.Register<Block> event) {
+        init();
+        System.out.println("RTK is registering blocks...");
+        IForgeRegistry<Block> registry = event.getRegistry();
+        for (Block block: toRegister) registry.register(block);
+        toRegister.clear();
     }
 
-    private static <T extends Block> T register(T block) {
+    static HashSet<Class<? extends TileEntity>> registeredTEs = new HashSet<>();
+    public static <T extends Block> T add(T block) {
+        toRegister.add(block);
+
         ItemBlock itemBlock;
         if(block instanceof  BlockBase)
             itemBlock = ((BlockBase)block).createItemBlock(block);
         else
             itemBlock = new ItemBlock(block);
         itemBlock.setRegistryName(block.getRegistryName());
-        return register(block, itemBlock);
+        ModItems.add(itemBlock);
+
+        if (block instanceof BlockBase) {
+            BlockBase b = (BlockBase)block;
+
+//            b.init(itemBlock);
+
+            if(b.hasTileEntity() && !registeredTEs.contains(b.getTileEntityClass())){
+                registeredTEs.add(b.getTileEntityClass());
+                GameRegistry.registerTileEntity(b.getTileEntityClass(), b.getUnlocalizedName());
+//                System.out.println("Registered tile entity: " + b.getUnlocalizedName());
+            }
+        }
+
+        return block;
     }
 
 }

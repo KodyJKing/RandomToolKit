@@ -50,7 +50,7 @@ public class BlockLevitator extends BlockBaseDirectional {
 
     @Nullable
     @Override
-    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, World worldIn, BlockPos pos) {
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
         return getBoundingBox(blockState, worldIn, pos);
     }
 

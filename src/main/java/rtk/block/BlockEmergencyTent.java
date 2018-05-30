@@ -19,9 +19,7 @@ public class BlockEmergencyTent extends BlockTentBreakable {
     }
 
     @Override
-    public IBlockState wall() {
-        return ModBlocks.tentWall.variant(0);
-    }
+    public IBlockState wall() { return ModBlocks.tentWall.variant(0); }
 
     @Override
     public boolean hasFuel(EntityPlayer player) { return true; }
@@ -69,6 +67,6 @@ public class BlockEmergencyTent extends BlockTentBreakable {
 
         ItemStack drop = new ItemStack(ModBlocks.emergencyTent);
         EntityItem entity = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, drop);
-        world.spawnEntityInWorld(entity);
+        world.spawnEntity(entity);
     }
 }

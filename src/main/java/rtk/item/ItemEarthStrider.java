@@ -40,12 +40,13 @@ public class ItemEarthStrider extends ItemBase {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+        ItemStack stack = player.getHeldItem(hand);
         NBTTagCompound nbt = ensureTag(stack);
         nbt.setBoolean("active", !nbt.getBoolean("active"));
 
         if(!world.isRemote)
-            player.addChatComponentMessage(new TextComponentTranslation(nbt.getBoolean("active")? "item.earthStrider.active" : "item.earthStrider.inactive"));
+            player.sendMessage(new TextComponentTranslation(nbt.getBoolean("active")? "item.earthstrider.active" : "item.earthstrider.inactive"));
 
         return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
     }
@@ -62,7 +63,7 @@ public class ItemEarthStrider extends ItemBase {
 
         EntityPlayer player = (EntityPlayer)entity;
         Vec3d center = Common.getTrueCenter(player);
-        BlockPos foot = new BlockPos(center.xCoord, player.posY + 0.5, center.zCoord);
+        BlockPos foot = new BlockPos(center.x, player.posY + 0.5, center.z);
 
         NBTTagCompound nbt = CNBT.ensureCompound(stack);
         if(player.isSneaking()){

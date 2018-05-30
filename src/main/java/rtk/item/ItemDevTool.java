@@ -1,22 +1,14 @@
 package rtk.item;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityFallingBlock;
-import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.management.PlayerInteractionManager;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
-import rtk.ModDimensions;
-import rtk.entity.EntityEyeOfNether;
 
 public class ItemDevTool extends ItemBase {
     public ItemDevTool(String name) {
@@ -30,52 +22,40 @@ public class ItemDevTool extends ItemBase {
     }
 
     @Override
-    public EnumActionResult onItemUse(
-            ItemStack stack, EntityPlayer player, World world,
-            BlockPos pos, EnumHand hand, EnumFacing facing,
-            float hitX, float hitY, float hitZ
-    ) {
-//        return documentTileEntity(pos, player) ? EnumActionResult.SUCCESS : EnumActionResult.FAIL;
-
-
-        return EnumActionResult.SUCCESS;
+    public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        return documentTileEntity(pos, player) ? EnumActionResult.SUCCESS : EnumActionResult.FAIL;
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
-//        return new ActionResult<ItemStack>(documentItem(player) ? EnumActionResult.SUCCESS : EnumActionResult.FAIL, stack);
-
-        if (world.isRemote)
-            return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
-
-        player.getServer().getPlayerList().transferPlayerToDimension((EntityPlayerMP)player, ModDimensions.darkVoidId, ModDimensions.getTeleporter(world));
-        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+        ItemStack stack = player.getHeldItem(hand);
+        return new ActionResult<>(documentItem(player) ? EnumActionResult.SUCCESS : EnumActionResult.FAIL, stack);
     }
 
-//    public static boolean documentTileEntity(BlockPos pos, EntityPlayer player){
-//        TileEntity te = player.worldObj.getTileEntity(pos);
-//        if(te == null)
-//            return false;
-//
-//        documentNBT(te.writeToNBT(new NBTTagCompound()), player);
-//        return true;
-//    }
-//
-//    public static boolean documentItem(EntityPlayer player){
-//        ItemStack otherStack = player.inventory.getStackInSlot(player.inventory.currentItem + 1);
-//        if(otherStack == null || !otherStack.hasTagCompound())
-//            return false;
-//
-//        documentNBT(otherStack.getTagCompound(), player);
-//        return true;
-//    }
-//
-//    public static void documentNBT(NBTTagCompound nbt, EntityPlayer player){
-//        String nbtText = nbt.toString();
-//        if(player.worldObj.isRemote)
-//            nbtText = "CLIENT: " + nbtText;
-//        else
-//            nbtText = "SERVER: " + nbtText;
-//        player.addChatComponentMessage(new TextComponentString(nbtText));
-//    }
+    public static boolean documentTileEntity(BlockPos pos, EntityPlayer player){
+        TileEntity te = player.world.getTileEntity(pos);
+        if(te == null)
+            return false;
+
+        documentNBT(te.writeToNBT(new NBTTagCompound()), player);
+        return true;
+    }
+
+    public static boolean documentItem(EntityPlayer player){
+        ItemStack otherStack = player.inventory.getStackInSlot(player.inventory.currentItem + 1);
+        if(otherStack == null || !otherStack.hasTagCompound())
+            return false;
+
+        documentNBT(otherStack.getTagCompound(), player);
+        return true;
+    }
+
+    public static void documentNBT(NBTTagCompound nbt, EntityPlayer player){
+        String nbtText = nbt.toString();
+        if(player.world.isRemote)
+            nbtText = "CLIENT: " + nbtText;
+        else
+            nbtText = "SERVER: " + nbtText;
+        player.sendMessage(new TextComponentString(nbtText));
+    }
 }

@@ -26,7 +26,7 @@ public class ItemHotplate extends ItemBase {
     }
 
     @Override
-    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         int dx = facing.getFrontOffsetX();
         int dy = facing.getFrontOffsetY();
         int dz = facing.getFrontOffsetZ();
@@ -83,8 +83,8 @@ public class ItemHotplate extends ItemBase {
             Vec3d pos = CMath.randomVector(0.5F);
             Vec3d dir = CMath.randomVector(0.1F);
             world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL,
-                    x + 0.5 + pos.xCoord, y + 0.5 + pos.yCoord, z + 0.5 + pos.zCoord,
-                    dir.xCoord, dir.yCoord, dir.zCoord);
+                    x + 0.5 + pos.x, y + 0.5 + pos.y, z + 0.5 + pos.z,
+                    dir.z, dir.y, dir.z);
         }
     }
 }

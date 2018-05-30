@@ -66,10 +66,10 @@ public class ItemToolbelt extends ItemBase {
                 continue;
 
 //            ItemTool tool = (ItemTool)stack.getItem();
-            Item tool = stack.getItem();
+//            Item tool = stack.getItem();
 
-
-            float currStrength = tool.getStrVsBlock(stack, bs);
+//            float currStrength = tool.getStrVsBlock(stack, bs);
+            float currStrength = stack.getDestroySpeed(bs);
             if(currStrength > bestStrength){
                 bestStrength = currStrength;
                 bestIndex = i;

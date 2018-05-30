@@ -35,18 +35,18 @@ public class ModEvents {
         }
     }
 
-    @SubscribeEvent
-    public void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event){
-        if(event.player.worldObj.isRemote || event.player.capabilities.isCreativeMode)
-            return;
-
-        NBTTagCompound playerData = event.player.getEntityData();
-        NBTTagCompound persist = CNBT.ensureCompound(playerData, EntityPlayer.PERSISTED_NBT_TAG);
-
-        if(!persist.getBoolean("GivenTent")){
-            event.player.inventory.addItemStackToInventory(new ItemStack(ModBlocks.emergencyTent));
-            persist.setBoolean("GivenTent", true);
-            playerData.setTag(EntityPlayer.PERSISTED_NBT_TAG, persist);
-        }
-    }
+//    @SubscribeEvent
+//    public void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event){
+//        if(event.player.world.isRemote || event.player.capabilities.isCreativeMode)
+//            return;
+//
+//        NBTTagCompound playerData = event.player.getEntityData();
+//        NBTTagCompound persist = CNBT.ensureCompound(playerData, EntityPlayer.PERSISTED_NBT_TAG);
+//
+//        if(!persist.getBoolean("GivenTent")){
+//            event.player.inventory.addItemStackToInventory(new ItemStack(ModBlocks.emergencyTent));
+//            persist.setBoolean("GivenTent", true);
+//            playerData.setTag(EntityPlayer.PERSISTED_NBT_TAG, persist);
+//        }
+//    }
 }

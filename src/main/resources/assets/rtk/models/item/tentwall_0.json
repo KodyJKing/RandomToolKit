@@ -1,0 +1,14 @@
+
+{
+  "forge_marker": 1,
+   "parent": "block/cube",
+    "textures": {
+        "down": "rtk:blocks/emergencytentwall",
+        "up":  "rtk:blocks/emergencytentwall",
+        "north":  "rtk:blocks/emergencytentwall",
+        "east":  "rtk:blocks/emergencytentwall",
+        "south":  "rtk:blocks/emergencytentwall",
+        "west":  "rtk:blocks/emergencytentwall",
+        "particle":  "rtk:blocks/emergencytentwall"
+    }
+}

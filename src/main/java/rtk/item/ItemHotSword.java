@@ -69,7 +69,7 @@ public class ItemHotSword extends ItemSword {
         else
             setHeat(stack, getHeat(stack) - 1);
 
-        player.worldObj.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.PLAYERS, 1, 1);
+        player.world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.PLAYERS, 1, 1);
 
         return true;
     }

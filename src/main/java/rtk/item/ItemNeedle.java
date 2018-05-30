@@ -21,7 +21,7 @@ public class ItemNeedle extends ItemBase {
     }
 
     @Override
-    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         BlockTentWall.tryPop(world, pos);
         return EnumActionResult.SUCCESS;
     }
@@ -29,7 +29,7 @@ public class ItemNeedle extends ItemBase {
     @Override
     public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
         if(target instanceof EntitySlime){
-            target.worldObj.createExplosion(attacker, target.posX,  target.posY,  target.posZ, ((EntitySlime) target).getSlimeSize(), false);
+            target.world.createExplosion(attacker, target.posX,  target.posY,  target.posZ, ((EntitySlime) target).getSlimeSize(), false);
             stack.damageItem(1, attacker);
             return true;
         }
