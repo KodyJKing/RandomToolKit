@@ -1,9 +1,0 @@
-{
-    "forge_marker": 1,
-    "parent": "block/half_slab",
-    "textures": {
-        "bottom": "blocks/quartz_block_lines_top",
-        "top": "blocks/quartz_block_lines_top",
-        "side": "blocks/quartz_block_lines"
-    }
-}
