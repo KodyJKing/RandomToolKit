@@ -16,26 +16,31 @@ public class ModItems {
     private static List<Item> toRegister = new ArrayList<>();
     public static Item
             devTool, trowel, hotplate,
-            hotplateEtched, dolly, barometer,
+            hotplateEtched, needle, dolly, barometer,
             toolbelt, earthStrider, earthStriderDrained,
-            hotSword, eyeOfNether;
+            hotSword, netherPearl, eyeOfNether, toolbox;
 
-    public ModItems() {
+    public void init() {
         devTool = add(new ItemDevTool("devtool"));
         barometer = add(new ItemBarometer("barometer"));
         trowel = add(new ItemTrowel("trowel"));
         hotplate = add(new ItemHotplate("hotplate", false));
         hotplateEtched = add(new ItemHotplate("hotplateetched", true));
+        needle = add(new ItemNeedle("needle"));
         dolly = add(new ItemDolly("dolly"));
         toolbelt = add(new ItemToolbelt("toolbelt"));
         earthStrider = add(new ItemEarthStrider("earthstrider"));
         earthStriderDrained = add(new ItemBase("earthstrider_drained"));
         hotSword = add(new ItemHotSword("hotsword"));
+        netherPearl = add(new ItemBase("netherpearl")).setMaxStackSize(16);
         eyeOfNether = add(new ItemEyeOfNether("eyeofnether"));
+        toolbox = add(new ItemToolbox("toolbox"));
     }
 
     @SubscribeEvent
     public void onItemRegistry(Register<Item> event) {
+        init();
+        System.out.println("RTK is registering items...");
         IForgeRegistry<Item> registry = event.getRegistry();
         for (Item item: toRegister) {
             registry.register(item);
@@ -48,6 +53,7 @@ public class ModItems {
                     ((BlockBase)block).init(itemBlock);
             }
         }
+        toRegister.clear();
     }
 
 

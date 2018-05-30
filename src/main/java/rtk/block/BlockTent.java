@@ -87,7 +87,7 @@ public class BlockTent extends BlockBase {
         }
 
         if(!hasFuel(player)){
-            player.sendMessage(new TextComponentTranslation("tile.basetent.insufficie ntfuel"));
+            player.sendMessage(new TextComponentTranslation("tile.basetent.insufficientfuel"));
             return false;
         }
 

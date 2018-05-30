@@ -18,7 +18,7 @@ public class ModBlocks {
     public static BlockBase levitator, hole, fourierTransformer, tent, emergencyTent, diversTent, enderTent, diversEnderTent;
     public static BlockTentWall tentWall;
 
-    public ModBlocks() {
+    public void init() {
         levitator = add(new BlockLevitator("levitator"));
         hole = add(new BlockHole("hole"));
         fourierTransformer = add(new BlockFourierTransformer("fouriertransformer"));
@@ -32,8 +32,11 @@ public class ModBlocks {
 
     @SubscribeEvent
     public void onItemRegistry(RegistryEvent.Register<Block> event) {
+        init();
+        System.out.println("RTK is registering blocks...");
         IForgeRegistry<Block> registry = event.getRegistry();
         for (Block block: toRegister) registry.register(block);
+        toRegister.clear();
     }
 
     static HashSet<Class<? extends TileEntity>> registeredTEs = new HashSet<>();
