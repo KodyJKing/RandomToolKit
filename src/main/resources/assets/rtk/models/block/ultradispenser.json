@@ -1,0 +1,9 @@
+{
+	"forge_marker": 1,
+    "parent": "block/orientable",
+    "textures": {
+        "top": "blocks/iron_block",
+        "front": "rtk:blocks/ultradispenser_front_horizontal",
+        "side": "rtk:blocks/ultradispenser_side"
+    }
+}
