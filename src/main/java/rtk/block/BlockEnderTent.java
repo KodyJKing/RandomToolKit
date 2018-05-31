@@ -86,7 +86,6 @@ public class BlockEnderTent extends BlockTent {
         BlockPos[] tentCube = tentCuboid(pos);
 
 //        First set everything to dirt so nothing is without solid support during the building loop.
-//        This was "inspired" by the Minecraft CommandClone class.
         for(BlockPos otherPos : tentCube){
             if(pos.equals(otherPos))
                 continue;  //Don't mess with the tent block!!!
@@ -107,8 +106,8 @@ public class BlockEnderTent extends BlockTent {
             bsInd++;
         }
 
-        for(BlockPos otherPos : tentCube)
-            world.notifyNeighborsOfStateChange(otherPos, world.getBlockState(otherPos).getBlock(), true);
+//        for(BlockPos otherPos : tentCube)
+//            world.notifyNeighborsOfStateChange(otherPos, world.getBlockState(otherPos).getBlock(), true);
     }
 
     public boolean tryGrabContents(World world, BlockPos pos){
@@ -120,9 +119,8 @@ public class BlockEnderTent extends BlockTent {
 
         NBTTagList blockList = new NBTTagList();
 
-        for(BlockPos otherPos : tentCube){
+        for(BlockPos otherPos : tentCube)
             blockList.appendTag(CNBT.NBTFromBlock(world, otherPos));
-        }
 
         //Next set everything to a solid block so nothing loses support during deletion. (I'm talking about you torches!)
         for(BlockPos otherPos : tentCube){
@@ -133,7 +131,7 @@ public class BlockEnderTent extends BlockTent {
             if(otherTileEntity instanceof TileEnderTent) //We don't want another ender tent collapsing in a collapsing ender tent!!!
                 ((TileEnderTent)otherTileEntity).dontGrab = true;
 
-            CWorld.safeReplaceBlock(world, otherPos, Blocks.DIRT.getDefaultState(), 2);
+            CWorld.silentSetBlockState(world, otherPos, Blocks.DIRT.getDefaultState());
         }
 
         //Finally we can actually delete everything.

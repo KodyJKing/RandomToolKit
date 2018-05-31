@@ -53,7 +53,7 @@ public class ItemDolly extends ItemBase {
 
         if(canPickUp(world, pos) && !nbt.hasKey("container")){
             nbt.setTag("container", CNBT.NBTFromBlock(world, pos));
-            CWorld.safeReplaceBlock(world, pos, Blocks.AIR.getDefaultState(), 3);
+            CWorld.silentSetBlockStateAndUpdate(world, pos, Blocks.AIR.getDefaultState(), 3);
             return EnumActionResult.SUCCESS;
         }
 

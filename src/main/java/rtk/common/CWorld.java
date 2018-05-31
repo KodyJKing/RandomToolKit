@@ -2,7 +2,6 @@ package rtk.common;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
@@ -14,16 +13,55 @@ public class CWorld {
         return bs.getBlock().isReplaceable(world, pos) || !bs.isOpaqueCube() && bs.getBlockHardness(world, pos) < 0.01F || bs.getMaterial() == Material.AIR;
     }
 
-    public static void safeReplaceBlock(World world, BlockPos pos, IBlockState state, int flags){
-        safeRemoveBlock(world, pos, flags);
-//        world.notifyBlockUpdate(pos, Blocks.AIR.getDefaultState(), state, flags);
-        world.setBlockState(pos, state, flags);
+    // Still avoids calls to breakBlock and onBlockAdded, but fixes lighting, elevation and does updates.
+    // This is a modified version of World.setBlockState.
+    public static void silentSetBlockStateAndUpdate(World world, BlockPos pos, IBlockState newState, int flags){
+        if (world.isOutsideBuildHeight(pos)) {
+            return;
+        } else {
+            Chunk chunk = world.getChunkFromBlockCoords(pos);
+
+            pos = pos.toImmutable(); // Forge - prevent mutable BlockPos leaks
+            net.minecraftforge.common.util.BlockSnapshot blockSnapshot = null;
+            if (world.captureBlockSnapshots && !world.isRemote)
+            {
+                blockSnapshot = net.minecraftforge.common.util.BlockSnapshot.getBlockSnapshot(world, pos, flags);
+                world.capturedBlockSnapshots.add(blockSnapshot);
+            }
+            IBlockState oldState = world.getBlockState(pos);
+            int oldLight = oldState.getLightValue(world, pos);
+            int oldOpacity = oldState.getLightOpacity(world, pos);
+
+            IBlockState iblockstate = chunk.getBlockState(pos);
+            silentSetBlockState(world, pos, newState); // RandomTookKit - silently set the block state before calling into chunk.setBlockState so breakBlock and onBlockAdded won't get called.
+            chunk.setBlockState(pos, newState);
+
+            if (iblockstate == null)
+            {
+                if (blockSnapshot != null) world.capturedBlockSnapshots.remove(blockSnapshot);
+                return;
+            }
+            else
+            {
+                if (newState.getLightOpacity(world, pos) != oldOpacity || newState.getLightValue(world, pos) != oldLight)
+                {
+                    world.profiler.startSection("checkLight");
+                    world.checkLight(pos);
+                    world.profiler.endSection();
+                }
+
+                if (blockSnapshot == null) // Don't notify clients or update physics while capturing blockstates
+                {
+                    world.markAndNotifyBlock(pos, chunk, iblockstate, newState, flags);
+                }
+            }
+        }
     }
 
-    public static void safeRemoveBlock(World world, BlockPos pos, int flags){
-        if(world.getBlockState(pos).getBlock() == Blocks.AIR)
-            return;
-
+    // To Avoid calls to breakBlock and onBlockAdded.
+    // Also avoids updating lighting, and elevation information and updates.
+    // See Chunk.setBlockState.
+    public static void silentSetBlockState(World world, BlockPos pos, IBlockState state){
         world.removeTileEntity(pos);
 
         int dx = pos.getX() & 15;
@@ -37,10 +75,7 @@ public class CWorld {
         if (extendedblockstorage == Chunk.NULL_BLOCK_STORAGE)
             return;
 
-        extendedblockstorage.set(dx, y & 15, dz, Blocks.STONE.getDefaultState());
+        extendedblockstorage.set(dx, y & 15, dz, state);
         chunk.setModified(true);
-
-        // Set it to air using the standard method so Minecraft can do bookkeeping like light updates.
-        world.setBlockState(pos, Blocks.AIR.getDefaultState(), flags);
     }
 }

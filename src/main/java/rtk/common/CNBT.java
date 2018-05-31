@@ -1,13 +1,9 @@
 package rtk.common;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockDirectional;
-import net.minecraft.block.BlockHorizontal;
-import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -52,7 +48,9 @@ public class CNBT {
     public static void placeBlockFromNBT(World world, BlockPos pos, NBTTagCompound NBT){
         IBlockState bs = Block.getStateById(NBT.getInteger("stateID"));
 
-        world.setBlockState(pos, bs, 2);
+        // We need to use this to avoid onBlockAdded getting called
+        // causing things like furnaces to reset their facing direction.
+        CWorld.silentSetBlockStateAndUpdate(world, pos, bs, 2);
 
         if(NBT.hasKey("tileEntity")){
             TileEntity tile = TileEntity.create(world, (NBTTagCompound)NBT.getTag("tileEntity"));
