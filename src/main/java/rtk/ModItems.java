@@ -3,6 +3,7 @@ package rtk;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -21,7 +22,8 @@ public class ModItems {
             hotSword, netherPearl, eyeOfNether, toolbox;
 
     public void init() {
-        devTool = add(new ItemDevTool("devtool"));
+        if (RTK.devEnv)
+            devTool = add(new ItemDevTool("devtool"));
         barometer = add(new ItemBarometer("barometer"));
         trowel = add(new ItemTrowel("trowel"));
         hotplate = add(new ItemHotplate("hotplate", false));

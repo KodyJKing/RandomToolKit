@@ -1,5 +1,6 @@
 package rtk;
 
+import net.minecraft.launchwrapper.Launch;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -11,6 +12,7 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import rtk.entity.EntityEyeOfNether;
 import rtk.gui.ModGuiHandler;
+import rtk.item.ItemDevTool;
 import rtk.proxy.CommonProxy;
 
 @Mod(modid = RTK.modId, name = RTK.name, version = RTK.version, acceptedMinecraftVersions = "[1.12.2]")
@@ -18,7 +20,7 @@ public class RTK {
 
     public static final String modId = "rtk";
     public static final String name = "Random Tool Kit";
-    public static final String version = "1.3";
+    public static final String version = "1.3.1";
 
     @SidedProxy(clientSide = "rtk.proxy.ClientProxy", serverSide = "rtk.proxy.CommonProxy")
     public static CommonProxy proxy;
@@ -26,8 +28,13 @@ public class RTK {
     @Mod.Instance(modId)
     public static RTK instance;
 
+    public static boolean devEnv = false;
+
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
+        if ((boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment"))
+            devEnv = true;
+
         System.out.println(name + " is loading!");
         MinecraftForge.EVENT_BUS.register(new ModBlocks());
         MinecraftForge.EVENT_BUS.register(new ModItems());
