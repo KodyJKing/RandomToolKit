@@ -76,3 +76,6 @@ tile.fouriertransformer.tooltip=Sends and recieves entities across redstone wire
 
 entity.rtk.eyeofnether.name=Eye Of Nether
 entity.rtk.skeletonpriest.name=Skeleton Priest
+
+config.tentfuelcost=Tent Fuel Cost
+config.earthstriderwhitelist=Earth Strider Whitelist

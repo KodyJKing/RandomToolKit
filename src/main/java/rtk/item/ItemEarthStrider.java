@@ -17,6 +17,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import rtk.ModBlocks;
+import rtk.ModConfig;
 import rtk.ModItems;
 import rtk.block.BlockHole;
 import rtk.common.CMath;
@@ -54,6 +55,13 @@ public class ItemEarthStrider extends ItemBase {
     @Override
     public boolean hasEffect(ItemStack stack) {
         return ensureTag(stack).getBoolean("active");
+    }
+
+    public boolean isWhitelisted(Block block) {
+        for (String registryName: ModConfig.earthStriderWhitelist)
+            if (registryName.equals(block.getRegistryName().toString()))
+                return true;
+        return false;
     }
 
     @Override
@@ -96,7 +104,10 @@ public class ItemEarthStrider extends ItemBase {
                     hole.replace(true);
                 }
             }
-            if(world.isRemote || !(state.getBlock() instanceof BlockStone) || isEdge || !canMakeHole(world, pos))
+
+            boolean whitelisted = isWhitelisted(state.getBlock());
+
+            if(world.isRemote || !whitelisted || isEdge || !canMakeHole(world, pos))
                 continue;
 
             world.setBlockState(pos, ModBlocks.hole.getDefaultState());

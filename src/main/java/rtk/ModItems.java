@@ -40,7 +40,7 @@ public class ModItems {
     @SubscribeEvent
     public void onItemRegistry(Register<Item> event) {
         init();
-        System.out.println("RTK is registering items...");
+//        System.out.println("RTK is registering items...");
         IForgeRegistry<Item> registry = event.getRegistry();
         for (Item item: toRegister) {
             registry.register(item);

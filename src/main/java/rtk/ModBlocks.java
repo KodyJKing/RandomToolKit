@@ -33,7 +33,7 @@ public class ModBlocks {
     @SubscribeEvent
     public void onItemRegistry(RegistryEvent.Register<Block> event) {
         init();
-        System.out.println("RTK is registering blocks...");
+//        System.out.println("RTK is registering blocks...");
         IForgeRegistry<Block> registry = event.getRegistry();
         for (Block block: toRegister) registry.register(block);
         toRegister.clear();

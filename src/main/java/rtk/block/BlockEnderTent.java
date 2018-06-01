@@ -18,6 +18,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import rtk.ModBlocks;
+import rtk.ModConfig;
 import rtk.common.CNBT;
 import rtk.common.CWorld;
 import rtk.tileentity.TileEnderTent;
@@ -31,7 +32,7 @@ public class BlockEnderTent extends BlockTent {
     }
 
     @Override
-    public int fuelCost() { return 16; }
+    public int fuelCost() { return ModConfig.tentFuelCost.enderTent; }
 
     @Override
     public Item fuelType() { return Items.ENDER_PEARL; }

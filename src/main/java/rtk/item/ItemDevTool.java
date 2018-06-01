@@ -1,5 +1,7 @@
 package rtk.item;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -9,6 +11,7 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
+import rtk.ModConfig;
 
 public class ItemDevTool extends ItemBase {
     public ItemDevTool(String name) {
@@ -23,14 +26,19 @@ public class ItemDevTool extends ItemBase {
 
     @Override
     public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        return documentTileEntity(pos, player) ? EnumActionResult.SUCCESS : EnumActionResult.FAIL;
+//        return documentTileEntity(pos, player) ? EnumActionResult.SUCCESS : EnumActionResult.FAIL;
+
+        IBlockState bs = world.getBlockState(pos);
+        System.out.println(bs.getBlock().getRegistryName());
+
+        return EnumActionResult.SUCCESS;
     }
 
-    @Override
-    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
-        ItemStack stack = player.getHeldItem(hand);
-        return new ActionResult<>(documentItem(player) ? EnumActionResult.SUCCESS : EnumActionResult.FAIL, stack);
-    }
+//    @Override
+//    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+//        ItemStack stack = player.getHeldItem(hand);
+//        return new ActionResult<>(documentItem(player) ? EnumActionResult.SUCCESS : EnumActionResult.FAIL, stack);
+//    }
 
     public static boolean documentTileEntity(BlockPos pos, EntityPlayer player){
         TileEntity te = player.world.getTileEntity(pos);

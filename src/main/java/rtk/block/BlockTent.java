@@ -16,10 +16,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import rtk.ModBlocks;
+import rtk.ModConfig;
 import rtk.common.CMath;
 import rtk.common.CWorld;
-
-import javax.annotation.Nullable;
 
 public class BlockTent extends BlockBase {
 
@@ -41,7 +40,7 @@ public class BlockTent extends BlockBase {
         return false;
     }
 
-    public int fuelCost(){return 8;}
+    public int fuelCost(){return ModConfig.tentFuelCost.tent;}
 
     public Item fuelType(){return Items.COAL;}
 
@@ -58,7 +57,7 @@ public class BlockTent extends BlockBase {
             return;
         InventoryPlayer inv = player.inventory;
         ItemStack cur = inv.getCurrentItem();
-        if(cur.getItem() == fuelType() && cur.getCount() >= fuelCost()){
+        if(fuelCost() == 0 || cur.getItem() == fuelType() && cur.getCount() >= fuelCost()){
             inv.decrStackSize(inv.currentItem, fuelCost());
         }
     }

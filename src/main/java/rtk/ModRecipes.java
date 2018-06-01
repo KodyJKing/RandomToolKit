@@ -119,7 +119,7 @@ public class ModRecipes {
     @SubscribeEvent
     public void onCraftingRegistry(Register<IRecipe> event) {
         init();
-        System.out.println("RTK is registering recipes...");
+//        System.out.println("RTK is registering recipes...");
         IForgeRegistry<IRecipe> registry = event.getRegistry();
         for (IRecipe recipe: toRegister) registry.register(recipe);
         toRegister.clear();
