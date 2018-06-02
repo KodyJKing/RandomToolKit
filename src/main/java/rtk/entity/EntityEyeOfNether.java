@@ -97,4 +97,7 @@ public class EntityEyeOfNether extends EntityLiving {
     public int getBrightnessForRender() {
         return 15728880;
     }
+
+    @Override
+    protected boolean canDespawn() { return false; }
 }

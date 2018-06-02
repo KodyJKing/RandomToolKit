@@ -3,6 +3,7 @@ package rtk;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -15,7 +16,7 @@ import rtk.gui.ModGuiHandler;
 import rtk.item.ItemDevTool;
 import rtk.proxy.CommonProxy;
 
-@Mod(modid = RTK.modId, name = RTK.name, version = RTK.version, acceptedMinecraftVersions = "[1.12.2]")
+@Mod(modid = RTK.modId, name = RTK.name, version = RTK.version, acceptedMinecraftVersions = "[1.12.2]", dependencies = "after:baubles;")
 public class RTK {
 
     public static final String modId = "rtk";
@@ -30,12 +31,17 @@ public class RTK {
 
     public static boolean devEnv = false;
 
+    public static boolean baublesLoaded = false;
+
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
+        System.out.println(name + " is loading!");
+
         if ((boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment"))
             devEnv = true;
 
-        System.out.println(name + " is loading!");
+        baublesLoaded = Loader.isModLoaded("baubles");
+
         MinecraftForge.EVENT_BUS.register(new ModBlocks());
         MinecraftForge.EVENT_BUS.register(new ModItems());
         MinecraftForge.EVENT_BUS.register(new ModRecipes());

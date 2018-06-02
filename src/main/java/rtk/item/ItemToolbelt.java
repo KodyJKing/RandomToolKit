@@ -1,15 +1,18 @@
 package rtk.item;
 
+import baubles.api.BaubleType;
+import baubles.api.IBauble;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraftforge.fml.common.Optional;
 import rtk.common.Common;
 
-public class ItemToolbelt extends ItemBase {
+@Optional.Interface(modid = "baubles", iface = "baubles.api.IBauble")
+public class ItemToolbelt extends ItemBase implements IBauble {
     public ItemToolbelt(String name) {
         super(name);
         setCreativeTab(CreativeTabs.TOOLS);
@@ -20,7 +23,7 @@ public class ItemToolbelt extends ItemBase {
         if(itemSlot > 8)
             return;
 
-        RayTraceResult trace = Common.traceLook(player, 5F); //player.rayTrace(5, 0);
+        RayTraceResult trace = Common.traceLook(player, 5F);
         if(trace.getBlockPos() == null)
             return;
         IBlockState bs = player.getEntityWorld().getBlockState(trace.getBlockPos());
@@ -30,7 +33,6 @@ public class ItemToolbelt extends ItemBase {
             return;
 
         InventoryPlayer inv = player.inventory;
-       // System.out.println(inv.currentItem);
 
         if(toolSlot >= 0 && toolSlot <= 8){
             inv.currentItem = toolSlot;
@@ -62,13 +64,9 @@ public class ItemToolbelt extends ItemBase {
 
         for(int i = 0; i < inv.getSizeInventory(); i++){
             ItemStack stack = inv.getStackInSlot(i);
-            if(stack == null) //|| !(stack.getItem() instanceof ItemTool))
+            if(stack == null)
                 continue;
 
-//            ItemTool tool = (ItemTool)stack.getItem();
-//            Item tool = stack.getItem();
-
-//            float currStrength = tool.getStrVsBlock(stack, bs);
             float currStrength = stack.getDestroySpeed(bs);
             if(currStrength > bestStrength){
                 bestStrength = currStrength;
@@ -78,4 +76,8 @@ public class ItemToolbelt extends ItemBase {
         }
         return bestIndex;
     }
+
+    @Override
+    @Optional.Method(modid = "baubles")
+    public BaubleType getBaubleType(ItemStack itemstack) { return BaubleType.BELT; }
 }

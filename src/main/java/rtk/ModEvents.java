@@ -1,5 +1,6 @@
 package rtk;
 
+import baubles.api.BaublesApi;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderGlobal;
@@ -26,6 +27,8 @@ public class ModEvents {
     @SubscribeEvent
     public void onPlayerInteract(PlayerInteractEvent.LeftClickBlock event){
         EntityPlayer player = event.getEntityPlayer();
+
+        // Check their main inventory.
         for(int i = 0; i < player.inventory.getSizeInventory(); i++){
             ItemStack stack = player.inventory.getStackInSlot(i);
             if(stack != null && stack.getItem() instanceof ItemToolbelt){
@@ -33,6 +36,10 @@ public class ModEvents {
                 return;
             }
         }
+
+        if (RTK.baublesLoaded)
+            if (BaublesApi.isBaubleEquipped(player, ModItems.toolbelt) > -1)
+                ItemToolbelt.selectBestTool(player, -1);
     }
 
     @SubscribeEvent
