@@ -76,3 +76,6 @@ tile.fouriertransformer.tooltip=Sendet und empfängt Lebewesen über Redstone-Le
 
 entity.rtk.eyeofnether.name=Netherauge
 entity.rtk.skeletonpriest.name=Skelettpriester
+
+config.tentfuelcost=Zelt-Treibstoffkosten
+config.earthstriderwhitelist=Erdläufer-Whitelist
