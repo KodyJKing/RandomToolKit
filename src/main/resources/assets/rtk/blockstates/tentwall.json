@@ -1,10 +1,5 @@
 {
   "forge_marker": 1,
-  "defaults": {
-    "textures": {
-      "all": "blocks/dirt"
-    }
-  },
   "variants": {
     "normal": {
       "model": "cube_all"
@@ -12,11 +7,11 @@
     "inventory": {
       "model": "cube_all"
     },
-    "variant=0" : {"model" : "rtk:tentwall_0"},
-    "variant=1" : {"model" : "rtk:tentwall_1"},
-    "variant=2" : {"model" : "rtk:tentwall_2"},
-    "variant=3" : {"model" : "rtk:tentwall_3"},
-    "variant=4" : {"model" : "rtk:tentwall_4"},
-    "variant=5" : {"model" : "rtk:tentwall_5"}
+    "variant=0" : {"model" : "cube_all", "textures" : { "all" : "rtk:blocks/emergencytentwall" }},
+    "variant=1" : {"model" : "cube_all", "textures" : { "all" : "rtk:blocks/tentwall" }},
+    "variant=2" : {"model" : "cube_all", "textures" : { "all" : "rtk:blocks/diverstentwall" }},
+    "variant=3" : {"model" : "cube_all", "textures" : { "all" : "rtk:blocks/endertentwall" }},
+    "variant=4" : {"model" : "cube_all", "textures" : { "all" : "rtk:blocks/emergencytentlight" }},
+    "variant=5" : {"model" : "cube_all", "textures" : { "all" : "rtk:blocks/diversendertentwall" }}
   }
 }

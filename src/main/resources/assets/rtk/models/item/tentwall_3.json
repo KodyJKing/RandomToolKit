@@ -1,14 +1,7 @@
-
 {
   "forge_marker": 1,
-   "parent": "block/cube",
+   "parent": "block/cube_all",
     "textures": {
-        "down": "rtk:blocks/endertentwall",
-        "up":  "rtk:blocks/endertentwall",
-        "north":  "rtk:blocks/endertentwall",
-        "east":  "rtk:blocks/endertentwall",
-        "south":  "rtk:blocks/endertentwall",
-        "west":  "rtk:blocks/endertentwall",
-        "particle":  "rtk:blocks/endertentwall"
+        "all": "rtk:blocks/endertentwall"
     }
 }

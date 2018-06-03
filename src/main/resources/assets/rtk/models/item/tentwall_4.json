@@ -1,14 +1,7 @@
-
 {
   "forge_marker": 1,
-   "parent": "block/cube",
+   "parent": "block/cube_all",
     "textures": {
-        "down": "rtk:blocks/emergencytentlight",
-        "up":  "rtk:blocks/emergencytentlight",
-        "north":  "rtk:blocks/emergencytentlight",
-        "east":  "rtk:blocks/emergencytentlight",
-        "south":  "rtk:blocks/emergencytentlight",
-        "west":  "rtk:blocks/emergencytentlight",
-        "particle": "rtk:blocks/emergencytentlight"
+        "all": "rtk:blocks/emergencytentlight"
     }
 }

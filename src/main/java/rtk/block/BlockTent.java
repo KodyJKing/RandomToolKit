@@ -1,6 +1,6 @@
 package rtk.block;
 
-import net.minecraft.block.SoundType;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -62,20 +62,23 @@ public class BlockTent extends BlockBase {
         }
     }
 
-    public boolean hasRoom(World world, BlockPos pos){
-
-        for(BlockPos otherPos : tentCuboid(pos)){
-            IBlockState bs = world.getBlockState(otherPos);
-            if(bs.getBlock().getClass().equals(getClass()))
-                continue;
-            if(!CWorld.shouldReplace(world, otherPos))
+    public boolean shouldReplace(World world, BlockPos pos){
+        IBlockState bs = world.getBlockState(pos);
+        Block block = bs.getBlock();
+        if (block instanceof BlockLeaves || block instanceof BlockDirt || block instanceof BlockGrass)
+            return true;
+        if (!CWorld.shouldReplace(world, pos))
+            return false;
+        if (!worksInWater())
+            if(bs.getBlock() == Blocks.WATER || bs.getBlock() == Blocks.FLOWING_WATER)
                 return false;
-            if(!worksInWater()){
-                if(bs.getBlock() == Blocks.WATER || bs.getBlock() == Blocks.FLOWING_WATER)
-                    return false;
-            }
-        }
+        return true;
+    }
 
+    public boolean hasRoom(World world, BlockPos pos){
+        for(BlockPos otherPos : tentCuboid(pos))
+            if (!pos.equals(otherPos) && !shouldReplace(world, otherPos))
+                return false;
         return true;
     }
 
