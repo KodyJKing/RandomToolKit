@@ -44,7 +44,7 @@ public class ItemEarthStrider extends ItemBase implements IBauble {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
         ItemStack stack = player.getHeldItem(hand);
-        NBTTagCompound nbt = ensureTag(stack);
+        NBTTagCompound nbt = CNBT.ensureCompound(stack);
         nbt.setBoolean("active", !nbt.getBoolean("active"));
 
         if (!world.isRemote)
@@ -55,7 +55,7 @@ public class ItemEarthStrider extends ItemBase implements IBauble {
 
     @Override
     public boolean hasEffect(ItemStack stack) {
-        return ensureTag(stack).getBoolean("active");
+        return CNBT.ensureCompound(stack).getBoolean("active");
     }
 
     public boolean isWhitelisted(Block block) {
@@ -182,7 +182,7 @@ public class ItemEarthStrider extends ItemBase implements IBauble {
     @Override
     public void onUpdate(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) {
         EntityPlayer player = (EntityPlayer)entity;
-        NBTTagCompound nbt = ensureTag(stack);
+        NBTTagCompound nbt = CNBT.ensureCompound(stack);
         doUpdate(stack, player, player.inventory, itemSlot, nbt.getBoolean("active"));
     }
 
