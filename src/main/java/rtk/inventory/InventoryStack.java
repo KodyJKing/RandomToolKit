@@ -29,19 +29,19 @@ public abstract class InventoryStack implements IInventory {
     }
 
     public void loadAll(){
-        if(!getNBT().hasKey("inventory")){
+        if (!getNBT().hasKey("inventory")){
             NBTTagList list = new NBTTagList();
-            for(int i = 0; i < getSizeInventory(); i++)
+            for (int i = 0; i < getSizeInventory(); i++)
                 list.appendTag(new NBTTagCompound());
             getNBT().setTag("inventory", list);
         }
 
-        for(int i = 0; i < inventory.length; i++)
+        for (int i = 0; i < inventory.length; i++)
             loadAt(i);
     }
 
     public void saveAll(){
-        for(int i = 0; i < inventory.length; i++)
+        for (int i = 0; i < inventory.length; i++)
             saveAt(i);
     }
 

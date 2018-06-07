@@ -49,7 +49,7 @@ public class TileEnderTent extends TileEntity {
 
     public void setDeployed(boolean deployed) {
         this.deployed = deployed;
-        if(deployed)
+        if (deployed)
             setBlockList(new NBTTagList());
         markDirty();
     }

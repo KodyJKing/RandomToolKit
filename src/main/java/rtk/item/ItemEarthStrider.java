@@ -1,13 +1,19 @@
 package rtk.item;
 
+import baubles.api.BaubleType;
+import baubles.api.BaublesApi;
+import baubles.api.IBauble;
+import baubles.api.inv.BaublesInventoryWrapper;
 import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
@@ -16,6 +22,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Optional;
 import rtk.ModBlocks;
 import rtk.ModConfig;
 import rtk.ModItems;
@@ -25,19 +32,13 @@ import rtk.common.CNBT;
 import rtk.common.Common;
 import rtk.tileentity.TileHole;
 
-public class ItemEarthStrider extends ItemBase {
+@Optional.Interface(modid = "baubles", iface = "baubles.api.IBauble")
+public class ItemEarthStrider extends ItemBase implements IBauble {
     public ItemEarthStrider(String name) {
         super(name);
         setCreativeTab(CreativeTabs.TOOLS);
         setMaxStackSize(1);
         setMaxDamage(10000);
-    }
-
-    public NBTTagCompound ensureTag(ItemStack stack){
-        NBTTagCompound nbt = CNBT.ensureCompound(stack);
-        if(!nbt.hasKey("active"))
-            nbt.setBoolean("active", false);
-        return nbt;
     }
 
     @Override
@@ -46,7 +47,7 @@ public class ItemEarthStrider extends ItemBase {
         NBTTagCompound nbt = ensureTag(stack);
         nbt.setBoolean("active", !nbt.getBoolean("active"));
 
-        if(!world.isRemote)
+        if (!world.isRemote)
             player.sendMessage(new TextComponentTranslation(nbt.getBoolean("active")? "item.earthstrider.active" : "item.earthstrider.inactive"));
 
         return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
@@ -64,18 +65,24 @@ public class ItemEarthStrider extends ItemBase {
         return false;
     }
 
-    @Override
-    public void onUpdate(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) {
-        if(!ensureTag(stack).getBoolean("active") || !(entity instanceof EntityPlayer))
+    public void doUpdate(ItemStack stack, EntityPlayer player, IInventory inventory, int itemSlot, boolean active) {
+
+        NBTTagCompound nbt = CNBT.ensureCompound(stack);
+
+        if (active && nbt.getBoolean("working")) {
+            player.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 40));
+            player.addPotionEffect(new PotionEffect(MobEffects.NIGHT_VISION, 40));
+        }
+
+        World world = player.world;
+        if (world.isRemote || !active)
             return;
 
-        EntityPlayer player = (EntityPlayer)entity;
         Vec3d center = Common.getTrueCenter(player);
         BlockPos foot = new BlockPos(center.x, player.posY + 0.5, center.z);
 
-        NBTTagCompound nbt = CNBT.ensureCompound(stack);
-        if(player.isSneaking()){
-            if(!nbt.getBoolean("alreadySneaking"))
+        if (player.isSneaking()){
+            if (!nbt.getBoolean("alreadySneaking"))
                 foot = foot.add(0, -1 ,0);
             nbt.setBoolean("alreadySneaking", true);
         } else {
@@ -85,7 +92,7 @@ public class ItemEarthStrider extends ItemBase {
         int holeVolume = 0;
 
         int edgeDist = 7;
-        for(BlockPos pos : CMath.cuboid(foot.add(-edgeDist, 0, -edgeDist), foot.add(edgeDist, 3, edgeDist))){
+        for (BlockPos pos : CMath.cuboid(foot.add(-edgeDist, 0, -edgeDist), foot.add(edgeDist, 3, edgeDist))){
             int dx = pos.getX() - foot.getX();
             int dy = pos.getY() - foot.getY();
             int dz = pos.getZ() - foot.getZ();
@@ -95,9 +102,9 @@ public class ItemEarthStrider extends ItemBase {
             boolean isEdge = dx == edgeDist || dy == 3 || dz == edgeDist;
 
             IBlockState state = world.getBlockState(pos);
-            if(state.getBlock() instanceof BlockHole){
+            if (state.getBlock() instanceof BlockHole){
                 TileHole hole = (TileHole) world.getTileEntity(pos);
-                if(!isEdge){
+                if (!isEdge){
                     hole.setTimeLeft(5);
                     holeVolume++;
                 } else {
@@ -107,7 +114,7 @@ public class ItemEarthStrider extends ItemBase {
 
             boolean whitelisted = isWhitelisted(state.getBlock());
 
-            if(world.isRemote || !whitelisted || isEdge || !canMakeHole(world, pos))
+            if (world.isRemote || !whitelisted || isEdge || !canMakeHole(world, pos))
                 continue;
 
             world.setBlockState(pos, ModBlocks.hole.getDefaultState());
@@ -115,22 +122,23 @@ public class ItemEarthStrider extends ItemBase {
             hole.setPrevState(state);
         }
 
-        if(holeVolume >= 200 && !player.capabilities.isCreativeMode){
-            player.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 40));
-            player.addPotionEffect(new PotionEffect(MobEffects.NIGHT_VISION, 40));
+        if (holeVolume >= 200 && !player.capabilities.isCreativeMode){
+            nbt.setBoolean("working", true);
             stack.setItemDamage(stack.getItemDamage() + 1);
-            if(stack.getItemDamage() >= stack.getMaxDamage()){
-                player.inventory.setInventorySlotContents(itemSlot, new ItemStack(ModItems.earthStriderDrained));
-                player.playSound(SoundEvents.BLOCK_GLASS_BREAK, 1, 1);
+            if (stack.getItemDamage() >= stack.getMaxDamage()) {
+                inventory.setInventorySlotContents(itemSlot, new ItemStack(ModItems.earthStriderDrained));
+                world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.BLOCKS, 1, 1);
             }
+        } else {
+            nbt.setBoolean("working", false);
         }
     }
 
     public boolean canMakeHole(World world, BlockPos pos){
-        for(EnumFacing dir : EnumFacing.VALUES){
+        for (EnumFacing dir : EnumFacing.VALUES){
             BlockPos n = pos.offset(dir);
             IBlockState state = world.getBlockState(n);
-            if(state.getBlock() instanceof BlockLiquid || getSupportDirection(state) == dir)
+            if (state.getBlock() instanceof BlockLiquid || getSupportDirection(state) == dir)
                 return false;
         }
 
@@ -140,11 +148,11 @@ public class ItemEarthStrider extends ItemBase {
     public boolean supportsUp(IBlockState state){
         Block block = state.getBlock();
 
-        if(block == Blocks.GRAVEL || block == Blocks.SAND)
+        if (block == Blocks.GRAVEL || block == Blocks.SAND)
             return true;
-        if(block instanceof BlockDoor || block instanceof BlockRailBase)
+        if (block instanceof BlockDoor || block instanceof BlockRailBase)
             return true;
-        if(block instanceof BlockRedstoneDiode || block instanceof BlockRedstoneWire)
+        if (block instanceof BlockRedstoneDiode || block instanceof BlockRedstoneWire)
             return true;
 
         return false;
@@ -153,26 +161,55 @@ public class ItemEarthStrider extends ItemBase {
     public EnumFacing getSupportDirection(IBlockState state){
         Block block = state.getBlock();
 
-        if(block instanceof BlockTorch)
+        if (block instanceof BlockTorch)
             return state.getValue(BlockTorch.FACING);
 
-        if(block instanceof BlockButton)
+        if (block instanceof BlockButton)
             return state.getValue(BlockDirectional.FACING);
 
-        if(block instanceof BlockLever)
+        if (block instanceof BlockLever)
             return state.getValue(BlockLever.FACING).getFacing();
 
-        if(block instanceof BlockTripWireHook)
+        if (block instanceof BlockTripWireHook)
             return state.getValue(BlockHorizontal.FACING);
 
-        if(supportsUp(state))
+        if (supportsUp(state))
             return EnumFacing.UP;
 
         return null;
     }
 
     @Override
-    public int getMetadata(int damage) {
-        return 0;
+    public void onUpdate(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) {
+        EntityPlayer player = (EntityPlayer)entity;
+        NBTTagCompound nbt = ensureTag(stack);
+        doUpdate(stack, player, player.inventory, itemSlot, nbt.getBoolean("active"));
+    }
+
+    @Override
+    @Optional.Method(modid = "baubles")
+    public void onWornTick(ItemStack stack, EntityLivingBase entity) {
+        EntityPlayer player = (EntityPlayer) entity;
+        if (player == null)
+            return;
+        int itemSlot = BaublesApi.isBaubleEquipped(player, ModItems.earthStrider);
+        IInventory inventory = new BaublesInventoryWrapper(BaublesApi.getBaublesHandler(player));
+        doUpdate(stack, player, inventory, itemSlot, true);
+    }
+
+    @Override
+    @Optional.Method(modid = "baubles")
+    public BaubleType getBaubleType(ItemStack stack) {
+        return BaubleType.AMULET;
+    }
+
+    @Override
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+        return newStack.getItem() != ModItems.earthStrider;
+    }
+
+    @Override
+    public boolean willAutoSync(ItemStack itemstack, EntityLivingBase player) {
+        return true;
     }
 }

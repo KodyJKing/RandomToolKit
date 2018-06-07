@@ -25,7 +25,7 @@ item.earthstrider.inactive=Deactivated!
 item.earthstrider.tooltip=Allows user to see and walk through stone.;Right click to toggle.
 
 item.earthstrider_drained.name=Drained Earth Strider
-item.earthstrider_drained.tooltip=Repair with a diamond and Eye of Ender in a crafting table.
+item.earthstrider_drained.tooltip=Repair with six diamonds and an Eye of Ender in a crafting table.
 
 item.barometer.name=Barometer
 item.barometer.elevation=Elevation: %s
@@ -53,7 +53,7 @@ tile.diverstent.name=Diver's Tent
 tile.diverstent.tooltip=Works under water!;Right click with 32 coal/charcoal to deploy.
 
 tile.endertent.name=Ender Tent
-tile.endertent.tooltip=A magic tent which can retain it's interior when picked up.;Right click with 16 ender pearls to deploy.
+tile.endertent.tooltip=A magic tent which can retain its interior when picked up.;Right click with 16 ender pearls to deploy.
 
 tile.diversendertent.name=Divers Ender Tent
 tile.diversendertent.tooltip=Combines the Diver's Tent and Ender Tent.;Right click with 16 ender pearls to deploy.

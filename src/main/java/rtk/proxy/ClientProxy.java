@@ -15,6 +15,8 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import rtk.ModItems;
 import rtk.RTK;
 import rtk.entity.EntityEyeOfNether;
+import rtk.entity.EntitySkeletonPriest;
+import rtk.render.RenderSkeletonPriest;
 
 public class ClientProxy extends CommonProxy {
     @Override
@@ -31,9 +33,15 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void preInit() {
         RenderingRegistry.registerEntityRenderingHandler(
-                EntityEyeOfNether.class,
-                (RenderManager manager) ->
-                        new RenderSnowball<>(manager, ModItems.eyeOfNether, Minecraft.getMinecraft().getRenderItem())
+            EntityEyeOfNether.class,
+            (RenderManager manager) ->
+                    new RenderSnowball<>(manager, ModItems.eyeOfNether, Minecraft.getMinecraft().getRenderItem())
+        );
+
+        RenderingRegistry.registerEntityRenderingHandler(
+            EntitySkeletonPriest.class,
+            (RenderManager manager) ->
+                    new RenderSkeletonPriest(manager)
         );
     }
 }

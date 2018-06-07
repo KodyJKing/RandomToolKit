@@ -35,7 +35,7 @@ public class ItemToolbox extends ItemBase {
 
 //    @Override
 //    public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand){
-//        if(!world.isRemote)
+//        if (!world.isRemote)
 //            player.openGui(RTK.instance, 0, world, (int)player.posX, (int)player.posY, (int)player.posZ);
 //        return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 //    }
@@ -43,7 +43,7 @@ public class ItemToolbox extends ItemBase {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
         ItemStack stack = player.getHeldItem(hand);
-        if(!world.isRemote)
+        if (!world.isRemote)
             player.openGui(RTK.instance, 0, world, (int)player.posX, (int)player.posY, (int)player.posZ);
         return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
     }

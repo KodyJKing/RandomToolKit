@@ -36,7 +36,7 @@ public class ItemTrowel extends ItemBase {
 
     public ItemStack getBuildingStack(EntityPlayer player){
         int nextItem = player.inventory.currentItem + 1;
-        if(nextItem > 35)
+        if (nextItem > 35)
             return null;
         return player.inventory.getStackInSlot(nextItem);
     }
@@ -45,20 +45,20 @@ public class ItemTrowel extends ItemBase {
         IInventory inv = player.inventory;
         int nextItem = player.inventory.currentItem + 1;
         ItemStack stack = getBuildingStack(player);
-        if( stack == null || Block.getBlockFromItem(stack.getItem()) == Blocks.AIR )
+        if ( stack == null || Block.getBlockFromItem(stack.getItem()) == Blocks.AIR )
             return false;
 
-        if(!player.capabilities.isCreativeMode)
+        if (!player.capabilities.isCreativeMode)
             inv.decrStackSize(nextItem, 1);
 
-        if(stack.getCount() == 0)
+        if (stack.getCount() == 0)
             tryRefill(player, stack, nextItem);
         return true;
     }
 
     public void tryRefill(EntityPlayer player, ItemStack stack, int slot){
         ItemStack refill = Common.getRefill(player, stack, 64);
-        if(refill != null)
+        if (refill != null)
             player.inventory.setInventorySlotContents(slot, refill);
     }
 
@@ -76,7 +76,7 @@ public class ItemTrowel extends ItemBase {
         int dx = (int)Math.round(-Math.sin(angle * adjust));
         int dz = (int)Math.round(Math.cos(angle * adjust));
 
-        if(player.isSneaking())
+        if (player.isSneaking())
         {
             x += dx;
             z += dz;
@@ -88,14 +88,14 @@ public class ItemTrowel extends ItemBase {
 
         IBlockState bs = null;
 
-        if(live){
+        if (live){
             ItemStack material = getBuildingStack(player);
-            if(material == null)
+            if (material == null)
                 return;
             Block block = Block.getBlockFromItem(material.getItem());
             block.getStateFromMeta(material.getMetadata());
 
-            if(block == null)
+            if (block == null)
                 return;
 
 //            bs = block.onBlockPlaced(world, new BlockPos(x, y, z), facing, x, y, z, material.getMetadata(), player);
@@ -105,13 +105,13 @@ public class ItemTrowel extends ItemBase {
 
         NBTTagCompound nbt = CNBT.ensureCompound(stack);
         int length = CNBT.ensureInt(nbt, "length", 1);
-        for(int i = 0; i < length; i++){
+        for (int i = 0; i < length; i++){
             BlockPos pos = new BlockPos(x, y, z);
 
-            if(!CWorld.shouldReplace(world, pos) || live && !useBlock(player))
+            if (!CWorld.shouldReplace(world, pos) || live && !useBlock(player))
                 break;
 
-            if(live)
+            if (live)
                 world.setBlockState(pos, bs, 3);
             else
                 selection.add(pos);
@@ -124,11 +124,11 @@ public class ItemTrowel extends ItemBase {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
         ItemStack stack = player.getHeldItem(hand);
-        if(player.isSneaking() && !world.isRemote){
+        if (player.isSneaking() && !world.isRemote){
             NBTTagCompound nbt = CNBT.ensureCompound(stack);
             int length = CNBT.ensureInt(nbt, "length", 1) + 1;
 
-            if(length > maxLength)
+            if (length > maxLength)
                 length = 1;
 
             player.sendMessage(new TextComponentString(Integer.toString(length)));
@@ -149,29 +149,29 @@ public class ItemTrowel extends ItemBase {
 
     @Override
     public void onUpdate(ItemStack stack, World worldIn, Entity e, int itemSlot, boolean isSelected) {
-        if(!isSelected || !worldIn.isRemote)
+        if (!isSelected || !worldIn.isRemote)
             return;
 
         EntityPlayer p = (EntityPlayer)e;
-        if(p == null)
+        if (p == null)
             return;
 
-        if(Minecraft.getMinecraft().objectMouseOver.typeOfHit != RayTraceResult.Type.BLOCK)
+        if (Minecraft.getMinecraft().objectMouseOver.typeOfHit != RayTraceResult.Type.BLOCK)
             return;
 
         BlockPos pos = Minecraft.getMinecraft().objectMouseOver.getBlockPos();
-        if(worldIn.getBlockState(pos).getMaterial() == Material.AIR)
+        if (worldIn.getBlockState(pos).getMaterial() == Material.AIR)
             return;
 
         EnumFacing side = Minecraft.getMinecraft().objectMouseOver.sideHit;
         double dist = pos.distanceSqToCenter(e.posX, e.posY, e.posZ);
-        if(dist > 20.25F)
+        if (dist > 20.25F)
             return;
 
         ArrayList<BlockPos> selection = new ArrayList<BlockPos>();
         buildOrSelect(stack, p, worldIn, pos.getX(), pos.getY(), pos.getZ(), pos.getX(), pos.getY(), pos.getZ(), side, selection);
 
-        for(BlockPos s : selection){
+        for (BlockPos s : selection){
             worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, s.getX() + 0.5, s.getY() + 0.5, s.getZ() + 0.5, 0, 0, 0);
         }
     }

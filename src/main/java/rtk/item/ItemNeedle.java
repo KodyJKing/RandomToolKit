@@ -28,7 +28,7 @@ public class ItemNeedle extends ItemBase {
 
     @Override
     public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
-        if(target instanceof EntitySlime){
+        if (target instanceof EntitySlime){
             target.world.createExplosion(attacker, target.posX,  target.posY,  target.posZ, ((EntitySlime) target).getSlimeSize(), false);
             stack.damageItem(1, attacker);
             return true;

@@ -32,7 +32,7 @@ public class ModItems {
         dolly = add(new ItemDolly("dolly"));
         toolbelt = add(new ItemToolbelt("toolbelt"));
         earthStrider = add(new ItemEarthStrider("earthstrider"));
-        earthStriderDrained = add(new ItemBase("earthstrider_drained"));
+        earthStriderDrained = add(new ItemEarthStriderDrained("earthstrider_drained"));
         hotSword = add(new ItemHotSword("hotsword"));
         netherPearl = add(new ItemBase("netherpearl")).setMaxStackSize(16);
         eyeOfNether = add(new ItemEyeOfNether("eyeofnether"));

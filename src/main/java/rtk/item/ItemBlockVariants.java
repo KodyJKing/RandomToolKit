@@ -25,5 +25,4 @@ public class ItemBlockVariants extends ItemBlock {
         return super.getUnlocalizedName() + "." + Integer.toString(stack.getMetadata());
     }
 
-
 }

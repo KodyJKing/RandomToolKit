@@ -23,26 +23,26 @@ public class ModGuiHandler implements IGuiHandler {
     }
 
     public Object getGuiElement(int ID, EntityPlayer player, World world, BlockPos pos, boolean serverSide){
-        if(ID == 0)
+        if (ID == 0)
             return toolboxGuiElement(player, serverSide);
-//        if(ID == 1)
+//        if (ID == 1)
 //            return ultraDispenserGuiElement(player, serverSide);
-//        if(ID == 2)
+//        if (ID == 2)
 //            return ultraDispenserGuiTEElement(player, pos, serverSide);
         return null;
     }
 
     public Object toolboxGuiElement(EntityPlayer player, boolean serverSide){
         ItemStack stack = player.getHeldItemMainhand();
-        if(stack.isEmpty() || stack.getItem() != ModItems.toolbox){
+        if (stack.isEmpty() || stack.getItem() != ModItems.toolbox){
             stack = player.getHeldItemOffhand();
-            if(stack.isEmpty() || stack.getItem() != ModItems.toolbox)
+            if (stack.isEmpty() || stack.getItem() != ModItems.toolbox)
                 return null;
         }
 
         InventoryToolbox inv = new InventoryToolbox(stack, Common.findExactStack(player.inventory, stack));
 
-        if(serverSide)
+        if (serverSide)
             return new ContainerToolbox(player.inventory, inv, player);
 
         return new GuiToolbox(player.inventory,  inv);
@@ -50,15 +50,15 @@ public class ModGuiHandler implements IGuiHandler {
 
 //    public Object ultraDispenserGuiElement(EntityPlayer player, boolean serverSide){
 //        ItemStack stack = player.getHeldItemMainhand();
-//        if(stack == null || !(stack.getItem() instanceof ItemUDispenser)){
+//        if (stack == null || !(stack.getItem() instanceof ItemUDispenser)){
 //            stack = player.getHeldItemOffhand();
-//            if(stack == null || !(stack.getItem() instanceof ItemUDispenser))
+//            if (stack == null || !(stack.getItem() instanceof ItemUDispenser))
 //                return null;
 //        }
 //
 //        InventoryUDispenser inv = new InventoryUDispenser(stack, Common.findExactStack(player.inventory, stack));
 //
-//        if(serverSide)
+//        if (serverSide)
 //            return new ContainerUDispenser(player.inventory, inv);
 //
 //        return new GuiUDispenser(player.inventory, inv);
@@ -67,7 +67,7 @@ public class ModGuiHandler implements IGuiHandler {
 //    public Object ultraDispenserGuiTEElement(EntityPlayer player, BlockPos pos, boolean serverSide){
 //        TileUDispenser tile = (TileUDispenser) player.worldObj.getTileEntity(pos);
 //
-//        if(serverSide)
+//        if (serverSide)
 //            return new ContainerUDispenser(player.inventory, tile);
 //
 //        return new GuiUDispenser(player.inventory, tile);

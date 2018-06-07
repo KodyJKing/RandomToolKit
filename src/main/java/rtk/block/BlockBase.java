@@ -52,7 +52,7 @@ public class BlockBase extends Block {
     @Override
     public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
         Common.formatToolTip(getUnlocalizedName() + ".tooltip", tooltip);
-        if(GuiScreen.isShiftKeyDown())
+        if (GuiScreen.isShiftKeyDown())
             Common.formatToolTip(getUnlocalizedName() + ".tooltip2", tooltip);
     }
 }

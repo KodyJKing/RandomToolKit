@@ -13,19 +13,19 @@ import net.minecraft.world.World;
 
 public class CNBT {
     public static NBTTagCompound ensureCompound(ItemStack stack){
-        if(!stack.hasTagCompound())
+        if (!stack.hasTagCompound())
             stack.setTagCompound(new NBTTagCompound());
         return stack.getTagCompound();
     }
 
     public static int ensureInt(NBTTagCompound nbt, String name, int defaultValue){
-        if(!nbt.hasKey(name))
+        if (!nbt.hasKey(name))
             nbt.setInteger(name, defaultValue);
         return nbt.getInteger(name);
     }
 
     public static NBTTagCompound ensureCompound(NBTTagCompound nbt, String name){
-        if(!nbt.hasKey(name))
+        if (!nbt.hasKey(name))
             nbt.setTag(name, new NBTTagCompound());
         return nbt.getCompoundTag(name);
     }
@@ -36,7 +36,7 @@ public class CNBT {
         NBT.setInteger("stateID", Block.getStateId(world.getBlockState(pos)));
 
         TileEntity tile = world.getTileEntity(pos);
-        if(tile != null){
+        if (tile != null){
             NBTTagCompound tileNBT = new NBTTagCompound();
             tile.writeToNBT(tileNBT);
             NBT.setTag("tileEntity", tileNBT);
@@ -52,7 +52,7 @@ public class CNBT {
         // causing things like furnaces to reset their facing direction.
         CWorld.silentSetBlockStateAndUpdate(world, pos, bs, 2);
 
-        if(NBT.hasKey("tileEntity")){
+        if (NBT.hasKey("tileEntity")){
             TileEntity tile = TileEntity.create(world, (NBTTagCompound)NBT.getTag("tileEntity"));
             world.setTileEntity(pos, tile);
         }
@@ -66,7 +66,7 @@ public class CNBT {
 
         world.setBlockState(pos, bs, 2);
 
-        if(NBT.hasKey("tileEntity")){
+        if (NBT.hasKey("tileEntity")){
             TileEntity tile = TileEntity.create(world, (NBTTagCompound)NBT.getTag("tileEntity"));
             world.setTileEntity(pos, tile);
         }

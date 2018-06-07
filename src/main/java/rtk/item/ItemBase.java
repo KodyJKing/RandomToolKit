@@ -29,7 +29,7 @@ public class ItemBase extends Item {
     @Override
     public void addInformation(ItemStack stack, @Nullable World world, List<String> tooltip, ITooltipFlag flag) {
         Common.formatToolTip(getUnlocalizedName() + ".tooltip", tooltip);
-        if(GuiScreen.isShiftKeyDown())
+        if (GuiScreen.isShiftKeyDown())
             Common.formatToolTip(getUnlocalizedName() + ".tooltip2", tooltip);
     }
 }

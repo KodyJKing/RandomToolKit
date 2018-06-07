@@ -40,22 +40,22 @@ public class ItemHotplate extends ItemBase {
         int z = pos.getZ();
 
         boolean didMelt = false;
-        for(int xx = x - dx; xx <= x + dx; xx++){
-            for(int yy = y - dy; yy <= y + dy; yy++){
-                for(int zz = z - dz; zz <= z + dz; zz++){
+        for (int xx = x - dx; xx <= x + dx; xx++){
+            for (int yy = y - dy; yy <= y + dy; yy++){
+                for (int zz = z - dz; zz <= z + dz; zz++){
                     BlockPos pos2 = new BlockPos(xx, yy, zz);
 
                     Block block = world.getBlockState(pos2).getBlock();
                     Block replace = null;
 
-                    if(block == Blocks.COBBLESTONE || block == Blocks.GRAVEL || (etched && block == Blocks.STONE))
+                    if (block == Blocks.COBBLESTONE || block == Blocks.GRAVEL || (etched && block == Blocks.STONE))
                         replace = etched ? Blocks.STONEBRICK : Blocks.STONE;
-                    if(etched && block == Blocks.STONE_STAIRS)
+                    if (etched && block == Blocks.STONE_STAIRS)
                         replace = Blocks.STONE_BRICK_STAIRS;
-                    if(etched && block == Blocks.NETHERRACK)
+                    if (etched && block == Blocks.NETHERRACK)
                         replace = Blocks.NETHER_BRICK;
 
-                    if(replace != null){
+                    if (replace != null){
                         didMelt = true;
                         IBlockState inBS = world.getBlockState(pos2);
                         IBlockState outBS = replace.getDefaultState();
@@ -71,7 +71,7 @@ public class ItemHotplate extends ItemBase {
             }
         }
 
-        if(didMelt)
+        if (didMelt)
             world.playSound(null, x, y, z, SoundEvents.BLOCK_REDSTONE_TORCH_BURNOUT, SoundCategory.BLOCKS, 0.1F + CMath.random.nextFloat() * 0.2F, 1.0F);
 
         player.swingArm(hand);
@@ -79,7 +79,7 @@ public class ItemHotplate extends ItemBase {
     }
 
     public void spawnSmoke(World world, int x, int y, int z){
-        for(int i = 0; i <= 10; i++){
+        for (int i = 0; i <= 10; i++){
             Vec3d pos = CMath.randomVector(0.5F);
             Vec3d dir = CMath.randomVector(0.1F);
             world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL,

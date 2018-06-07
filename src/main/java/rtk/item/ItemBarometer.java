@@ -10,6 +10,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
+import rtk.ModItems;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -34,15 +35,10 @@ public class ItemBarometer extends ItemBase {
 
     @Override
     public void onUpdate(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) {
-        if(isSelected){
-            stack.setItemDamage(0);
-            return;
-        }
-
         int y = (int)entity.posY;
-        if(y < 0)
+        if (y < 0)
             y = 0;
-        else if(y > 256)
+        else if (y > 256)
             y = 256;
         stack.setItemDamage(256 - y);
     }
@@ -50,8 +46,13 @@ public class ItemBarometer extends ItemBase {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
         ItemStack stack = player.getHeldItem(hand);
-        if(!world.isRemote)
+        if (!world.isRemote)
             player.sendMessage(getMessage(player));
         return new ActionResult<>(EnumActionResult.SUCCESS, stack);
+    }
+
+    @Override
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+        return newStack.getItem() != ModItems.barometer;
     }
 }

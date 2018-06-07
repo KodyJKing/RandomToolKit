@@ -15,16 +15,16 @@ import java.util.List;
 public class Common {
 
     public static void formatToolTip(String key, List<String> target){
-        if(!I18n.hasKey(key))
+        if (!I18n.hasKey(key))
             return;
         String[] lines = I18n.format(key).split(";");
-        for(String line : lines)
+        for (String line : lines)
             target.add(line);
     }
 
     public static int findExactStack(IInventory inventory, ItemStack stack){
-        for(int i = 0; i < inventory.getSizeInventory(); i++){
-            if(inventory.getStackInSlot(i) == stack)
+        for (int i = 0; i < inventory.getSizeInventory(); i++){
+            if (inventory.getStackInSlot(i) == stack)
                 return i;
         }
         return -1;
@@ -37,9 +37,9 @@ public class Common {
 
     public static ItemStack getRefill(EntityPlayer player, ItemStack stack, int amount){
         IInventory inv = player.inventory;
-        for(int i = 0; i < inv.getSizeInventory(); i++){
+        for (int i = 0; i < inv.getSizeInventory(); i++){
             ItemStack other = inv.getStackInSlot(i);
-            if(other != null && other.isItemEqual(stack)){
+            if (other != null && other.isItemEqual(stack)){
                 player.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 1, 2);
                 return inv.decrStackSize(i, amount);
             }

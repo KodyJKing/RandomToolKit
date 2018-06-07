@@ -36,7 +36,7 @@ public class ContainerToolbox extends Container {
         for (int column = 0; column < 9; ++column)
         {
             Slot slot;
-            if(column == toolboxInv.stackIndex)
+            if (column == toolboxInv.stackIndex)
                 slot = new SlotLocked(playerInventory, column, 8 + column * 18, 161 + i);
             else
                 slot = new Slot(playerInventory, column, 8 + column * 18, 161 + i);

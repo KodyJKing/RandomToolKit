@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import rtk.entity.EntityEyeOfNether;
+import rtk.entity.EntitySkeletonPriest;
 import rtk.gui.ModGuiHandler;
 import rtk.item.ItemDevTool;
 import rtk.proxy.CommonProxy;
@@ -52,6 +53,11 @@ public class RTK {
                 EntityEyeOfNether.class, modId + ".eyeofnether",
                 2, this, 80, 1,
                 true);
+        EntityRegistry.registerModEntity(
+                new ResourceLocation(modId, "skeletonpriest"),
+                EntitySkeletonPriest.class, modId + ".skeletonpriest",
+                3, this, 80, 1,
+                true, 0xf2f2f2, 0x330000);
     }
 
     @Mod.EventHandler

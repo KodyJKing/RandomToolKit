@@ -20,34 +20,34 @@ public class ItemToolbelt extends ItemBase implements IBauble {
     }
 
     public static void selectBestTool(EntityPlayer player, int itemSlot){
-        if(itemSlot > 8)
+        if (itemSlot > 8)
             return;
 
         RayTraceResult trace = Common.traceLook(player, 5F);
-        if(trace.getBlockPos() == null)
+        if (trace.getBlockPos() == null)
             return;
         IBlockState bs = player.getEntityWorld().getBlockState(trace.getBlockPos());
 
         int toolSlot = bestTool(bs, player);
-        if(toolSlot == -1 || toolSlot == itemSlot)
+        if (toolSlot == -1 || toolSlot == itemSlot)
             return;
 
         InventoryPlayer inv = player.inventory;
 
-        if(toolSlot >= 0 && toolSlot <= 8){
+        if (toolSlot >= 0 && toolSlot <= 8){
             inv.currentItem = toolSlot;
             return;
         }
 
         int empty = inv.getFirstEmptyStack();
-        if(empty >= 0 && empty <= 8){
+        if (empty >= 0 && empty <= 8){
             ItemStack tool = inv.removeStackFromSlot(toolSlot);
             inv.setInventorySlotContents(empty, tool);
             inv.currentItem = empty;
             return;
         }
 
-        if(inv.currentItem == itemSlot)
+        if (inv.currentItem == itemSlot)
             return;
 
         ItemStack tool = inv.getStackInSlot(toolSlot);
@@ -62,13 +62,13 @@ public class ItemToolbelt extends ItemBase implements IBauble {
         float bestStrength = Float.MIN_VALUE;
         int bestIndex = -1;
 
-        for(int i = 0; i < inv.getSizeInventory(); i++){
+        for (int i = 0; i < inv.getSizeInventory(); i++){
             ItemStack stack = inv.getStackInSlot(i);
-            if(stack == null)
+            if (stack == null)
                 continue;
 
             float currStrength = stack.getDestroySpeed(bs);
-            if(currStrength > bestStrength){
+            if (currStrength > bestStrength){
                 bestStrength = currStrength;
                 bestIndex = i;
             }

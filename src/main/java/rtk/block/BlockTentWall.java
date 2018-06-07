@@ -37,13 +37,13 @@ public class BlockTentWall extends BlockBase {
     }
 
     public static void tryPop(World world, BlockPos pos){
-        if(isTentWall(world, pos)){
+        if (isTentWall(world, pos)){
 
             world.setBlockToAir(pos);
-            if(!world.isRemote && CMath.random.nextInt(32) == 0)
+            if (!world.isRemote && CMath.random.nextInt(32) == 0)
                 world.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), 0.0F, false);
 
-            for(BlockPos otherPos : CMath.cuboid(pos.add(-1, -1, -1), pos.add(1, 1, 1))){
+            for (BlockPos otherPos : CMath.cuboid(pos.add(-1, -1, -1), pos.add(1, 1, 1))){
                 tryPop(world, otherPos);
             }
         }
@@ -51,7 +51,7 @@ public class BlockTentWall extends BlockBase {
 
     @Override
     public void init(ItemBlock item) {
-        for(Integer i : VARIANT.getAllowedValues())
+        for (Integer i : VARIANT.getAllowedValues())
             RTK.proxy.registerItemRenderer(item, i, name + "_"  + i.toString());
     }
 
@@ -82,7 +82,7 @@ public class BlockTentWall extends BlockBase {
 
     @Override
     public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
-        for(Integer i : VARIANT.getAllowedValues())
+        for (Integer i : VARIANT.getAllowedValues())
             items.add(new ItemStack(this, 1, i));
     }
 

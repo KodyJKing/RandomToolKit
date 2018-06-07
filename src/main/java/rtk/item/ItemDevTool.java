@@ -11,6 +11,7 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
+import org.lwjgl.Sys;
 import rtk.ModConfig;
 
 public class ItemDevTool extends ItemBase {
@@ -28,8 +29,9 @@ public class ItemDevTool extends ItemBase {
     public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 //        return documentTileEntity(pos, player) ? EnumActionResult.SUCCESS : EnumActionResult.FAIL;
 
-        IBlockState bs = world.getBlockState(pos);
-        System.out.println(bs.getBlock().getRegistryName());
+        System.out.println(player.rotationYaw);
+        for (EnumFacing dir: EnumFacing.HORIZONTALS)
+            System.out.println(dir.getHorizontalAngle());
 
         return EnumActionResult.SUCCESS;
     }
@@ -42,7 +44,7 @@ public class ItemDevTool extends ItemBase {
 
     public static boolean documentTileEntity(BlockPos pos, EntityPlayer player){
         TileEntity te = player.world.getTileEntity(pos);
-        if(te == null)
+        if (te == null)
             return false;
 
         documentNBT(te.writeToNBT(new NBTTagCompound()), player);
@@ -51,7 +53,7 @@ public class ItemDevTool extends ItemBase {
 
     public static boolean documentItem(EntityPlayer player){
         ItemStack otherStack = player.inventory.getStackInSlot(player.inventory.currentItem + 1);
-        if(otherStack == null || !otherStack.hasTagCompound())
+        if (otherStack == null || !otherStack.hasTagCompound())
             return false;
 
         documentNBT(otherStack.getTagCompound(), player);
@@ -60,7 +62,7 @@ public class ItemDevTool extends ItemBase {
 
     public static void documentNBT(NBTTagCompound nbt, EntityPlayer player){
         String nbtText = nbt.toString();
-        if(player.world.isRemote)
+        if (player.world.isRemote)
             nbtText = "CLIENT: " + nbtText;
         else
             nbtText = "SERVER: " + nbtText;

@@ -60,14 +60,14 @@ public class BlockEnderTent extends BlockTent {
     public boolean tryBuildTent(World world, BlockPos pos, EntityPlayer player, EnumFacing side) {
         TileEnderTent te = getTileEntity(world, pos);
         boolean result = false;
-        if(te.neverDeployed())
+        if (te.neverDeployed())
             result = super.tryBuildTent(world, pos, player, side);
-        else if(!te.isDeployed() && canBuildTent(world, pos, player)){
+        else if (!te.isDeployed() && canBuildTent(world, pos, player)){
             spendFuel(player);
             placeContents(world, pos);
             result = true;
         }
-        if(result){
+        if (result){
             te.setDeployed(true);
             te.setNeverDeployed(false);
             world.playSound(null, pos, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.BLOCKS, 0.5F, 1F);
@@ -81,18 +81,18 @@ public class BlockEnderTent extends BlockTent {
 
     public void placeContents(World world, BlockPos pos) {
         TileEnderTent te = getTileEntity(world, pos);
-        if(te.neverDeployed())
+        if (te.neverDeployed())
             return;
 
         BlockPos[] tentCube = tentCuboid(pos);
 
 //        First set everything to dirt so nothing is without solid support during the building loop.
-        for(BlockPos otherPos : tentCube){
-            if(pos.equals(otherPos))
+        for (BlockPos otherPos : tentCube){
+            if (pos.equals(otherPos))
                 continue;  //Don't mess with the tent block!!!
 
             TileEntity otherTileEntity = world.getTileEntity(otherPos);
-            if(otherTileEntity instanceof TileEnderTent) //We don't want another ender tent collapsing in a collapsing ender tent!!!
+            if (otherTileEntity instanceof TileEnderTent) //We don't want another ender tent collapsing in a collapsing ender tent!!!
                 ((TileEnderTent)otherTileEntity).dontGrab = true;
 
             world.setBlockState(otherPos, Blocks.DIRT.getDefaultState(), 2);
@@ -101,43 +101,43 @@ public class BlockEnderTent extends BlockTent {
         NBTTagList blockList = te.getBlockList();
 
         int bsInd = 0;
-        for(BlockPos otherPos : tentCube){
-            if(!pos.equals(otherPos))
+        for (BlockPos otherPos : tentCube){
+            if (!pos.equals(otherPos))
                 CNBT.placeBlockFromNBT(world, otherPos, blockList.getCompoundTagAt(bsInd));
             bsInd++;
         }
 
-//        for(BlockPos otherPos : tentCube)
+//        for (BlockPos otherPos : tentCube)
 //            world.notifyNeighborsOfStateChange(otherPos, world.getBlockState(otherPos).getBlock(), true);
     }
 
     public boolean tryGrabContents(World world, BlockPos pos){
         TileEnderTent te = getTileEntity(world, pos);
-        if(!te.isDeployed())
+        if (!te.isDeployed())
             return false;
 
         BlockPos[] tentCube = tentCuboid(pos);
 
         NBTTagList blockList = new NBTTagList();
 
-        for(BlockPos otherPos : tentCube)
+        for (BlockPos otherPos : tentCube)
             blockList.appendTag(CNBT.NBTFromBlock(world, otherPos));
 
         //Next set everything to a solid block so nothing loses support during deletion. (I'm talking about you torches!)
-        for(BlockPos otherPos : tentCube){
-            if(pos.equals(otherPos))
+        for (BlockPos otherPos : tentCube){
+            if (pos.equals(otherPos))
                 continue;
 
             TileEntity otherTileEntity = world.getTileEntity(otherPos);
-            if(otherTileEntity instanceof TileEnderTent) //We don't want another ender tent collapsing in a collapsing ender tent!!!
+            if (otherTileEntity instanceof TileEnderTent) //We don't want another ender tent collapsing in a collapsing ender tent!!!
                 ((TileEnderTent)otherTileEntity).dontGrab = true;
 
             CWorld.silentSetBlockState(world, otherPos, Blocks.DIRT.getDefaultState());
         }
 
         //Finally we can actually delete everything.
-        for(BlockPos otherPos : tentCube){
-            if(!pos.equals(otherPos)) //Don't mess with the tent block!!!
+        for (BlockPos otherPos : tentCube){
+            if (!pos.equals(otherPos)) //Don't mess with the tent block!!!
                 world.setBlockState(otherPos, Blocks.AIR.getDefaultState(), 3);
         }
 
@@ -150,11 +150,11 @@ public class BlockEnderTent extends BlockTent {
 
     @Override
     public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-        if(stack.hasTagCompound())
+        if (stack.hasTagCompound())
             getTileEntity(world, pos).readTent(stack.getTagCompound());
 
         EntityPlayer player = (EntityPlayer)placer;
-        if(player != null && player.capabilities.isCreativeMode && stack.getCount() == 1)
+        if (player != null && player.capabilities.isCreativeMode && stack.getCount() == 1)
             player.inventory.deleteStack(stack);
 
         super.onBlockPlacedBy(world, pos, state, placer, stack);
@@ -167,16 +167,16 @@ public class BlockEnderTent extends BlockTent {
 
     @Override
     public void breakBlock(World world, BlockPos pos, IBlockState state) {
-        if(world.isRemote)
+        if (world.isRemote)
             return;
 
         TileEnderTent te = getTileEntity(world, pos);
-        if(te.dontGrab)
+        if (te.dontGrab)
             return;
 
         ItemStack drop = tentDrop();
         tryGrabContents(world, pos);
-        if(!te.isDeployed() && !te.neverDeployed())
+        if (!te.isDeployed() && !te.neverDeployed())
             drop.addEnchantment(Enchantments.INFINITY, 1); //This is just an indicator that the tent is full.
 
         getTileEntity(world, pos).writeTent(CNBT.ensureCompound(drop));

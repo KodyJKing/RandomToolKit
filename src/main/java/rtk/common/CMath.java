@@ -17,13 +17,13 @@ public class CMath {
     }
 
     public static Vec3d randomVector(double length, double angleSpread, Vec3d heading){
-        if(Math.abs(angleSpread) < Math.PI / 180)
+        if (Math.abs(angleSpread) < Math.PI / 180)
             return heading;
 
         double minDot = Math.cos(angleSpread) * length * heading.lengthVector();
-        for(int i = 0; i < 100; i++){
+        for (int i = 0; i < 100; i++){
             Vec3d result = randomVector(length);
-            if(result.dotProduct(heading) >= minDot)
+            if (result.dotProduct(heading) >= minDot)
                 return result;
         }
 
@@ -47,9 +47,9 @@ public class CMath {
         BlockPos[] positions = new BlockPos[(1 + xMax - xMin) * (1 + yMax - yMin) * (1 + zMax - zMin)];
         int i = 0;
 
-        for(int x = xMin; x <= xMax; x++){
-            for(int y = yMin; y <= yMax; y++){
-                for(int z = zMin; z <= zMax; z++){
+        for (int x = xMin; x <= xMax; x++){
+            for (int y = yMin; y <= yMax; y++){
+                for (int z = zMin; z <= zMax; z++){
                     positions[i++] = new BlockPos(x, y, z);
                 }
             }

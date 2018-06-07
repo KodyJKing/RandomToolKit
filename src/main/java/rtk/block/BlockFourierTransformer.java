@@ -51,10 +51,10 @@ public class BlockFourierTransformer extends BlockBaseDirectional {
 
     @Override
     public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn, BlockPos fromPos) {
-        if(world.isRemote)
+        if (world.isRemote)
             return;
 
-        if(!state.getValue(TRIGGERED) && world.isBlockPowered(pos))
+        if (!state.getValue(TRIGGERED) && world.isBlockPowered(pos))
             moveEntities(world, pos, state.getValue(FACING));
 
         world.setBlockState(pos, state.withProperty(TRIGGERED, world.isBlockPowered(pos)));
@@ -62,11 +62,11 @@ public class BlockFourierTransformer extends BlockBaseDirectional {
 
     public void moveEntities(World world, BlockPos pos, EnumFacing facing){
         List<Entity> entities = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos.offset(facing), pos.offset(facing).south().east().up()));
-        if(entities.isEmpty())
+        if (entities.isEmpty())
             return;
 
         BlockPos exit = findExit(world, pos);
-        if(exit == null)
+        if (exit == null)
             return;
 
         IBlockState otherTransformer = world.getBlockState(exit);
@@ -74,8 +74,8 @@ public class BlockFourierTransformer extends BlockBaseDirectional {
 
         Vec3d destination = new Vec3d(exit).addVector(0.5, 0.5, 0.5).addVector(dir.getFrontOffsetX(), dir.getFrontOffsetY(), dir.getFrontOffsetZ());
 
-        for(Entity e : entities){
-            if(e instanceof EntityPlayerMP)
+        for (Entity e : entities){
+            if (e instanceof EntityPlayerMP)
                 ((EntityPlayerMP) e).connection.setPlayerLocation(destination.x, destination.y, destination.z, e.rotationYaw, e.rotationPitch);
             else
                 e.setLocationAndAngles(destination.x, destination.y, destination.z, e.rotationYaw, e.rotationPitch);
@@ -93,17 +93,17 @@ public class BlockFourierTransformer extends BlockBaseDirectional {
 
         currentDepth.add(pos);
         while(!currentDepth.isEmpty()){
-            for(BlockPos node : currentDepth){
+            for (BlockPos node : currentDepth){
                 visited.add(node);
 
-                for(BlockPos neighbor : CMath.cuboid(node.add(-1, -1, -1), node.add(1, 1, 1))){
-                    if(!isConnected(world, node, neighbor) || visited.contains(neighbor))
+                for (BlockPos neighbor : CMath.cuboid(node.add(-1, -1, -1), node.add(1, 1, 1))){
+                    if (!isConnected(world, node, neighbor) || visited.contains(neighbor))
                         continue;
 
-                    if(isExit(world, neighbor))
+                    if (isExit(world, neighbor))
                         return neighbor;
 
-                    if(isWire(world, neighbor))
+                    if (isWire(world, neighbor))
                         nextDepth.add(neighbor);
                 }
             }
@@ -135,7 +135,7 @@ public class BlockFourierTransformer extends BlockBaseDirectional {
 
     public boolean isConnected(World world, BlockPos from, BlockPos to){
         Vec3i diff = from.subtract(to);
-        if(diff.getX() * diff.getZ() != 0)
+        if (diff.getX() * diff.getZ() != 0)
             return false;
 
         return diff.getY() == 0 || !isBlockedDiagonal(world, from, to);

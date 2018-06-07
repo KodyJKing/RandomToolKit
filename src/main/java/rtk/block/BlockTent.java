@@ -45,7 +45,7 @@ public class BlockTent extends BlockBase {
     public Item fuelType(){return Items.COAL;}
 
     public boolean hasFuel(EntityPlayer player){
-        if(player.capabilities.isCreativeMode)
+        if (player.capabilities.isCreativeMode)
             return true;
         InventoryPlayer inv = player.inventory;
         ItemStack cur = inv.getCurrentItem();
@@ -53,11 +53,11 @@ public class BlockTent extends BlockBase {
     }
 
     public void spendFuel(EntityPlayer player){
-        if(player.capabilities.isCreativeMode)
+        if (player.capabilities.isCreativeMode)
             return;
         InventoryPlayer inv = player.inventory;
         ItemStack cur = inv.getCurrentItem();
-        if(fuelCost() == 0 || cur.getItem() == fuelType() && cur.getCount() >= fuelCost()){
+        if (fuelCost() == 0 || cur.getItem() == fuelType() && cur.getCount() >= fuelCost()){
             inv.decrStackSize(inv.currentItem, fuelCost());
         }
     }
@@ -65,30 +65,30 @@ public class BlockTent extends BlockBase {
     public boolean shouldReplace(World world, BlockPos pos){
         IBlockState bs = world.getBlockState(pos);
         Block block = bs.getBlock();
-        if (block instanceof BlockLeaves || block instanceof BlockDirt || block instanceof BlockGrass)
+        if (block instanceof BlockLeaves || block instanceof BlockDirt || block instanceof BlockGrass || block instanceof BlockSand || block instanceof BlockGravel)
             return true;
         if (!CWorld.shouldReplace(world, pos))
             return false;
         if (!worksInWater())
-            if(bs.getBlock() == Blocks.WATER || bs.getBlock() == Blocks.FLOWING_WATER)
+            if (bs.getBlock() == Blocks.WATER || bs.getBlock() == Blocks.FLOWING_WATER)
                 return false;
         return true;
     }
 
     public boolean hasRoom(World world, BlockPos pos){
-        for(BlockPos otherPos : tentCuboid(pos))
+        for (BlockPos otherPos : tentCuboid(pos))
             if (!pos.equals(otherPos) && !shouldReplace(world, otherPos))
                 return false;
         return true;
     }
 
     public boolean canBuildTent(World world, BlockPos pos, EntityPlayer player){
-        if(!hasRoom(world, pos)){
+        if (!hasRoom(world, pos)){
             player.sendMessage(new TextComponentTranslation("tile.basetent.blocked"));
             return false;
         }
 
-        if(!hasFuel(player)){
+        if (!hasFuel(player)){
             player.sendMessage(new TextComponentTranslation("tile.basetent.insufficientfuel"));
             return false;
         }
@@ -98,7 +98,7 @@ public class BlockTent extends BlockBase {
 
     public boolean tryBuildTent(World world, BlockPos pos, EntityPlayer player, EnumFacing side){
 
-        if(!canBuildTent(world, pos, player))
+        if (!canBuildTent(world, pos, player))
             return false;
 
         spendFuel(player);
@@ -106,8 +106,8 @@ public class BlockTent extends BlockBase {
         int h = width() - 1; //Height
         int r = h / 2; //Radius
 
-        fillCuboid(world, pos.add(-r, h, -r), pos.add(r, h, r), wall()); //fixed y high (top)
-        fillCuboid(world, pos.add(-r, 0, -r), pos.add(r, 0, r), wall()); //fixed y low (bottom)
+        fillCuboid(world, pos.add(-r, h, -r), pos.add(r, h, r), wall()); //fixed y high
+        fillCuboid(world, pos.add(-r, 0, -r), pos.add(r, 0, r), wall()); //fixed y low
 
         fillCuboid(world, pos.add(r, 0, -r), pos.add(r, h, r), wall());  //fixed x high
         fillCuboid(world, pos.add(-r, 0, -r), pos.add(-r, h, r), wall());//fixed x low
@@ -126,8 +126,8 @@ public class BlockTent extends BlockBase {
     }
 
     public void fillCuboid(World world, BlockPos a, BlockPos b, IBlockState bs){
-        for(BlockPos pos : CMath.cuboid(a, b)){
-            if(world.getBlockState(pos).getBlock().getClass().equals(getClass()))
+        for (BlockPos pos : CMath.cuboid(a, b)){
+            if (world.getBlockState(pos).getBlock().getClass().equals(getClass()))
                 continue;
             world.setBlockState(pos, bs, 3);
         }
@@ -142,7 +142,7 @@ public class BlockTent extends BlockBase {
 
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-        if(!world.isRemote)
+        if (!world.isRemote)
             return tryBuildTent(world, pos, player, side);
         return true;
     }

@@ -86,9 +86,9 @@ public class ModRecipes {
                 "II ", 'I', Items.IRON_INGOT, 'C', Blocks.CHEST));
 
         add(shapedRecipe(new ItemStack(ModItems.earthStrider),
-                "EDE",
-                "ENE",
-                "EEE", 'E', Items.ENDER_EYE, 'D', Items.DIAMOND_PICKAXE, 'N', Items.NETHER_STAR));
+                "SSE",
+                "SED",
+                "EDN", 'S', Items.STRING, 'E', Items.ENDER_EYE, 'D', Blocks.DIAMOND_BLOCK, 'N', Items.NETHER_STAR));
 
         add(shapedRecipe(new ItemStack(ModItems.barometer),
                 "GGG",
@@ -107,12 +107,12 @@ public class ModRecipes {
 
         add(shapelessRecipe(new ItemStack(ModItems.hotplateEtched), ModItems.hotplate, Blocks.STONEBRICK, Items.DIAMOND, Items.DIAMOND));
         add(shapelessRecipe(new ItemStack(ModItems.needle), Items.IRON_INGOT, Items.STRING));
-        add(shapelessRecipe(new ItemStack(ModItems.earthStrider), ModItems.earthStriderDrained, Items.ENDER_EYE, Items.DIAMOND));
+        add(shapelessRecipe(new ItemStack(ModItems.earthStrider), ModItems.earthStriderDrained, Items.ENDER_EYE, Items.DIAMOND, Items.DIAMOND, Items.DIAMOND, Items.DIAMOND, Items.DIAMOND, Items.DIAMOND));
         add(shapelessRecipe(new ItemStack(ModItems.eyeOfNether), ModItems.netherPearl, Items.BLAZE_ROD));
         add(shapelessRecipe(new ItemStack(ModItems.hotSword), Items.IRON_SWORD, Items.LAVA_BUCKET));
 
 //        GameRegistry.addSmelting(new ItemStack(Items.IRON_SWORD), new ItemStack(ModItems.hotSword, 1, 3), 0);
-//        for(int i = 1; i <= 3; i++)
+//        for (int i = 1; i <= 3; i++)
 //            GameRegistry.addSmelting(new ItemStack(ModItems.hotSword, 1, i), new ItemStack(ModItems.hotSword, 1, i - 1), 0);
     }
 
@@ -150,7 +150,7 @@ public class ModRecipes {
     // https://github.com/Ellpeck/ActuallyAdditions/blob/master/src/main/java/de/ellpeck/actuallyadditions/mod/util/crafting/RecipeHelper.java
     public NonNullList<Ingredient> toIngredients(Object[] input) {
         NonNullList<Ingredient> result = NonNullList.create();
-        for(Object v: input) {
+        for (Object v: input) {
             if (v instanceof String) {
                 result.add(new OreIngredient((String)v));
             } else {

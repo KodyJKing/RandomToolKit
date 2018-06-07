@@ -69,7 +69,7 @@ public class GuiToolbox extends GuiContainer {
     @Override
     protected boolean checkHotbarKeys(int keyCode) {
         int toolboxIndex = toolboxInv.stackIndex; //Don't put the tool box in itself!
-        if(toolboxIndex >= 0 && toolboxIndex < 9 && this.mc.gameSettings.keyBindsHotbar[toolboxIndex].isActiveAndMatches(keyCode))
+        if (toolboxIndex >= 0 && toolboxIndex < 9 && this.mc.gameSettings.keyBindsHotbar[toolboxIndex].isActiveAndMatches(keyCode))
             return false;
         return super.checkHotbarKeys(keyCode);
     }

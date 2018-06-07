@@ -54,7 +54,7 @@ public class ItemHotSword extends ItemSword {
 
     @Override
     public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
-        if(!(attacker instanceof EntityPlayer))
+        if (!(attacker instanceof EntityPlayer))
             return true;
 
         EntityPlayer player = (EntityPlayer) attacker;
@@ -64,7 +64,7 @@ public class ItemHotSword extends ItemSword {
 
         target.setFire(5);
 
-        if(getHeat(stack) == 1)
+        if (getHeat(stack) == 1)
             player.inventory.setInventorySlotContents(player.inventory.currentItem, new ItemStack(Items.IRON_SWORD));
         else
             setHeat(stack, getHeat(stack) - 1);

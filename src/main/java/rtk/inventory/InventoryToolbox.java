@@ -37,7 +37,7 @@ public class InventoryToolbox extends InventoryStack {
 
     @Override
     public void openInventory(EntityPlayer player) {
-        if(!player.world.isRemote){
+        if (!player.world.isRemote){
             player.world.playSound(
                     null,
                     player.posX, player.posY, player.posZ,
@@ -49,7 +49,7 @@ public class InventoryToolbox extends InventoryStack {
 
     @Override
     public void closeInventory(EntityPlayer player) {
-        if(!player.world.isRemote){
+        if (!player.world.isRemote){
             player.world.playSound(
                     null,
                     player.posX, player.posY, player.posZ,

@@ -16,15 +16,15 @@ public class TileHole extends TileEntity implements ITickable {
 
     @Override
     public void update() {
-        if(world.isRemote)
+        if (world.isRemote)
             return;
         setTimeLeft(getTimeLeft() - 1);
-        if(getTimeLeft() <= 0)
+        if (getTimeLeft() <= 0)
             replace(false);
     }
 
     public void replace(boolean force){
-        if(force || world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(pos, pos.add(1, 1, 1))).isEmpty())
+        if (force || world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(pos, pos.add(1, 1, 1))).isEmpty())
             world.setBlockState(pos, getPrevState() == null ? Blocks.STONE.getDefaultState() : getPrevState());
         else
             setTimeLeft(0);
