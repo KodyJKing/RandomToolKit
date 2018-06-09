@@ -19,7 +19,8 @@ public class ModItems {
             devTool, trowel, hotplate,
             hotplateEtched, needle, dolly, barometer,
             toolbelt, earthStrider, earthStriderDrained,
-            hotSword, netherPearl, eyeOfNether, toolbox;
+            hotSword, netherPearl, eyeOfNether, toolbox,
+            voidStrider;
 
     public void init() {
         if (RTK.devEnv)
@@ -37,6 +38,7 @@ public class ModItems {
         netherPearl = add(new ItemBase("netherpearl")).setMaxStackSize(16);
         eyeOfNether = add(new ItemEyeOfNether("eyeofnether"));
         toolbox = add(new ItemToolbox("toolbox"));
+        voidStrider = add(new ItemVoidStrider("voidstrider"));
     }
 
     @SubscribeEvent

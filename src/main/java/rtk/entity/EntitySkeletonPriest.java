@@ -4,6 +4,7 @@ import com.google.common.base.Predicate;
 import net.minecraft.block.Block;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.*;
+import net.minecraft.entity.monster.AbstractSkeleton;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityWitherSkeleton;
@@ -143,8 +144,8 @@ public class EntitySkeletonPriest extends EntityMob {
 
         bossInfo.setPercent(getHealth() / getMaxHealth());
 
-        List<EntitySkeleton> mobs = world.getEntitiesWithinAABB(EntitySkeleton.class, getEntityBoundingBox().grow(30, 10, 30));
-        for (EntitySkeleton mob: mobs){
+        List<AbstractSkeleton> mobs = world.getEntitiesWithinAABB(AbstractSkeleton.class, getEntityBoundingBox().grow(30, 10, 30));
+        for (AbstractSkeleton mob: mobs){
             mob.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, Integer.MAX_VALUE));
             mob.addPotionEffect(new PotionEffect(MobEffects.SPEED, Integer.MAX_VALUE));
 

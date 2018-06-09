@@ -40,6 +40,10 @@ item.eyeofnether.tooltip=Teleport to and from the nether instantly.
 item.eyeofnether.name=Eye Of Nether
 item.eyeofnether.tooltip=Enrages and lures visible Endermen.
 
+item.voidstrider.name=Void Strider
+item.voidstrider.tooltip=Allows owner to traverse the void above and below the world.;Hold shift for more information.
+item.voidstrider.tooltip2=The void above can be reached by travelling far above the overworld.;A passage to the void below may be opened by shift-right-clicking bedrock with an Earth Strider,; but will destroy it in the process.
+
 tile.basetent.blocked=Something is blocking your tent!
 tile.basetent.insufficientfuel=You need more fuel!
 

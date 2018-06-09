@@ -48,6 +48,7 @@ public class RTK {
         MinecraftForge.EVENT_BUS.register(new ModRecipes());
         proxy.preInit();
 
+        // TODO: Register these entities the new way https://mcforge.readthedocs.io/en/latest/concepts/registries/
         EntityRegistry.registerModEntity(
                 new ResourceLocation(modId, "eyeofnether"),
                 EntityEyeOfNether.class, modId + ".eyeofnether",
@@ -62,6 +63,7 @@ public class RTK {
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
+        ModDimensions.init();
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new ModGuiHandler());
     }
 

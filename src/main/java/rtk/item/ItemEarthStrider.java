@@ -20,6 +20,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
@@ -39,6 +40,24 @@ public class ItemEarthStrider extends ItemBase implements IBauble {
         setCreativeTab(CreativeTabs.TOOLS);
         setMaxStackSize(1);
         setMaxDamage(10000);
+    }
+
+    @Override
+    public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        if (!player.isSneaking())
+            return EnumActionResult.FAIL;
+        IBlockState state = world.getBlockState(pos);
+        if (state.getBlock() != Blocks.BEDROCK)
+            return EnumActionResult.FAIL;
+        BlockPos cornerA = new BlockPos(pos.getX() - 1, 0, pos.getZ() - 1);
+        BlockPos cornerB = new BlockPos(pos.getX() + 1, 5, pos.getZ() + 1);
+        for (BlockPos p: CMath.cuboid(cornerA, cornerB))
+            world.setBlockToAir(p);
+        world.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), 0.5F, false);
+        ItemStack stack = player.getHeldItem(hand);
+        player.setHeldItem(hand, ItemStack.EMPTY);
+        world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.BLOCKS, 1, 1);
+        return EnumActionResult.SUCCESS;
     }
 
     @Override

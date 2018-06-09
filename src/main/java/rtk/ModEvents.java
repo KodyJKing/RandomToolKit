@@ -62,6 +62,7 @@ public class ModEvents {
 
         EntitySkeletonPriest priest = new EntitySkeletonPriest(world);
         priest.setPosition(spawnPosition.getX() + 0.5, spawnPosition.getY() + 0.5, spawnPosition.getZ() + 0.5);
+        priest.onInitialSpawn(world.getDifficultyForLocation(spawnPosition), null);
         world.spawnEntity(priest);
         System.out.println(ritualDirection.toString());
     }
