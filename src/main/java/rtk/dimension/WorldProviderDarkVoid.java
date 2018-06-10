@@ -43,6 +43,9 @@ public class WorldProviderDarkVoid extends WorldProviderSurface {
     public boolean isDaytime() { return false; }
 
     @Override
+    public boolean canRespawnHere() { return true; }
+
+    @Override
     public float getStarBrightness(float par1) {return 0.75F;}
 
     @Override

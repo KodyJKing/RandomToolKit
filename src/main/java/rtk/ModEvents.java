@@ -11,11 +11,13 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import rtk.block.ModBlocks;
 import rtk.common.CNBT;
 import rtk.common.Common;
+import rtk.dimension.ModDimensions;
 import rtk.entity.EntitySkeletonPriest;
 import rtk.item.ItemToolbelt;
 import rtk.item.ModItems;
@@ -83,4 +85,14 @@ public class ModEvents {
             playerData.setTag(EntityPlayer.PERSISTED_NBT_TAG, persist);
         }
     }
+
+    // No
+//    @SubscribeEvent
+//    public void onPlayerSleepInBed(PlayerSleepInBedEvent event) {
+//        EntityPlayer player = event.getEntityPlayer();
+//        World world = player.world;
+//        int dimensionID = world.provider.getDimension();
+//        if (dimensionID == ModDimensions.darkVoidId || dimensionID == ModDimensions.lightVoidId)
+//            event.setResult(EntityPlayer.SleepResult.OK);
+//    }
 }
