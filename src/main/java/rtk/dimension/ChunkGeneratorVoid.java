@@ -7,9 +7,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.ChunkGeneratorFlat;
-import net.minecraftforge.fml.common.registry.EntityRegistry;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ChunkGeneratorVoid extends ChunkGeneratorFlat {
@@ -26,13 +24,11 @@ public class ChunkGeneratorVoid extends ChunkGeneratorFlat {
         ChunkPrimer chunkprimer = new ChunkPrimer();
 
         Chunk chunk = new Chunk(this.world, chunkprimer, x, z);
-        Biome[] abiome = this.world.getBiomeProvider().getBiomes((Biome[])null, x * 16, z * 16, 16, 16);
+        Biome[] abiome = this.world.getBiomeProvider().getBiomes(null, x * 16, z * 16, 16, 16);
         byte[] abyte = chunk.getBiomeArray();
 
         for (int l = 0; l < abyte.length; ++l)
-        {
             abyte[l] = (byte)Biome.getIdForBiome(abiome[l]);
-        }
 
         chunk.generateSkylightMap();
         return chunk;

@@ -11,10 +11,12 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
+import rtk.block.ModBlocks;
+import rtk.dimension.ModDimensions;
 import rtk.entity.EntityEyeOfNether;
 import rtk.entity.EntitySkeletonPriest;
 import rtk.gui.ModGuiHandler;
-import rtk.item.ItemDevTool;
+import rtk.item.ModItems;
 import rtk.proxy.CommonProxy;
 
 @Mod(modid = RTK.modId, name = RTK.name, version = RTK.version, acceptedMinecraftVersions = "[1.12.2]", dependencies = "after:baubles;")

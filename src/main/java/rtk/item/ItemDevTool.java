@@ -2,15 +2,11 @@ package rtk.item;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
-import rtk.ModDimensions;
+import rtk.dimension.ModDimensions;
+import rtk.dimension.TeleporterVoid;
 
 public class ItemDevTool extends ItemBase {
     public ItemDevTool(String name) {
@@ -31,9 +27,9 @@ public class ItemDevTool extends ItemBase {
             return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
 
         if (player.isSneaking())
-            player.getServer().getPlayerList().transferPlayerToDimension((EntityPlayerMP)player, ModDimensions.darkVoidId, ModDimensions.getTeleporterDark(world));
+            ModDimensions.teleportPlayer(player, ModDimensions.darkVoidId, new TeleporterVoid());
         else
-            player.getServer().getPlayerList().transferPlayerToDimension((EntityPlayerMP)player, ModDimensions.lightVoidId, ModDimensions.getTeleporterLight(world));
+            ModDimensions.teleportPlayer(player, ModDimensions.lightVoidId, new TeleporterVoid());
 
 //        return new ActionResult<>(documentItem(player) ? EnumActionResult.SUCCESS : EnumActionResult.FAIL, stack);
         return new ActionResult<>(EnumActionResult.SUCCESS, stack);

@@ -2,7 +2,6 @@ package rtk.block;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
-import rtk.ModBlocks;
 import rtk.ModConfig;
 
 public class BlockDiversEnderTent extends BlockEnderTent {

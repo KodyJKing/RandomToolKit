@@ -1,6 +1,5 @@
 package rtk.item;
 
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -10,10 +9,6 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
-import rtk.ModItems;
-
-import javax.annotation.Nullable;
-import java.util.List;
 
 public class ItemBarometer extends ItemBase {
     public ItemBarometer(String name) {

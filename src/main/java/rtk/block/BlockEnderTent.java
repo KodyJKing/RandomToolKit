@@ -17,7 +17,6 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import rtk.ModBlocks;
 import rtk.ModConfig;
 import rtk.common.CNBT;
 import rtk.common.CWorld;

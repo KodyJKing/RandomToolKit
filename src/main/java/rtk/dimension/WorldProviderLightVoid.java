@@ -31,8 +31,6 @@ public class WorldProviderLightVoid extends WorldProviderSurface {
     @SideOnly(Side.CLIENT)
     public float[] calcSunriseSunsetColors(float celestialAngle, float partialTicks){return null;}
 
-    public boolean canRespawnHere() { return false; }
-
     @SideOnly(Side.CLIENT)
     public float getCloudHeight(){return -10.0F;}
 

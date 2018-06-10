@@ -15,7 +15,6 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
-import rtk.ModBlocks;
 import rtk.ModConfig;
 import rtk.common.CMath;
 import rtk.common.CWorld;

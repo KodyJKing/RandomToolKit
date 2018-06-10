@@ -1,6 +1,5 @@
 package rtk;
 
-import baubles.api.BaublesApi;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -14,10 +13,12 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
+import rtk.block.ModBlocks;
 import rtk.common.CNBT;
 import rtk.common.Common;
 import rtk.entity.EntitySkeletonPriest;
 import rtk.item.ItemToolbelt;
+import rtk.item.ModItems;
 import rtk.misc.SkeletonRitualScanner;
 
 public class ModEvents {

@@ -1,30 +1,20 @@
 package rtk.entity;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityHanging;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import rtk.ModItems;
+import rtk.item.ModItems;
 import rtk.common.CMath;
 
-import javax.annotation.Nullable;
-import java.awt.color.CMMException;
 import java.util.List;
 
 public class EntityEyeOfNether extends EntityLiving {

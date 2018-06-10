@@ -22,7 +22,7 @@ public class WorldProviderDarkVoid extends WorldProviderSurface {
     public Vec3d getFogColor(float p_76562_1_, float p_76562_2_)
     {return new Vec3d(0, 0, 0);}
 
-    public double getMovementFactor() { return 64; }
+    public double getMovementFactor() { return 8.0; }
 
     public boolean getHasNoSky() { return true; }
 
@@ -32,8 +32,6 @@ public class WorldProviderDarkVoid extends WorldProviderSurface {
 
     @SideOnly(Side.CLIENT)
     public float[] calcSunriseSunsetColors(float celestialAngle, float partialTicks){return null;}
-
-    public boolean canRespawnHere() { return false; }
 
     @SideOnly(Side.CLIENT)
     public float getCloudHeight(){return -10.0F;}

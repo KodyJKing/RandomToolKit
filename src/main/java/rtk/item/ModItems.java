@@ -1,4 +1,4 @@
-package rtk;
+package rtk.item;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -7,6 +7,7 @@ import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
+import rtk.RTK;
 import rtk.block.BlockBase;
 import rtk.item.*;
 
