@@ -15,6 +15,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import rtk.common.CNBT;
+import rtk.common.Common;
 import rtk.entity.EntitySkeletonPriest;
 import rtk.item.ItemToolbelt;
 import rtk.misc.SkeletonRitualScanner;
@@ -34,7 +35,7 @@ public class ModEvents {
         }
 
         if (RTK.baublesLoaded)
-            if (BaublesApi.isBaubleEquipped(player, ModItems.toolbelt) > -1)
+            if (Common.isBaubleEquipped(player, ModItems.toolbelt) > -1)
                 ItemToolbelt.selectBestTool(player, -1);
     }
 

@@ -1,10 +1,13 @@
 package rtk.common;
 
+import baubles.api.BaublesApi;
+import baubles.api.cap.IBaublesItemHandler;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
@@ -27,6 +30,17 @@ public class Common {
             if (inventory.getStackInSlot(i) == stack)
                 return i;
         }
+        return -1;
+    }
+
+    // BaublesApi.isBaubleEquipped is too new to rely on.
+    // It is not present in the latest version of the
+    // DW20 pack which is what I usually play.
+    public static int isBaubleEquipped(EntityPlayer player, Item bauble) {
+        IBaublesItemHandler handler = BaublesApi.getBaublesHandler(player);
+        for (int a=0;a<handler.getSlots();a++)
+            if (!handler.getStackInSlot(a).isEmpty() && handler.getStackInSlot(a).getItem()==bauble)
+                return a;
         return -1;
     }
 

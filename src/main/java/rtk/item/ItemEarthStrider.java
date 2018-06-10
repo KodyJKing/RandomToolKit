@@ -211,7 +211,7 @@ public class ItemEarthStrider extends ItemBase implements IBauble {
         EntityPlayer player = (EntityPlayer) entity;
         if (player == null)
             return;
-        int itemSlot = BaublesApi.isBaubleEquipped(player, ModItems.earthStrider);
+        int itemSlot = Common.isBaubleEquipped(player, ModItems.earthStrider);
         IInventory inventory = new BaublesInventoryWrapper(BaublesApi.getBaublesHandler(player));
         doUpdate(stack, player, inventory, itemSlot, true);
     }
