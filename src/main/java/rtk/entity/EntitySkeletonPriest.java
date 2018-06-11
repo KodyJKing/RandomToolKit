@@ -4,6 +4,7 @@ import com.google.common.base.Predicate;
 import net.minecraft.block.Block;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.*;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.AbstractSkeleton;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntitySkeleton;
@@ -15,6 +16,7 @@ import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
@@ -27,6 +29,7 @@ import net.minecraft.world.BossInfoServer;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import rtk.common.CMath;
+import rtk.item.ModItems;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -217,6 +220,13 @@ public class EntitySkeletonPriest extends EntityMob {
 //    {
 //        return EnumCreatureAttribute.UNDEAD;
 //    }
+
+    @Override
+    protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
+        EntityItem entityitem = this.dropItem(ModItems.voidStrider, 1);
+        if (entityitem != null)
+            entityitem.setNoDespawn();
+    }
 
     public void addTrackingPlayer(EntityPlayerMP player)
     {

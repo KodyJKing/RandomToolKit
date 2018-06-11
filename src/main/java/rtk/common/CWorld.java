@@ -2,6 +2,7 @@ package rtk.common;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
@@ -78,4 +79,19 @@ public class CWorld {
         extendedblockstorage.set(dx, y & 15, dz, state);
         chunk.setModified(true);
     }
+
+    public BlockPos pickSpawnPoint(World world, BlockPos pos, int radius, int tries, int scanHeight){
+        for (int i = 0; i < tries; i++){
+            BlockPos scanPos = pos.add(new BlockPos(CMath.randomVector(radius)));
+
+            for (int j = 0; j < scanHeight; j++){
+                if (world.isSideSolid(scanPos.down(), EnumFacing.UP) && world.isAirBlock(scanPos) && world.isAirBlock(scanPos.up()))
+                    return scanPos;
+                scanPos = scanPos.up();
+            }
+        }
+
+        return null;
+    }
+
 }
