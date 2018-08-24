@@ -34,7 +34,7 @@ public class CWorld {
             int oldOpacity = oldState.getLightOpacity(world, pos);
 
             IBlockState iblockstate = chunk.getBlockState(pos);
-            silentSetBlockState(world, pos, newState); // RandomTookKit - silently set the block state before calling into chunk.setBlockState so breakBlock and onBlockAdded won't get called.
+            silentSetBlockState(world, pos, newState); // RandomToolKit - silently set the block state before calling into chunk.setBlockState so breakBlock and onBlockAdded won't get called.
             chunk.setBlockState(pos, newState);
 
             if (iblockstate == null)
