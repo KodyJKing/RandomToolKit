@@ -31,6 +31,8 @@ import rtk.common.CNBT;
 import rtk.common.Common;
 import rtk.tileentity.TileHole;
 
+import java.util.Arrays;
+
 @Optional.Interface(modid = "baubles", iface = "baubles.api.IBauble")
 public class ItemEarthStrider extends ItemBase implements IBauble {
     public ItemEarthStrider(String name) {
@@ -76,10 +78,7 @@ public class ItemEarthStrider extends ItemBase implements IBauble {
     }
 
     public boolean isWhitelisted(Block block) {
-        for (String registryName: ModConfig.earthStriderWhitelist)
-            if (registryName.equals(block.getRegistryName().toString()))
-                return true;
-        return false;
+        return Arrays.asList(ModConfig.earthStriderWhitelist).contains(block.getRegistryName().toString());
     }
 
     public void doUpdate(ItemStack stack, EntityPlayer player, IInventory inventory, int itemSlot, boolean active) {

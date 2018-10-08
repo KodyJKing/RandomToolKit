@@ -86,3 +86,5 @@ config.earthstriderwhitelist=Earth Strider Whitelist
 config.dimension=Dimensions
 config.dimension.darkvoidid=Dark Void Dimension ID
 config.dimension.lightvoidid=Light Void Dimension ID
+config.dollywhitelist=Dolly Whitelist
+config.dollyblacklist=Dolly Blacklist

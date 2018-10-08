@@ -22,10 +22,13 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import rtk.ModConfig;
 import rtk.common.CNBT;
 import rtk.common.CWorld;
 
 import javax.annotation.Nullable;
+import java.lang.reflect.Type;
+import java.util.Arrays;
 import java.util.List;
 
 public class ItemDolly extends ItemBase {
@@ -67,8 +70,18 @@ public class ItemDolly extends ItemBase {
     }
 
     public static boolean canPickUp(World world, BlockPos pos){
+        String blockName = world.getBlockState(pos).getBlock().getRegistryName().toString();
+
         TileEntity te = world.getTileEntity(pos);
-        return te != null && te instanceof IInventory || te instanceof TileEntityMobSpawner;
+        boolean defaultResult = te != null && te instanceof IInventory;
+
+        if (defaultResult && Arrays.asList(ModConfig.dollyBlacklist).contains(blockName))
+            return false;
+
+        if (!defaultResult && Arrays.asList(ModConfig.dollyWhitelist).contains(blockName))
+            return true;
+
+        return defaultResult;
     }
 
     @Override

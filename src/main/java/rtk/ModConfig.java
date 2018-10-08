@@ -36,6 +36,23 @@ public class ModConfig {
     @Config.Comment("The materials that you can see/walk through with an Earth Strider.")
     public static String[] earthStriderWhitelist = { "minecraft:stone" };
 
+    @Config.LangKey("config.dollywhitelist")
+    @Config.Comment("Additional blocks the dolly is allowed to pick up.")
+    public static String[] dollyWhitelist = {
+            "minecraft:obsidian",
+            "minecraft:mob_spawner",
+            "storagedrawers:basicdrawers",
+            "storagedrawers:compdrawers",
+            "storagedrawers:customdrawers",
+            "actuallyadditions.block_giant_chest",
+            "actuallyadditions.block_giant_chest_medium",
+            "actuallyadditions.block_giant_chest_large"
+    };
+
+    @Config.LangKey("config.dollyblacklist")
+    @Config.Comment("Blocks the dolly is not allowed to pick up.")
+    public static String[] dollyBlacklist = {};
+
     @Mod.EventBusSubscriber(modid = RTK.modId)
     static class EventHandler {
         @SubscribeEvent
