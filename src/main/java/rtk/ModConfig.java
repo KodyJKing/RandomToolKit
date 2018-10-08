@@ -44,9 +44,9 @@ public class ModConfig {
             "storagedrawers:basicdrawers",
             "storagedrawers:compdrawers",
             "storagedrawers:customdrawers",
-            "actuallyadditions.block_giant_chest",
-            "actuallyadditions.block_giant_chest_medium",
-            "actuallyadditions.block_giant_chest_large"
+            "actuallyadditions:block_giant_chest",
+            "actuallyadditions:block_giant_chest_medium",
+            "actuallyadditions:block_giant_chest_large"
     };
 
     @Config.LangKey("config.dollyblacklist")
