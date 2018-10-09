@@ -10,7 +10,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class ModConfig {
     @Config.LangKey("config.tentfuelcost")
     public static TentFuelCost tentFuelCost = new TentFuelCost();
-
     public static class TentFuelCost {
         @Config.LangKey("tile.tent.name")
         public int tent = 8;
@@ -20,6 +19,17 @@ public class ModConfig {
         public int enderTent = 16;
         @Config.LangKey("tile.diversendertent.name")
         public int diversEnderTent = 16;
+    }
+
+    @Config.LangKey("config.dimension")
+    public static Dimension dimension = new Dimension();
+    public static class Dimension {
+        @Config.Comment("Leave as 0 to auto assign id.")
+        @Config.LangKey("config.dimension.darkvoidid")
+        public int darkvoidid = 0;
+        @Config.Comment("Leave as 0 to auto assign id.")
+        @Config.LangKey("config.dimension.lightvoidid")
+        public int lightvoidid = 0;
     }
 
     @Config.LangKey("config.earthstriderwhitelist")

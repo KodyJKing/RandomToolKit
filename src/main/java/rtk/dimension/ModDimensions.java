@@ -6,17 +6,24 @@ import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.util.ITeleporter;
+import rtk.ModConfig;
 
 public class ModDimensions {
     public static int darkVoidId, lightVoidId;
     public static DimensionType darkVoidType, lightVoidType;
 
     public static void init() {
-        darkVoidId = DimensionManager.getNextFreeDimId();
+        if (ModConfig.dimension.darkvoidid == 0)
+            darkVoidId = DimensionManager.getNextFreeDimId();
+        else
+            darkVoidId = ModConfig.dimension.darkvoidid;
         darkVoidType = DimensionType.register("Dark Void", "_darkVoid", darkVoidId, WorldProviderDarkVoid.class, false);
         DimensionManager.registerDimension(darkVoidId, darkVoidType);
 
-        lightVoidId = DimensionManager.getNextFreeDimId();
+        if (ModConfig.dimension.lightvoidid == 0)
+            lightVoidId = DimensionManager.getNextFreeDimId();
+        else
+            lightVoidId = ModConfig.dimension.lightvoidid;
         lightVoidType = DimensionType.register("Light Void", "_lightVoid", lightVoidId, WorldProviderLightVoid.class, false);
         DimensionManager.registerDimension(lightVoidId, lightVoidType);
     }

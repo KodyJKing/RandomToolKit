@@ -83,3 +83,6 @@ entity.rtk.skeletonpriest.name=Skeleton Priest
 
 config.tentfuelcost=Tent Fuel Cost
 config.earthstriderwhitelist=Earth Strider Whitelist
+config.dimension=Dimensions
+config.dimension.darkvoidid=Dark Void Dimension ID
+config.dimension.lightvoidid=Light Void Dimension ID

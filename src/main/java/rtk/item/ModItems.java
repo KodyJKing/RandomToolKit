@@ -61,7 +61,6 @@ public class ModItems {
         toRegister.clear();
     }
 
-
     public static <T extends Item> T add(T item) {
         toRegister.add(item);
         return item;
