@@ -2,6 +2,8 @@ package rtk.item;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
+import net.minecraft.block.BlockStairs;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -59,11 +61,12 @@ public class ItemHotplate extends ItemBase {
                         didMelt = true;
                         IBlockState inBS = world.getBlockState(pos2);
                         IBlockState outBS = replace.getDefaultState();
-                        EnumFacing blockDir;
-                        try {
-                            blockDir = inBS.getValue(BlockHorizontal.FACING);
-                            outBS = outBS.withProperty(BlockHorizontal.FACING, blockDir);
-                        } catch (Exception e){}
+                        if (inBS.getBlock() instanceof BlockStairs) {
+                            outBS = outBS
+                                    .withProperty(BlockStairs.FACING, inBS.getValue(BlockStairs.FACING))
+                                    .withProperty(BlockStairs.HALF, inBS.getValue(BlockStairs.HALF))
+                                    .withProperty(BlockStairs.SHAPE, inBS.getValue(BlockStairs.SHAPE));
+                        }
                         world.setBlockState(pos2, outBS);
                         spawnSmoke(world, xx, yy, zz);
                     }
