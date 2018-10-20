@@ -108,9 +108,10 @@ public class ModRecipes {
 
         add(shapelessRecipe(new ItemStack(ModItems.hotplateEtched), ModItems.hotplate, Blocks.STONEBRICK, Items.DIAMOND, Items.DIAMOND));
         add(shapelessRecipe(new ItemStack(ModItems.needle), Items.IRON_INGOT, Items.STRING));
-        add(shapelessRecipe(new ItemStack(ModItems.earthStrider), ModItems.earthStriderDrained, Items.ENDER_EYE, Items.DIAMOND, Items.DIAMOND, Items.DIAMOND, Items.DIAMOND, Items.DIAMOND, Items.DIAMOND));
         add(shapelessRecipe(new ItemStack(ModItems.eyeOfNether), ModItems.netherPearl, Items.BLAZE_ROD));
         add(shapelessRecipe(new ItemStack(ModItems.hotSword), Items.IRON_SWORD, Items.LAVA_BUCKET));
+        if (ModConfig.earthStriderRepairable)
+            add(shapelessRecipe(new ItemStack(ModItems.earthStrider), ModItems.earthStriderDrained, Items.ENDER_EYE, Items.DIAMOND, Items.DIAMOND, Items.DIAMOND, Items.DIAMOND, Items.DIAMOND, Items.DIAMOND));
 
 //        GameRegistry.addSmelting(new ItemStack(Items.IRON_SWORD), new ItemStack(ModItems.hotSword, 1, 3), 0);
 //        for (int i = 1; i <= 3; i++)

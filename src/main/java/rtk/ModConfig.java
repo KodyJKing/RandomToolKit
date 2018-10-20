@@ -53,6 +53,10 @@ public class ModConfig {
     @Config.Comment("Blocks the dolly is not allowed to pick up.")
     public static String[] dollyBlacklist = {};
 
+    @Config.LangKey("config.earthstriderrepairable")
+    @Config.Comment("Controls if the earth strider can be repaired.")
+    public static boolean earthStriderRepairable = true;
+
     @Mod.EventBusSubscriber(modid = RTK.modId)
     static class EventHandler {
         @SubscribeEvent
