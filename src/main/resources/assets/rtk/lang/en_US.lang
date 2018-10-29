@@ -76,7 +76,7 @@ tile.ultradispenser.name=Dispenser 9000
 tile.ultradispenser.tooltip=Right click to fire.;Shift right click to place.
 
 tile.fouriertransformer.name=Fourier Transformer
-tile.fouriertransformer.tooltip=Sends and recieves entities across redstone wires.;The reciever must be powered by redstone.;The sender must be given a redstone pulse.
+tile.fouriertransformer.tooltip=Sends and receives entities across redstone wires.;The receiver must be powered by redstone.;The sender must be given a redstone pulse.
 
 entity.rtk.eyeofnether.name=Eye Of Nether
 entity.rtk.skeletonpriest.name=Skeleton Priest
