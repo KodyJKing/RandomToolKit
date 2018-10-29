@@ -25,7 +25,9 @@ public class TeleporterVoid implements ITeleporter {
 
         world.setBlockToAir(new BlockPos(x, 255, z));
 
-        entity.setVelocity(0, entity.motionY, 0);
+        entity.motionX = 0;
+        entity.motionY = 0;
+        entity.motionZ = 0;
         entity.setPosition(x + 0.5, 280, z + 0.5);
         entity.fallDistance = -255;
 

@@ -29,7 +29,9 @@ public class TeleporterExitDarkVoid implements ITeleporter {
         if (spawnPos == null)
             return;
 
-        entity.setVelocity(0, 0, 0);
+        entity.motionX = 0;
+        entity.motionY = 0;
+        entity.motionZ = 0;
         entity.setPosition(spawnPos.getX() + 0.5, spawnPos.getY() + 1, spawnPos.getZ() + 0.5);
 
         EntityPlayer player = (EntityPlayer) entity;
