@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 import rtk.block.BlockTentWall;
 
 public class ItemNeedle extends ItemBase {
-    public ItemNeedle(String name){
+    public ItemNeedle(String name) {
         super(name);
         setMaxStackSize(1);
         setMaxDamage(3);
@@ -28,7 +28,7 @@ public class ItemNeedle extends ItemBase {
 
     @Override
     public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
-        if (target instanceof EntitySlime){
+        if (target instanceof EntitySlime) {
             target.world.createExplosion(attacker, target.posX,  target.posY,  target.posZ, ((EntitySlime) target).getSlimeSize(), false);
             stack.damageItem(1, attacker);
             return true;

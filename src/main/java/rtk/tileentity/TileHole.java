@@ -23,7 +23,7 @@ public class TileHole extends TileEntity implements ITickable {
             replace(false);
     }
 
-    public void replace(boolean force){
+    public void replace(boolean force) {
         if (force || world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(pos, pos.add(1, 1, 1))).isEmpty())
             world.setBlockState(pos, getPrevState() == null ? Blocks.STONE.getDefaultState() : getPrevState());
         else

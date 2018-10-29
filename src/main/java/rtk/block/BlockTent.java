@@ -29,21 +29,21 @@ public class BlockTent extends BlockBase {
         setResistance(0.5F);
     }
 
-    public IBlockState wall(){ return ModBlocks.tentWall.variant(1); }
+    public IBlockState wall() { return ModBlocks.tentWall.variant(1); }
 
-    public int width(){
+    public int width() {
         return 9;
     }
 
-    public boolean worksInWater(){
+    public boolean worksInWater() {
         return false;
     }
 
-    public int fuelCost(){return ModConfig.tentFuelCost.tent;}
+    public int fuelCost() {return ModConfig.tentFuelCost.tent;}
 
-    public Item fuelType(){return Items.COAL;}
+    public Item fuelType() {return Items.COAL;}
 
-    public boolean hasFuel(EntityPlayer player){
+    public boolean hasFuel(EntityPlayer player) {
         if (player.capabilities.isCreativeMode)
             return true;
         InventoryPlayer inv = player.inventory;
@@ -51,17 +51,17 @@ public class BlockTent extends BlockBase {
         return cur != null && cur.getItem() == fuelType() && cur.getCount() >= fuelCost();
     }
 
-    public void spendFuel(EntityPlayer player){
+    public void spendFuel(EntityPlayer player) {
         if (player.capabilities.isCreativeMode)
             return;
         InventoryPlayer inv = player.inventory;
         ItemStack cur = inv.getCurrentItem();
-        if (fuelCost() == 0 || cur.getItem() == fuelType() && cur.getCount() >= fuelCost()){
+        if (fuelCost() == 0 || cur.getItem() == fuelType() && cur.getCount() >= fuelCost()) {
             inv.decrStackSize(inv.currentItem, fuelCost());
         }
     }
 
-    public boolean shouldReplace(World world, BlockPos pos){
+    public boolean shouldReplace(World world, BlockPos pos) {
         IBlockState bs = world.getBlockState(pos);
         Block block = bs.getBlock();
         if (block instanceof BlockLeaves || block instanceof BlockDirt || block instanceof BlockGrass || block instanceof BlockSand || block instanceof BlockGravel)
@@ -74,20 +74,20 @@ public class BlockTent extends BlockBase {
         return true;
     }
 
-    public boolean hasRoom(World world, BlockPos pos){
+    public boolean hasRoom(World world, BlockPos pos) {
         for (BlockPos otherPos : tentCuboid(pos))
             if (!pos.equals(otherPos) && !shouldReplace(world, otherPos))
                 return false;
         return true;
     }
 
-    public boolean canBuildTent(World world, BlockPos pos, EntityPlayer player){
-        if (!hasRoom(world, pos)){
+    public boolean canBuildTent(World world, BlockPos pos, EntityPlayer player) {
+        if (!hasRoom(world, pos)) {
             player.sendMessage(new TextComponentTranslation("tile.basetent.blocked"));
             return false;
         }
 
-        if (!hasFuel(player)){
+        if (!hasFuel(player)) {
             player.sendMessage(new TextComponentTranslation("tile.basetent.insufficientfuel"));
             return false;
         }
@@ -95,7 +95,7 @@ public class BlockTent extends BlockBase {
         return true;
     }
 
-    public boolean tryBuildTent(World world, BlockPos pos, EntityPlayer player, EnumFacing side){
+    public boolean tryBuildTent(World world, BlockPos pos, EntityPlayer player, EnumFacing side) {
 
         if (!canBuildTent(world, pos, player))
             return false;
@@ -120,19 +120,19 @@ public class BlockTent extends BlockBase {
         return true;
     }
 
-    public void decorate(World world, BlockPos pos, EntityPlayer player, EnumFacing side){
+    public void decorate(World world, BlockPos pos, EntityPlayer player, EnumFacing side) {
         world.createExplosion(player, pos.getX(), pos.getY(), pos.getZ(), 0.0F, false);
     }
 
-    public void fillCuboid(World world, BlockPos a, BlockPos b, IBlockState bs){
-        for (BlockPos pos : CMath.cuboid(a, b)){
+    public void fillCuboid(World world, BlockPos a, BlockPos b, IBlockState bs) {
+        for (BlockPos pos : CMath.cuboid(a, b)) {
             if (world.getBlockState(pos).getBlock().getClass().equals(getClass()))
                 continue;
             world.setBlockState(pos, bs, 3);
         }
     }
 
-    public BlockPos[] tentCuboid(BlockPos pos){
+    public BlockPos[] tentCuboid(BlockPos pos) {
         int h = width() - 1; //Height
         int r = h / 2; //Radius
 

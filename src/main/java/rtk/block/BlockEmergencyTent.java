@@ -13,7 +13,7 @@ import rtk.common.CMath;
 import java.util.Random;
 
 public class BlockEmergencyTent extends BlockTentBreakable {
-    public BlockEmergencyTent(String name){
+    public BlockEmergencyTent(String name) {
         super(name);
     }
 
@@ -27,7 +27,7 @@ public class BlockEmergencyTent extends BlockTentBreakable {
     public void spendFuel(EntityPlayer player) {}
 
     @Override
-    public void decorate(World world, BlockPos pos, EntityPlayer player, EnumFacing side){
+    public void decorate(World world, BlockPos pos, EntityPlayer player, EnumFacing side) {
         int x = pos.getX();
         int y = pos.getY();
         int z = pos.getZ();

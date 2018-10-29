@@ -46,7 +46,7 @@ public class ItemDevTool extends ItemBase {
 //        return EnumActionResult.SUCCESS;
 //    }
 //
-//    public static boolean documentTileEntity(BlockPos pos, EntityPlayer player){
+//    public static boolean documentTileEntity(BlockPos pos, EntityPlayer player) {
 //        TileEntity te = player.world.getTileEntity(pos);
 //        if (te == null)
 //            return false;
@@ -55,7 +55,7 @@ public class ItemDevTool extends ItemBase {
 //        return true;
 //    }
 //
-//    public static boolean documentItem(EntityPlayer player){
+//    public static boolean documentItem(EntityPlayer player) {
 //        ItemStack otherStack = player.inventory.getStackInSlot(player.inventory.currentItem + 1);
 //        if (otherStack == null || !otherStack.hasTagCompound())
 //            return false;
@@ -64,7 +64,7 @@ public class ItemDevTool extends ItemBase {
 //        return true;
 //    }
 //
-//    public static void documentNBT(NBTTagCompound nbt, EntityPlayer player){
+//    public static void documentNBT(NBTTagCompound nbt, EntityPlayer player) {
 //        String nbtText = nbt.toString();
 //        if (player.world.isRemote)
 //            nbtText = "CLIENT: " + nbtText;

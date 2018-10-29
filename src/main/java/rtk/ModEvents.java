@@ -34,13 +34,13 @@ import rtk.misc.SkeletonRitualScanner;
 public class ModEvents {
     // Toolbelt
     @SubscribeEvent
-    public void onPlayerLeftClickBlock(PlayerInteractEvent.LeftClickBlock event){
+    public void onPlayerLeftClickBlock(PlayerInteractEvent.LeftClickBlock event) {
         EntityPlayer player = event.getEntityPlayer();
 
         // Check their main inventory.
-        for (int i = 0; i < player.inventory.getSizeInventory(); i++){
+        for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
             ItemStack stack = player.inventory.getStackInSlot(i);
-            if (stack != null && stack.getItem() instanceof ItemToolbelt){
+            if (stack != null && stack.getItem() instanceof ItemToolbelt) {
                 ItemToolbelt.selectBestTool(player, i);
                 return;
             }
@@ -53,7 +53,7 @@ public class ModEvents {
 
     // Skeleton Ritual
     @SubscribeEvent
-    public void onPlayerRightClickBlock(PlayerInteractEvent.RightClickBlock event){
+    public void onPlayerRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
         BlockPos pos = event.getPos();
         World world = event.getWorld();
 
@@ -95,14 +95,14 @@ public class ModEvents {
 
     // Give tent on first spawn.
     @SubscribeEvent
-    public void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event){
+    public void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event) {
         if (event.player.world.isRemote || event.player.capabilities.isCreativeMode)
             return;
 
         NBTTagCompound playerData = event.player.getEntityData();
         NBTTagCompound persist = CNBT.ensureCompound(playerData, EntityPlayer.PERSISTED_NBT_TAG);
 
-        if (!persist.getBoolean("GivenTent")){
+        if (!persist.getBoolean("GivenTent")) {
             event.player.inventory.addItemStackToInventory(new ItemStack(ModBlocks.emergencyTent));
             persist.setBoolean("GivenTent", true);
             playerData.setTag(EntityPlayer.PERSISTED_NBT_TAG, persist);

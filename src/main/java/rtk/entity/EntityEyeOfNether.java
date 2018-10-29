@@ -34,7 +34,7 @@ public class EntityEyeOfNether extends EntityLiving {
         motionZ = 0;
 
         List<EntityEnderman> endermen = world.getEntitiesWithinAABB(EntityEnderman.class, getEntityBoundingBox().grow(100));
-        for (EntityEnderman entity: endermen){
+        for (EntityEnderman entity: endermen) {
             if (cooldown-- > 0 || entity.getAttackTarget() == this)
                 continue;
 
@@ -50,7 +50,7 @@ public class EntityEyeOfNether extends EntityLiving {
         }
 
 
-        if (world.isRemote){
+        if (world.isRemote) {
             Vec3d pos = getPositionVector().add(CMath.randomVector(0.2));
             Vec3d vel = CMath.randomVector(0.1).addVector(0, 0.2, 0);
             world.spawnParticle(EnumParticleTypes.FLAME, pos.x, pos.y, pos.z, vel.x, vel.y, vel.z);
@@ -69,7 +69,7 @@ public class EntityEyeOfNether extends EntityLiving {
 
     @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
-        if (!world.isRemote && isEntityAlive()){
+        if (!world.isRemote && isEntityAlive()) {
             setDead();
             entityDropItem(new ItemStack(ModItems.eyeOfNether), 0);
             world.playSound(null, posX, posY, posZ, SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.BLOCKS, 1, 1);

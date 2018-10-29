@@ -16,7 +16,7 @@ public abstract class InventoryStack implements IInventory {
     public int stackIndex;
     ItemStack[] inventory;
 
-    public InventoryStack(ItemStack stack, int stackIndex){
+    public InventoryStack(ItemStack stack, int stackIndex) {
         this.stack = stack;
         this.stackIndex = stackIndex;
         CNBT.ensureCompound(stack);
@@ -24,12 +24,12 @@ public abstract class InventoryStack implements IInventory {
         loadAll();
     }
 
-    public InventoryStack(ItemStack stack){
+    public InventoryStack(ItemStack stack) {
         this(stack, -1);
     }
 
-    public void loadAll(){
-        if (!getNBT().hasKey("inventory")){
+    public void loadAll() {
+        if (!getNBT().hasKey("inventory")) {
             NBTTagList list = new NBTTagList();
             for (int i = 0; i < getSizeInventory(); i++)
                 list.appendTag(new NBTTagCompound());
@@ -40,20 +40,20 @@ public abstract class InventoryStack implements IInventory {
             loadAt(i);
     }
 
-    public void saveAll(){
+    public void saveAll() {
         for (int i = 0; i < inventory.length; i++)
             saveAt(i);
     }
 
-    public void loadAt(int index){ inventory[index] = new ItemStack(getNBTAt(index)); }
+    public void loadAt(int index) { inventory[index] = new ItemStack(getNBTAt(index)); }
 
-    public void saveAt(int index){
+    public void saveAt(int index) {
         NBTTagCompound nbt = new NBTTagCompound();
         inventory[index].writeToNBT(nbt);
         getInventoryList().set(index, nbt);
     }
 
-    public void onChange(){}
+    public void onChange() {}
 
     @Override
     public void markDirty() {
@@ -114,15 +114,15 @@ public abstract class InventoryStack implements IInventory {
         return true;
     }
 
-    protected NBTTagCompound getNBT(){
+    protected NBTTagCompound getNBT() {
         return stack.getTagCompound();
     }
 
-    protected NBTTagCompound getNBTAt(int i){
+    protected NBTTagCompound getNBTAt(int i) {
         return getInventoryList().getCompoundTagAt(i);
     }
 
-    protected NBTTagList getInventoryList(){
+    protected NBTTagList getInventoryList() {
         return getNBT().getTagList("inventory", 10);
     }
 

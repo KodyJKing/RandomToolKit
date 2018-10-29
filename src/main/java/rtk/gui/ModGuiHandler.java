@@ -22,7 +22,7 @@ public class ModGuiHandler implements IGuiHandler {
         return getGuiElement(ID, player, world, new BlockPos(x, y, z), false);
     }
 
-    public Object getGuiElement(int ID, EntityPlayer player, World world, BlockPos pos, boolean serverSide){
+    public Object getGuiElement(int ID, EntityPlayer player, World world, BlockPos pos, boolean serverSide) {
         if (ID == 0)
             return toolboxGuiElement(player, serverSide);
 //        if (ID == 1)
@@ -32,9 +32,9 @@ public class ModGuiHandler implements IGuiHandler {
         return null;
     }
 
-    public Object toolboxGuiElement(EntityPlayer player, boolean serverSide){
+    public Object toolboxGuiElement(EntityPlayer player, boolean serverSide) {
         ItemStack stack = player.getHeldItemMainhand();
-        if (stack.isEmpty() || stack.getItem() != ModItems.toolbox){
+        if (stack.isEmpty() || stack.getItem() != ModItems.toolbox) {
             stack = player.getHeldItemOffhand();
             if (stack.isEmpty() || stack.getItem() != ModItems.toolbox)
                 return null;
@@ -48,9 +48,9 @@ public class ModGuiHandler implements IGuiHandler {
         return new GuiToolbox(player.inventory,  inv);
     }
 
-//    public Object ultraDispenserGuiElement(EntityPlayer player, boolean serverSide){
+//    public Object ultraDispenserGuiElement(EntityPlayer player, boolean serverSide) {
 //        ItemStack stack = player.getHeldItemMainhand();
-//        if (stack == null || !(stack.getItem() instanceof ItemUDispenser)){
+//        if (stack == null || !(stack.getItem() instanceof ItemUDispenser)) {
 //            stack = player.getHeldItemOffhand();
 //            if (stack == null || !(stack.getItem() instanceof ItemUDispenser))
 //                return null;
@@ -64,7 +64,7 @@ public class ModGuiHandler implements IGuiHandler {
 //        return new GuiUDispenser(player.inventory, inv);
 //    }
 //
-//    public Object ultraDispenserGuiTEElement(EntityPlayer player, BlockPos pos, boolean serverSide){
+//    public Object ultraDispenserGuiTEElement(EntityPlayer player, BlockPos pos, boolean serverSide) {
 //        TileUDispenser tile = (TileUDispenser) player.worldObj.getTileEntity(pos);
 //
 //        if (serverSide)

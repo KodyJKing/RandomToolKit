@@ -44,11 +44,11 @@ public class ItemHotSword extends ItemSword {
         return damage;
     }
 
-    public int getHeat(ItemStack stack){
+    public int getHeat(ItemStack stack) {
         return 4 - stack.getMetadata();
     }
 
-    public void setHeat(ItemStack stack, int heat){
+    public void setHeat(ItemStack stack, int heat) {
         stack.setItemDamage(4 - heat);
     }
 

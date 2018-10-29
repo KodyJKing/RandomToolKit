@@ -17,7 +17,7 @@ import java.util.List;
 
 public class Common {
 
-    public static void formatToolTip(String key, List<String> target){
+    public static void formatToolTip(String key, List<String> target) {
         if (!I18n.hasKey(key))
             return;
         String[] lines = I18n.format(key).split(";");
@@ -25,8 +25,8 @@ public class Common {
             target.add(line);
     }
 
-    public static int findExactStack(IInventory inventory, ItemStack stack){
-        for (int i = 0; i < inventory.getSizeInventory(); i++){
+    public static int findExactStack(IInventory inventory, ItemStack stack) {
+        for (int i = 0; i < inventory.getSizeInventory(); i++) {
             if (inventory.getStackInSlot(i) == stack)
                 return i;
         }
@@ -44,16 +44,16 @@ public class Common {
         return -1;
     }
 
-    public static Vec3d getTrueCenter(Entity entity){
+    public static Vec3d getTrueCenter(Entity entity) {
         AxisAlignedBB box = entity.getEntityBoundingBox();
         return new Vec3d(box.minX + 0.5 * (box.maxX - box.minX), box.minY + 0.5 * (box.maxY - box.minY), box.minZ + 0.5 * (box.maxZ - box.minZ));
     }
 
-    public static ItemStack getRefill(EntityPlayer player, ItemStack stack, int amount){
+    public static ItemStack getRefill(EntityPlayer player, ItemStack stack, int amount) {
         IInventory inv = player.inventory;
-        for (int i = 0; i < inv.getSizeInventory(); i++){
+        for (int i = 0; i < inv.getSizeInventory(); i++) {
             ItemStack other = inv.getStackInSlot(i);
-            if (other != null && other.isItemEqual(stack)){
+            if (other != null && other.isItemEqual(stack)) {
                 player.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 1, 2);
                 return inv.decrStackSize(i, amount);
             }
@@ -61,7 +61,7 @@ public class Common {
         return null;
     }
 
-    public static RayTraceResult traceLook(Entity entity, Float distance){
+    public static RayTraceResult traceLook(Entity entity, Float distance) {
         Vec3d eyePos = new Vec3d(entity.posX, entity.posY + (double)entity.getEyeHeight(), entity.posZ);
         Vec3d look = entity.getLookVec();
         Vec3d endPoint = eyePos.add(look.scale(distance));

@@ -19,7 +19,7 @@ public class ItemToolbelt extends ItemBase implements IBauble {
         setMaxStackSize(1);
     }
 
-    public static void selectBestTool(EntityPlayer player, int itemSlot){
+    public static void selectBestTool(EntityPlayer player, int itemSlot) {
         if (itemSlot > 8)
             return;
 
@@ -34,13 +34,13 @@ public class ItemToolbelt extends ItemBase implements IBauble {
 
         InventoryPlayer inv = player.inventory;
 
-        if (toolSlot >= 0 && toolSlot <= 8){
+        if (toolSlot >= 0 && toolSlot <= 8) {
             inv.currentItem = toolSlot;
             return;
         }
 
         int empty = inv.getFirstEmptyStack();
-        if (empty >= 0 && empty <= 8){
+        if (empty >= 0 && empty <= 8) {
             ItemStack tool = inv.removeStackFromSlot(toolSlot);
             inv.setInventorySlotContents(empty, tool);
             inv.currentItem = empty;
@@ -56,19 +56,19 @@ public class ItemToolbelt extends ItemBase implements IBauble {
         inv.setInventorySlotContents(toolSlot, held);
     }
 
-    public static int bestTool(IBlockState bs, EntityPlayer player){
+    public static int bestTool(IBlockState bs, EntityPlayer player) {
         InventoryPlayer inv = player.inventory;
 
         float bestStrength = Float.MIN_VALUE;
         int bestIndex = -1;
 
-        for (int i = 0; i < inv.getSizeInventory(); i++){
+        for (int i = 0; i < inv.getSizeInventory(); i++) {
             ItemStack stack = inv.getStackInSlot(i);
             if (stack == null)
                 continue;
 
             float currStrength = stack.getDestroySpeed(bs);
-            if (currStrength > bestStrength){
+            if (currStrength > bestStrength) {
                 bestStrength = currStrength;
                 bestIndex = i;
             }

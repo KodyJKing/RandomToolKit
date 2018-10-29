@@ -28,20 +28,20 @@ public class ItemTrowel extends ItemBase {
 
     static int maxLength = 9;
 
-    public ItemTrowel(String name){
+    public ItemTrowel(String name) {
         super(name);
         setMaxStackSize(1);
         setCreativeTab(CreativeTabs.TOOLS);
     }
 
-    public ItemStack getBuildingStack(EntityPlayer player){
+    public ItemStack getBuildingStack(EntityPlayer player) {
         int nextItem = player.inventory.currentItem + 1;
         if (nextItem > 35)
             return null;
         return player.inventory.getStackInSlot(nextItem);
     }
 
-    public boolean useBlock(EntityPlayer player){
+    public boolean useBlock(EntityPlayer player) {
         IInventory inv = player.inventory;
         int nextItem = player.inventory.currentItem + 1;
         ItemStack stack = getBuildingStack(player);
@@ -56,13 +56,13 @@ public class ItemTrowel extends ItemBase {
         return true;
     }
 
-    public void tryRefill(EntityPlayer player, ItemStack stack, int slot){
+    public void tryRefill(EntityPlayer player, ItemStack stack, int slot) {
         ItemStack refill = Common.getRefill(player, stack, 64);
         if (refill != null)
             player.inventory.setInventorySlotContents(slot, refill);
     }
 
-    public void buildOrSelect(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, float hitX, float hitY, float hitZ, EnumFacing facing, List<BlockPos> selection){
+    public void buildOrSelect(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, float hitX, float hitY, float hitZ, EnumFacing facing, List<BlockPos> selection) {
 
         boolean live = selection == null;
 
@@ -88,7 +88,7 @@ public class ItemTrowel extends ItemBase {
 
         IBlockState bs = null;
 
-        if (live){
+        if (live) {
             ItemStack material = getBuildingStack(player);
             if (material == null)
                 return;
@@ -105,7 +105,7 @@ public class ItemTrowel extends ItemBase {
 
         NBTTagCompound nbt = CNBT.ensureCompound(stack);
         int length = CNBT.ensureInt(nbt, "length", 1);
-        for (int i = 0; i < length; i++){
+        for (int i = 0; i < length; i++) {
             BlockPos pos = new BlockPos(x, y, z);
 
             if (!CWorld.shouldReplace(world, pos) || live && !useBlock(player))
@@ -124,7 +124,7 @@ public class ItemTrowel extends ItemBase {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
         ItemStack stack = player.getHeldItem(hand);
-        if (player.isSneaking() && !world.isRemote){
+        if (player.isSneaking() && !world.isRemote) {
             NBTTagCompound nbt = CNBT.ensureCompound(stack);
             int length = CNBT.ensureInt(nbt, "length", 1) + 1;
 
@@ -171,7 +171,7 @@ public class ItemTrowel extends ItemBase {
         ArrayList<BlockPos> selection = new ArrayList<BlockPos>();
         buildOrSelect(stack, p, worldIn, pos.getX(), pos.getY(), pos.getZ(), pos.getX(), pos.getY(), pos.getZ(), side, selection);
 
-        for (BlockPos s : selection){
+        for (BlockPos s : selection) {
             worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, s.getX() + 0.5, s.getY() + 0.5, s.getZ() + 0.5, 0, 0, 0);
         }
     }

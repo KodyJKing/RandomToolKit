@@ -57,7 +57,7 @@ public class BlockLevitator extends BlockBaseDirectional {
     @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         EnumFacing dir = state.getValue(FACING);
-        switch (dir){
+        switch (dir) {
             case DOWN:
                 return DOWN_BOX;
             case UP:
@@ -74,7 +74,7 @@ public class BlockLevitator extends BlockBaseDirectional {
         return UP_BOX;
     }
 
-    public static AxisAlignedBB boundingBoxForDir(EnumFacing dir){
+    public static AxisAlignedBB boundingBoxForDir(EnumFacing dir) {
         double x, y, z, x2, y2, z2;
         x = 0;
         y = 0;
@@ -82,7 +82,7 @@ public class BlockLevitator extends BlockBaseDirectional {
         x2 = 1;
         y2 = 1;
         z2 = 1;
-        switch (dir){
+        switch (dir) {
             case DOWN:
                 y += 0.5;
                 break;

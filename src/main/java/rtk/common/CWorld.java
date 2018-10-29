@@ -9,14 +9,14 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 
 public class CWorld {
-    public static boolean shouldReplace(World world, BlockPos pos){
+    public static boolean shouldReplace(World world, BlockPos pos) {
         IBlockState bs = world.getBlockState(pos);
         return bs.getBlock().isReplaceable(world, pos) || !bs.isOpaqueCube() && bs.getBlockHardness(world, pos) < 0.01F || bs.getMaterial() == Material.AIR;
     }
 
     // Still avoids calls to breakBlock and onBlockAdded, but fixes lighting, elevation and does updates.
     // This is a modified version of World.setBlockState.
-    public static void silentSetBlockStateAndUpdate(World world, BlockPos pos, IBlockState newState, int flags){
+    public static void silentSetBlockStateAndUpdate(World world, BlockPos pos, IBlockState newState, int flags) {
         if (world.isOutsideBuildHeight(pos)) {
             return;
         } else {
@@ -62,7 +62,7 @@ public class CWorld {
     // To Avoid calls to breakBlock and onBlockAdded.
     // Also avoids updating lighting, and elevation information and updates.
     // See Chunk.setBlockState.
-    public static void silentSetBlockState(World world, BlockPos pos, IBlockState state){
+    public static void silentSetBlockState(World world, BlockPos pos, IBlockState state) {
         world.removeTileEntity(pos);
 
         int dx = pos.getX() & 15;
@@ -80,11 +80,11 @@ public class CWorld {
         chunk.setModified(true);
     }
 
-    public BlockPos pickSpawnPoint(World world, BlockPos pos, int radius, int tries, int scanHeight){
-        for (int i = 0; i < tries; i++){
+    public BlockPos pickSpawnPoint(World world, BlockPos pos, int radius, int tries, int scanHeight) {
+        for (int i = 0; i < tries; i++) {
             BlockPos scanPos = pos.add(new BlockPos(CMath.randomVector(radius)));
 
-            for (int j = 0; j < scanHeight; j++){
+            for (int j = 0; j < scanHeight; j++) {
                 if (world.isSideSolid(scanPos.down(), EnumFacing.UP) && world.isAirBlock(scanPos) && world.isAirBlock(scanPos.up()))
                     return scanPos;
                 scanPos = scanPos.up();

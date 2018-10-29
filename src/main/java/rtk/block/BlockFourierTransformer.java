@@ -60,7 +60,7 @@ public class BlockFourierTransformer extends BlockBaseDirectional {
         world.setBlockState(pos, state.withProperty(TRIGGERED, world.isBlockPowered(pos)));
     }
 
-    public void moveEntities(World world, BlockPos pos, EnumFacing facing){
+    public void moveEntities(World world, BlockPos pos, EnumFacing facing) {
         List<Entity> entities = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos.offset(facing), pos.offset(facing).south().east().up()));
         if (entities.isEmpty())
             return;
@@ -74,7 +74,7 @@ public class BlockFourierTransformer extends BlockBaseDirectional {
 
         Vec3d destination = new Vec3d(exit).addVector(0.5, 0.5, 0.5).addVector(dir.getFrontOffsetX(), dir.getFrontOffsetY(), dir.getFrontOffsetZ());
 
-        for (Entity e : entities){
+        for (Entity e : entities) {
             if (e instanceof EntityPlayerMP)
                 ((EntityPlayerMP) e).connection.setPlayerLocation(destination.x, destination.y, destination.z, e.rotationYaw, e.rotationPitch);
             else
@@ -86,17 +86,17 @@ public class BlockFourierTransformer extends BlockBaseDirectional {
     }
 
     //Breadth first search for a suitable exit.
-    public BlockPos findExit(World world, BlockPos pos){
+    public BlockPos findExit(World world, BlockPos pos) {
         Set<BlockPos> visited = new HashSet<BlockPos>();
         List<BlockPos> currentDepth = new ArrayList<BlockPos>();
         List<BlockPos> nextDepth = new ArrayList<BlockPos>();
 
         currentDepth.add(pos);
-        while(!currentDepth.isEmpty()){
-            for (BlockPos node : currentDepth){
+        while(!currentDepth.isEmpty()) {
+            for (BlockPos node : currentDepth) {
                 visited.add(node);
 
-                for (BlockPos neighbor : CMath.cuboid(node.add(-1, -1, -1), node.add(1, 1, 1))){
+                for (BlockPos neighbor : CMath.cuboid(node.add(-1, -1, -1), node.add(1, 1, 1))) {
                     if (!isConnected(world, node, neighbor) || visited.contains(neighbor))
                         continue;
 
@@ -117,15 +117,15 @@ public class BlockFourierTransformer extends BlockBaseDirectional {
         return null;
     }
 
-    public boolean isExit(World world, BlockPos pos){
+    public boolean isExit(World world, BlockPos pos) {
         return world.getBlockState(pos).getBlock() instanceof BlockFourierTransformer && world.isBlockPowered(pos);
     }
 
-    public boolean isWire(World world, BlockPos pos){
+    public boolean isWire(World world, BlockPos pos) {
         return world.getBlockState(pos).getBlock() instanceof BlockRedstoneWire;
     }
 
-    public boolean isBlockedDiagonal(World world, BlockPos from, BlockPos to){
+    public boolean isBlockedDiagonal(World world, BlockPos from, BlockPos to) {
         BlockPos mixX, mixY, mixZ;
         mixX = new BlockPos(to.getX(), from.getY(), from.getZ());
         mixY = new BlockPos(from.getX(), to.getY(), from.getZ());
@@ -133,7 +133,7 @@ public class BlockFourierTransformer extends BlockBaseDirectional {
         return !world.isAirBlock(mixX) && !world.isAirBlock(mixY) && !world.isAirBlock(mixZ);
     }
 
-    public boolean isConnected(World world, BlockPos from, BlockPos to){
+    public boolean isConnected(World world, BlockPos from, BlockPos to) {
         Vec3i diff = from.subtract(to);
         if (diff.getX() * diff.getZ() != 0)
             return false;

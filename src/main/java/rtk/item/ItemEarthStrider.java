@@ -97,7 +97,7 @@ public class ItemEarthStrider extends ItemBase implements IBauble {
         Vec3d center = Common.getTrueCenter(player);
         BlockPos foot = new BlockPos(center.x, player.posY + 0.5, center.z);
 
-        if (player.isSneaking()){
+        if (player.isSneaking()) {
             if (!nbt.getBoolean("alreadySneaking"))
                 foot = foot.add(0, -1 ,0);
             nbt.setBoolean("alreadySneaking", true);
@@ -108,7 +108,7 @@ public class ItemEarthStrider extends ItemBase implements IBauble {
         int holeVolume = 0;
 
         int edgeDist = 7;
-        for (BlockPos pos : CMath.cuboid(foot.add(-edgeDist, 0, -edgeDist), foot.add(edgeDist, 3, edgeDist))){
+        for (BlockPos pos : CMath.cuboid(foot.add(-edgeDist, 0, -edgeDist), foot.add(edgeDist, 3, edgeDist))) {
             int dx = pos.getX() - foot.getX();
             int dy = pos.getY() - foot.getY();
             int dz = pos.getZ() - foot.getZ();
@@ -118,9 +118,9 @@ public class ItemEarthStrider extends ItemBase implements IBauble {
             boolean isEdge = dx == edgeDist || dy == 3 || dz == edgeDist;
 
             IBlockState state = world.getBlockState(pos);
-            if (state.getBlock() instanceof BlockHole){
+            if (state.getBlock() instanceof BlockHole) {
                 TileHole hole = (TileHole) world.getTileEntity(pos);
-                if (!isEdge){
+                if (!isEdge) {
                     hole.setTimeLeft(5);
                     holeVolume++;
                 } else {
@@ -138,7 +138,7 @@ public class ItemEarthStrider extends ItemBase implements IBauble {
             hole.setPrevState(state);
         }
 
-        if (holeVolume >= 200 && !player.capabilities.isCreativeMode){
+        if (holeVolume >= 200 && !player.capabilities.isCreativeMode) {
             nbt.setBoolean("working", true);
             stack.setItemDamage(stack.getItemDamage() + 1);
             if (stack.getItemDamage() >= stack.getMaxDamage()) {
@@ -150,8 +150,8 @@ public class ItemEarthStrider extends ItemBase implements IBauble {
         }
     }
 
-    public boolean canMakeHole(World world, BlockPos pos){
-        for (EnumFacing dir : EnumFacing.VALUES){
+    public boolean canMakeHole(World world, BlockPos pos) {
+        for (EnumFacing dir : EnumFacing.VALUES) {
             BlockPos n = pos.offset(dir);
             IBlockState state = world.getBlockState(n);
             if (state.getBlock() instanceof BlockLiquid || getSupportDirection(state) == dir)
@@ -161,7 +161,7 @@ public class ItemEarthStrider extends ItemBase implements IBauble {
         return true;
     }
 
-    public boolean supportsUp(IBlockState state){
+    public boolean supportsUp(IBlockState state) {
         Block block = state.getBlock();
 
         if (block == Blocks.GRAVEL || block == Blocks.SAND)
@@ -174,7 +174,7 @@ public class ItemEarthStrider extends ItemBase implements IBauble {
         return false;
     }
 
-    public EnumFacing getSupportDirection(IBlockState state){
+    public EnumFacing getSupportDirection(IBlockState state) {
         Block block = state.getBlock();
 
         if (block instanceof BlockTorch)

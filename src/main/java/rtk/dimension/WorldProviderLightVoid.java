@@ -22,17 +22,17 @@ public class WorldProviderLightVoid extends WorldProviderSurface {
     }
 
     @SideOnly(Side.CLIENT)
-    public Vec3d getFogColor(float p_76562_1_, float p_76562_2_){return new Vec3d(1, 1, 1);}
+    public Vec3d getFogColor(float p_76562_1_, float p_76562_2_) {return new Vec3d(1, 1, 1);}
 
     public double getMovementFactor() { return 1.0 / 8.0; }
 
-    public float calculateCelestialAngle(long worldTime, float partialTicks){return 0.125F;}
+    public float calculateCelestialAngle(long worldTime, float partialTicks) {return 0.125F;}
 
     @SideOnly(Side.CLIENT)
-    public float[] calcSunriseSunsetColors(float celestialAngle, float partialTicks){return null;}
+    public float[] calcSunriseSunsetColors(float celestialAngle, float partialTicks) {return null;}
 
     @SideOnly(Side.CLIENT)
-    public float getCloudHeight(){return -10.0F;}
+    public float getCloudHeight() {return -10.0F;}
 
     @Override
     public Vec3d getSkyColor(Entity cameraEntity, float partialTicks) {return new Vec3d(10, 10, 10);}

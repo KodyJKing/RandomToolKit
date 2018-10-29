@@ -18,7 +18,7 @@ public class ItemBarometer extends ItemBase {
         setCreativeTab(CreativeTabs.TOOLS);
     }
 
-    TextComponentTranslation getMessage(EntityPlayer player){
+    TextComponentTranslation getMessage(EntityPlayer player) {
         return new TextComponentTranslation("item.barometer.elevation", new Object[]{Integer.toString((int)player.posY)});
     }
 

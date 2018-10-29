@@ -23,7 +23,7 @@ public class BlockTentWall extends BlockBase {
 
     public static final PropertyInteger VARIANT = PropertyInteger.create("variant", 0 , 5);
 
-    public BlockTentWall(String name){
+    public BlockTentWall(String name) {
         super(Material.CLOTH, name);
         setSoundType(SoundType.CLOTH);
         setHardness(0.2F);
@@ -32,18 +32,18 @@ public class BlockTentWall extends BlockBase {
         this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, 0));
     }
 
-    public static boolean isTentWall(World world, BlockPos pos){
+    public static boolean isTentWall(World world, BlockPos pos) {
         return world.getBlockState(pos).getBlock() instanceof BlockTentWall;
     }
 
-    public static void tryPop(World world, BlockPos pos){
-        if (isTentWall(world, pos)){
+    public static void tryPop(World world, BlockPos pos) {
+        if (isTentWall(world, pos)) {
 
             world.setBlockToAir(pos);
             if (!world.isRemote && CMath.random.nextInt(32) == 0)
                 world.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), 0.0F, false);
 
-            for (BlockPos otherPos : CMath.cuboid(pos.add(-1, -1, -1), pos.add(1, 1, 1))){
+            for (BlockPos otherPos : CMath.cuboid(pos.add(-1, -1, -1), pos.add(1, 1, 1))) {
                 tryPop(world, otherPos);
             }
         }
@@ -86,7 +86,7 @@ public class BlockTentWall extends BlockBase {
             items.add(new ItemStack(this, 1, i));
     }
 
-    public IBlockState variant(int i){
+    public IBlockState variant(int i) {
         return getDefaultState().withProperty(VARIANT, i);
     }
 

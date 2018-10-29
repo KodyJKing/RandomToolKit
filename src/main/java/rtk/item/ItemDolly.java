@@ -54,13 +54,13 @@ public class ItemDolly extends ItemBase {
         if (world.isRemote)
             return EnumActionResult.PASS;
 
-        if (canPickUp(world, pos) && !nbt.hasKey("container")){
+        if (canPickUp(world, pos) && !nbt.hasKey("container")) {
             nbt.setTag("container", CNBT.NBTFromBlock(world, pos));
             CWorld.silentSetBlockStateAndUpdate(world, pos, Blocks.AIR.getDefaultState(), 3);
             return EnumActionResult.SUCCESS;
         }
 
-        if (nbt.hasKey("container") && CWorld.shouldReplace(world, pos.offset(side))){
+        if (nbt.hasKey("container") && CWorld.shouldReplace(world, pos.offset(side))) {
             CNBT.placeBlockFromNBT(world, pos.offset(side), nbt.getCompoundTag("container"), player, hand, side, hitX, hitY, hitZ);
             nbt.removeTag("container");
             return EnumActionResult.SUCCESS;
@@ -69,7 +69,7 @@ public class ItemDolly extends ItemBase {
         return EnumActionResult.PASS;
     }
 
-    public static boolean canPickUp(World world, BlockPos pos){
+    public static boolean canPickUp(World world, BlockPos pos) {
         String blockName = world.getBlockState(pos).getBlock().getRegistryName().toString();
 
         TileEntity te = world.getTileEntity(pos);
@@ -87,7 +87,7 @@ public class ItemDolly extends ItemBase {
     @Override
     public void addInformation(ItemStack stack, @Nullable World world, List<String> tooltip, ITooltipFlag flag) {
         super.addInformation(stack, world, tooltip, flag);
-        if (stack.hasTagCompound() && stack.getTagCompound().hasKey("container")){
+        if (stack.hasTagCompound() && stack.getTagCompound().hasKey("container")) {
             NBTTagCompound content = stack.getTagCompound().getCompoundTag("container");
             IBlockState bs = Block.getStateById(content.getInteger("stateID"));
             ItemStack fakeStack = new ItemStack(bs.getBlock(), 1, bs.getBlock().getMetaFromState(bs));

@@ -23,7 +23,7 @@ public class BlockBase extends Block {
 
     protected String name;
 
-    public BlockBase(Material material, String name){
+    public BlockBase(Material material, String name) {
         super(material);
 
         this.name = name;
@@ -36,7 +36,7 @@ public class BlockBase extends Block {
         RTK.proxy.registerItemRenderer(item, 0, name);
     }
 
-    public Class<? extends TileEntity> getTileEntityClass(){
+    public Class<? extends TileEntity> getTileEntityClass() {
         return null;
     }
 
@@ -45,7 +45,7 @@ public class BlockBase extends Block {
         return getTileEntityClass() != null;
     }
 
-    public ItemBlock createItemBlock(Block block){
+    public ItemBlock createItemBlock(Block block) {
         return new ItemBlock(block);
     }
 

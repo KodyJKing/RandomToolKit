@@ -49,7 +49,7 @@ public class BlockTentBreakable extends BlockTent {
     @Override
     public boolean tryBuildTent(World world, BlockPos pos, EntityPlayer player, EnumFacing side) {
 
-        if (super.tryBuildTent(world, pos, player, side)){
+        if (super.tryBuildTent(world, pos, player, side)) {
             world.setBlockState(pos, world.getBlockState(pos).withProperty(DEPLOYED, true));
             return true;
         }
@@ -67,7 +67,7 @@ public class BlockTentBreakable extends BlockTent {
         if (!state.getValue(DEPLOYED))
             return;
 
-        for (BlockPos otherPos : tentCuboid(pos)){
+        for (BlockPos otherPos : tentCuboid(pos)) {
             IBlockState bs = world.getBlockState(otherPos);
             if (bs.getBlock() instanceof BlockTentWall)
                 BlockTentWall.tryPop(world, otherPos);

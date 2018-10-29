@@ -56,7 +56,7 @@ public class ModBlocks {
 
 //            b.init(itemBlock);
 
-            if (b.hasTileEntity() && !registeredTEs.contains(b.getTileEntityClass())){
+            if (b.hasTileEntity() && !registeredTEs.contains(b.getTileEntityClass())) {
                 registeredTEs.add(b.getTileEntityClass());
                 GameRegistry.registerTileEntity(b.getTileEntityClass(), b.getUnlocalizedName());
 //                System.out.println("Registered tile entity: " + b.getUnlocalizedName());

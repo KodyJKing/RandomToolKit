@@ -51,7 +51,7 @@ public class BlockEnderTent extends BlockTent {
         return TileEnderTent.class;
     }
 
-    public TileEnderTent getTileEntity(IBlockAccess world, BlockPos pos){
+    public TileEnderTent getTileEntity(IBlockAccess world, BlockPos pos) {
         return (TileEnderTent)world.getTileEntity(pos);
     }
 
@@ -61,12 +61,12 @@ public class BlockEnderTent extends BlockTent {
         boolean result = false;
         if (te.neverDeployed())
             result = super.tryBuildTent(world, pos, player, side);
-        else if (!te.isDeployed() && canBuildTent(world, pos, player)){
+        else if (!te.isDeployed() && canBuildTent(world, pos, player)) {
             spendFuel(player);
             placeContents(world, pos);
             result = true;
         }
-        if (result){
+        if (result) {
             te.setDeployed(true);
             te.setNeverDeployed(false);
             world.playSound(null, pos, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.BLOCKS, 0.5F, 1F);
@@ -86,7 +86,7 @@ public class BlockEnderTent extends BlockTent {
         BlockPos[] tentCube = tentCuboid(pos);
 
 //        First set everything to dirt so nothing is without solid support during the building loop.
-        for (BlockPos otherPos : tentCube){
+        for (BlockPos otherPos : tentCube) {
             if (pos.equals(otherPos))
                 continue;  //Don't mess with the tent block!!!
 
@@ -100,7 +100,7 @@ public class BlockEnderTent extends BlockTent {
         NBTTagList blockList = te.getBlockList();
 
         int bsInd = 0;
-        for (BlockPos otherPos : tentCube){
+        for (BlockPos otherPos : tentCube) {
             if (!pos.equals(otherPos))
                 CNBT.placeBlockFromNBT(world, otherPos, blockList.getCompoundTagAt(bsInd));
             bsInd++;
@@ -110,7 +110,7 @@ public class BlockEnderTent extends BlockTent {
 //            world.notifyNeighborsOfStateChange(otherPos, world.getBlockState(otherPos).getBlock(), true);
     }
 
-    public boolean tryGrabContents(World world, BlockPos pos){
+    public boolean tryGrabContents(World world, BlockPos pos) {
         TileEnderTent te = getTileEntity(world, pos);
         if (!te.isDeployed())
             return false;
@@ -123,7 +123,7 @@ public class BlockEnderTent extends BlockTent {
             blockList.appendTag(CNBT.NBTFromBlock(world, otherPos));
 
         //Next set everything to a solid block so nothing loses support during deletion. (I'm talking about you torches!)
-        for (BlockPos otherPos : tentCube){
+        for (BlockPos otherPos : tentCube) {
             if (pos.equals(otherPos))
                 continue;
 
@@ -135,7 +135,7 @@ public class BlockEnderTent extends BlockTent {
         }
 
         //Finally we can actually delete everything.
-        for (BlockPos otherPos : tentCube){
+        for (BlockPos otherPos : tentCube) {
             if (!pos.equals(otherPos)) //Don't mess with the tent block!!!
                 world.setBlockState(otherPos, Blocks.AIR.getDefaultState(), 3);
         }
@@ -183,7 +183,7 @@ public class BlockEnderTent extends BlockTent {
         world.spawnEntity(item);
     }
 
-    public ItemStack tentDrop(){
+    public ItemStack tentDrop() {
         return new ItemStack(ModBlocks.enderTent, 1);
     }
 }

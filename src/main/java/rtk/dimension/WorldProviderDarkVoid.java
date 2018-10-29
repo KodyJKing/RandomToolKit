@@ -28,13 +28,13 @@ public class WorldProviderDarkVoid extends WorldProviderSurface {
 
     public float getSunBrightnessFactor(float par1) { return 0; }
 
-    public float calculateCelestialAngle(long worldTime, float partialTicks){return 0.375F;}
+    public float calculateCelestialAngle(long worldTime, float partialTicks) {return 0.375F;}
 
     @SideOnly(Side.CLIENT)
-    public float[] calcSunriseSunsetColors(float celestialAngle, float partialTicks){return null;}
+    public float[] calcSunriseSunsetColors(float celestialAngle, float partialTicks) {return null;}
 
     @SideOnly(Side.CLIENT)
-    public float getCloudHeight(){return -10.0F;}
+    public float getCloudHeight() {return -10.0F;}
 
     @Override
     public Vec3d getSkyColor(Entity cameraEntity, float partialTicks) {return new Vec3d(0, 0, 0);}

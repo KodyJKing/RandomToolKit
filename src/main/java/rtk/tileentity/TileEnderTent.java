@@ -11,7 +11,7 @@ public class TileEnderTent extends TileEntity {
 
     public boolean dontGrab;
 
-    public TileEnderTent(){
+    public TileEnderTent() {
         dontGrab = false;
         deployed = false;
         neverDeployed = true;
@@ -24,7 +24,7 @@ public class TileEnderTent extends TileEntity {
         super.readFromNBT(compound);
     }
 
-    public void readTent(NBTTagCompound compound){
+    public void readTent(NBTTagCompound compound) {
         setDeployed(compound.getBoolean("deployed"));
         setNeverDeployed(compound.getBoolean("firstDeploy"));
         setBlockList(compound.getTagList("blockList", 10));
@@ -36,7 +36,7 @@ public class TileEnderTent extends TileEntity {
         return super.writeToNBT(compound);
     }
 
-    public NBTTagCompound writeTent(NBTTagCompound compound){
+    public NBTTagCompound writeTent(NBTTagCompound compound) {
         compound.setBoolean("deployed", isDeployed());
         compound.setBoolean("firstDeploy", neverDeployed());
         compound.setTag("blockList", blockList);

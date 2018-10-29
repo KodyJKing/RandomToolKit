@@ -104,7 +104,7 @@ public class EntitySkeletonPriest extends EntityMob {
         boolean hit = target.attackEntityFrom(DamageSource.causeMobDamage(this), (float)(14 + this.rand.nextInt(30)));
 
         if (hit) {
-            if (target instanceof EntityLivingBase){
+            if (target instanceof EntityLivingBase) {
                 ((EntityLivingBase) target).addPotionEffect(new PotionEffect(MobEffects.NAUSEA, 400));
                 ((EntityLivingBase) target).addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 400));
                 ((EntityLivingBase) target).addPotionEffect(new PotionEffect(MobEffects.WITHER, 400));
@@ -122,8 +122,8 @@ public class EntitySkeletonPriest extends EntityMob {
     @Override
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 
-        if (!world.isRemote){
-            for (int i = 0; i < 4; i++){
+        if (!world.isRemote) {
+            for (int i = 0; i < 4; i++) {
                 EntityWitherSkeleton mob = new EntityWitherSkeleton(world);
                 mob.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.DIAMOND_SWORD));
                 mob.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
@@ -148,7 +148,7 @@ public class EntitySkeletonPriest extends EntityMob {
         bossInfo.setPercent(getHealth() / getMaxHealth());
 
         List<AbstractSkeleton> mobs = world.getEntitiesWithinAABB(AbstractSkeleton.class, getEntityBoundingBox().grow(30, 10, 30));
-        for (AbstractSkeleton mob: mobs){
+        for (AbstractSkeleton mob: mobs) {
             mob.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, Integer.MAX_VALUE));
             mob.addPotionEffect(new PotionEffect(MobEffects.SPEED, Integer.MAX_VALUE));
 
@@ -183,11 +183,11 @@ public class EntitySkeletonPriest extends EntityMob {
         }
     }
 
-    public BlockPos pickSpawnPoint(){
-        for (int i = 0; i < 60; i++){
+    public BlockPos pickSpawnPoint() {
+        for (int i = 0; i < 60; i++) {
             BlockPos pos = new BlockPos(CMath.randomVector(5).add(getPositionVector()));
 
-            for (int j = 0; j < 10; j++){
+            for (int j = 0; j < 10; j++) {
                 if (world.isSideSolid(pos.down(), EnumFacing.UP) && world.isAirBlock(pos) && world.isAirBlock(pos.up()))
                     return pos;
                 pos = pos.up();
@@ -197,7 +197,7 @@ public class EntitySkeletonPriest extends EntityMob {
         return null;
     }
 
-    public void addFollowAIIfAbsent(EntityLiving entity){
+    public void addFollowAIIfAbsent(EntityLiving entity) {
         boolean absent = true;
         for (EntityAITasks.EntityAITaskEntry entry: entity.tasks.taskEntries)
             if (entry.action instanceof EntityAIFollowPriest)
