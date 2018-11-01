@@ -8,15 +8,16 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ITeleporter;
 import net.minecraftforge.fml.common.Optional;
-import rtk.common.CNBT;
 import rtk.dimension.ModDimensions;
 import rtk.dimension.TeleporterExitDarkVoid;
 import rtk.dimension.TeleporterExitLightVoid;
 import rtk.dimension.TeleporterVoid;
+
+import java.util.HashSet;
+import java.util.UUID;
 
 @Optional.Interface(modid = "baubles", iface = "baubles.api.IBauble")
 public class ItemVoidStrider extends ItemBase implements IBauble {
@@ -40,34 +41,38 @@ public class ItemVoidStrider extends ItemBase implements IBauble {
         doUpdate(stack, entity);
     }
 
+    private static HashSet<UUID> dontTP = new HashSet<UUID>();
+
     public void doUpdate(ItemStack stack, Entity entity) {
         World world = entity.world;
         if (world.isRemote)
             return;
 
-        NBTTagCompound nbt = CNBT.ensureCompound(stack);
-        nbt.setInteger("cooldown", nbt.getInteger("cooldown") - 1);
-
         EntityPlayerMP player = (EntityPlayerMP) entity;
+
         if (player == null)
             return;
-        if (world.provider.getDimension() == 0) {
+        if (player.posY < 255 && player.posY > 0)
+            dontTP.remove(player.getUniqueID());
+        if (dontTP.contains(player.getUniqueID()))
+            return;
+
+        int dim = world.provider.getDimension();
+
+        if (dim == 0) {
             if (player.posY > 255)
-                tryTeleport(stack, player, ModDimensions.lightVoidId, new TeleporterVoid());
+                teleport(player, ModDimensions.lightVoidId, new TeleporterVoid());
             else if (player.posY < -30)
-                tryTeleport(stack, player, ModDimensions.darkVoidId, new TeleporterVoid());
-        } else if (world.provider.getDimension() == ModDimensions.darkVoidId && player.posY > 255) {
-            tryTeleport(stack, player, 0, new TeleporterExitDarkVoid());
-        } else if (world.provider.getDimension() == ModDimensions.lightVoidId && player.posY < 0) {
-            tryTeleport(stack, player, 0, new TeleporterExitLightVoid());
+                teleport(player, ModDimensions.darkVoidId, new TeleporterVoid());
+        } else if (dim == ModDimensions.darkVoidId && player.posY > 255) {
+            teleport(player, 0, new TeleporterExitDarkVoid());
+        } else if (dim == ModDimensions.lightVoidId && player.posY < 0) {
+            teleport(player, 0, new TeleporterExitLightVoid());
         }
     }
 
-    public void tryTeleport(ItemStack stack, EntityPlayer player, int dimensionID, ITeleporter teleporter) {
-        NBTTagCompound nbt = CNBT.ensureCompound(stack);
-        if (nbt.getInteger("cooldown") > 0)
-            return;
+    public void teleport(EntityPlayer player, int dimensionID, ITeleporter teleporter) {
+        dontTP.add(player.getUniqueID());
         ModDimensions.teleportPlayer(player, dimensionID, teleporter);
-        nbt.setInteger("cooldown", 80);
     }
 }
