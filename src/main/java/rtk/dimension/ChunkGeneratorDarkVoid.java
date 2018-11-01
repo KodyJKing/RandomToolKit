@@ -16,13 +16,13 @@ public class ChunkGeneratorDarkVoid extends ChunkGeneratorVoid {
         super(worldIn, seed, generateStructures, flatGeneratorSettings);
     }
 
-    @Override
-    public Chunk generateChunk(int x, int z) {
-        Chunk chunk = super.generateChunk(x, z);
-        for (BlockPos pos: CMath.cuboid(new BlockPos(0, 255, 0), new BlockPos(15, 255, 15)))
-            chunk.setBlockState(pos, Blocks.BEDROCK.getDefaultState());
-        return chunk;
-    }
+//    @Override
+//    public Chunk generateChunk(int x, int z) {
+//        Chunk chunk = super.generateChunk(x, z);
+//        for (BlockPos pos: CMath.cuboid(new BlockPos(0, 255, 0), new BlockPos(15, 255, 15)))
+//            chunk.setBlockState(pos, Blocks.BEDROCK.getDefaultState());
+//        return chunk;
+//    }
 
     @Override
     public List<Biome.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos) {
