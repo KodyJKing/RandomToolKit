@@ -17,6 +17,10 @@ public class TeleporterExitDarkVoid implements ITeleporter {
 
     @Override
     public void placeEntity(World world, Entity entity, float yaw) {
+        EntityPlayer player = (EntityPlayer) entity;
+        if (player != null)
+            player.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, 240));
+
         int x = MathHelper.floor(entity.posX);
         int z = MathHelper.floor(entity.posZ);
 
@@ -33,10 +37,6 @@ public class TeleporterExitDarkVoid implements ITeleporter {
         entity.motionY = 0;
         entity.motionZ = 0;
         entity.setPosition(spawnPos.getX() + 0.5, spawnPos.getY() + 1, spawnPos.getZ() + 0.5);
-
-        EntityPlayer player = (EntityPlayer) entity;
-        if (player != null)
-            player.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, 240));
     }
 
     public BlockPos findBedrockHole(World world, BlockPos pos) {
@@ -49,12 +49,14 @@ public class TeleporterExitDarkVoid implements ITeleporter {
             }
         }
 
+        if (result == null)
+            return null;
+
         // Move away from edges to center in 3x3 hole.
         for (EnumFacing dir: EnumFacing.HORIZONTALS)
             if (!world.isAirBlock(result.offset(dir)))
                 result = result.offset(dir, -1);
 
-        System.out.println(result);
         return result;
     }
 
