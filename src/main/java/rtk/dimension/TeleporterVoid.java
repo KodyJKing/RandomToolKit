@@ -23,7 +23,7 @@ public class TeleporterVoid implements ITeleporter {
         for (BlockPos p: CMath.cuboid( pos.add(-1,0,-1), pos.add(1, 0, 1) ))
             world.setBlockState(p, Blocks.STONE.getDefaultState());
 
-        world.setBlockToAir(new BlockPos(x, 255, z));
+//        world.setBlockToAir(new BlockPos(x, 255, z));
 
         entity.motionX = 0;
         entity.motionY = 0;

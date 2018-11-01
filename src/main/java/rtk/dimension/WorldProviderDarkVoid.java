@@ -3,6 +3,7 @@ package rtk.dimension;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.WorldProviderSurface;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -29,6 +30,8 @@ public class WorldProviderDarkVoid extends WorldProviderSurface {
     public float getSunBrightnessFactor(float par1) { return 0; }
 
     public float calculateCelestialAngle(long worldTime, float partialTicks) {return 0.375F;}
+//    public float calculateCelestialAngle(long worldTime, float partialTicks) {return super.calculateCelestialAngle(worldTime * 16, partialTicks * 16);}
+
 
     @SideOnly(Side.CLIENT)
     public float[] calcSunriseSunsetColors(float celestialAngle, float partialTicks) {return null;}
@@ -43,7 +46,7 @@ public class WorldProviderDarkVoid extends WorldProviderSurface {
     public boolean isDaytime() { return false; }
 
     @Override
-    public boolean canRespawnHere() { return true; }
+    public boolean canRespawnHere() { return false; }
 
     @Override
     public float getStarBrightness(float par1) {return 0.75F;}
@@ -51,4 +54,6 @@ public class WorldProviderDarkVoid extends WorldProviderSurface {
     @Override
     public void updateWeather() {}
 
+    @Override
+    public boolean canDoRainSnowIce(Chunk chunk) { return false; }
 }

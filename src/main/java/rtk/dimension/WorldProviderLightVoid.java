@@ -41,11 +41,14 @@ public class WorldProviderLightVoid extends WorldProviderSurface {
     public boolean isDaytime() { return true; }
 
     @Override
-    public boolean canRespawnHere() { return true; }
+    public boolean canRespawnHere() { return false; }
 
     @Override
     public float getStarBrightness(float par1) {return 10.0F;}
 
     @Override
     public void updateWeather() {}
+
+    @Override
+    public boolean canDoRainSnowIce(Chunk chunk) { return false; }
 }
