@@ -16,7 +16,7 @@ public class ModConfig {
         @Config.LangKey("tile.diverstent.name")
         public int diversTent = 32;
         @Config.LangKey("tile.endertent.name")
-        public int enderTent = 16;
+        public int enderTent = 1;
         @Config.LangKey("tile.diversendertent.name")
         public int diversEnderTent = 16;
     }

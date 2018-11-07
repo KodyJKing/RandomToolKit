@@ -5,6 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.Teleporter;
@@ -21,7 +22,8 @@ public class TeleporterVoid implements ITeleporter {
 
         BlockPos pos = new BlockPos(x, 64, z);
         for (BlockPos p: CMath.cuboid( pos.add(-1,0,-1), pos.add(1, 0, 1) ))
-            world.setBlockState(p, Blocks.STONE.getDefaultState());
+            if (world.isAirBlock(p))
+                world.setBlockState(p, Blocks.STONE.getDefaultState());
 
 //        world.setBlockToAir(new BlockPos(x, 255, z));
 

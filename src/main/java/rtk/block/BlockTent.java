@@ -48,7 +48,10 @@ public class BlockTent extends BlockBase {
             return true;
         InventoryPlayer inv = player.inventory;
         ItemStack cur = inv.getCurrentItem();
-        return cur != null && cur.getItem() == fuelType() && cur.getCount() >= fuelCost();
+        int cost = fuelCost();
+        if (cost == 0)
+            return true;
+        return cur.getItem() == fuelType() && cur.getCount() >= cost;
     }
 
     public void spendFuel(EntityPlayer player) {
