@@ -21,7 +21,7 @@ public class ModItems {
             hotplateEtched, needle, dolly, barometer,
             toolbelt, earthStrider, earthStriderDrained,
             hotSword, netherPearl, eyeOfNether, toolbox,
-            voidStrider;
+            voidStrider, stopwatch;
 
     public void init() {
         if (RTK.devEnv)
@@ -40,6 +40,7 @@ public class ModItems {
         eyeOfNether = add(new ItemEyeOfNether("eyeofnether"));
         toolbox = add(new ItemToolbox("toolbox"));
         voidStrider = add(new ItemVoidStrider("voidstrider"));
+        stopwatch = add(new ItemStopwatch(("stopwatch")));
     }
 
     @SubscribeEvent

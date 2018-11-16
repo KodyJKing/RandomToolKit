@@ -17,10 +17,14 @@ import java.util.List;
 
 public class Common {
 
+    public static String localize(String key, Object... parameters) {
+        return I18n.format(key, parameters);
+    }
+
     public static void formatToolTip(String key, List<String> target) {
         if (!I18n.hasKey(key))
             return;
-        String[] lines = I18n.format(key).split(";");
+        String[] lines = localize(key).split(";");
         for (String line : lines)
             target.add(line);
     }

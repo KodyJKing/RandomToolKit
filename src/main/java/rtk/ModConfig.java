@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 @Config(modid = RTK.modId)
 public class ModConfig {
-    @Config.LangKey("config.tentfuelcost")
+    @Config.LangKey("rtk.config.tentfuelcost")
     public static TentFuelCost tentFuelCost = new TentFuelCost();
     public static class TentFuelCost {
         @Config.LangKey("tile.tent.name")
@@ -21,22 +21,22 @@ public class ModConfig {
         public int diversEnderTent = 16;
     }
 
-    @Config.LangKey("config.dimension")
+    @Config.LangKey("rtk.config.dimension")
     public static Dimension dimension = new Dimension();
     public static class Dimension {
         @Config.Comment("Leave as 0 to auto assign id.")
-        @Config.LangKey("config.dimension.darkvoidid")
+        @Config.LangKey("rtk.config.dimension.darkvoidid")
         public int darkvoidid = 0;
         @Config.Comment("Leave as 0 to auto assign id.")
-        @Config.LangKey("config.dimension.lightvoidid")
+        @Config.LangKey("rtk.config.dimension.lightvoidid")
         public int lightvoidid = 0;
     }
 
-    @Config.LangKey("config.earthstriderwhitelist")
+    @Config.LangKey("rtk.config.earthstriderwhitelist")
     @Config.Comment("The materials that you can see/walk through with an Earth Strider.")
     public static String[] earthStriderWhitelist = { "minecraft:stone" };
 
-    @Config.LangKey("config.dollywhitelist")
+    @Config.LangKey("rtk.config.dollywhitelist")
     @Config.Comment("Additional blocks the dolly is allowed to pick up.")
     public static String[] dollyWhitelist = {
             "minecraft:obsidian",
@@ -49,11 +49,11 @@ public class ModConfig {
             "actuallyadditions:block_giant_chest_large"
     };
 
-    @Config.LangKey("config.dollyblacklist")
+    @Config.LangKey("rtk.config.dollyblacklist")
     @Config.Comment("Blocks the dolly is not allowed to pick up.")
     public static String[] dollyBlacklist = {};
 
-    @Config.LangKey("config.earthstriderrepairable")
+    @Config.LangKey("rtk.config.earthstriderrepairable")
     @Config.Comment("Controls if the earth strider can be repaired.")
     public static boolean earthStriderRepairable = true;
 

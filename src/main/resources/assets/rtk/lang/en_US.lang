@@ -44,6 +44,10 @@ item.voidstrider.name=Void Strider
 item.voidstrider.tooltip=Allows owner to traverse the void above and below the world.;Hold shift for more information.
 item.voidstrider.tooltip2=The void above can be reached by travelling far above the overworld.;A passage to the void below may be opened by shift-right-clicking bedrock with an Earth Strider,; but will destroy it in the process.
 
+item.stopwatch.name=Stopwatch
+item.stopwatch.tooltip=Right click to start timer.;Right click again to stop and see elapsed time.;Use on contrainers to measure gain/loss rates for items/fluids/energy.
+item.stopwatch.start=Stopwatch started.
+
 tile.basetent.blocked=Something is blocking your tent!
 tile.basetent.insufficientfuel=You need more fuel!
 
@@ -81,11 +85,16 @@ tile.fouriertransformer.tooltip=Sends and receives entities across redstone wire
 entity.rtk.eyeofnether.name=Eye Of Nether
 entity.rtk.skeletonpriest.name=Skeleton Priest
 
-config.tentfuelcost=Tent Fuel Cost
-config.earthstriderwhitelist=Earth Strider Whitelist
-config.dimension=Dimensions
-config.dimension.darkvoidid=Dark Void Dimension ID
-config.dimension.lightvoidid=Light Void Dimension ID
-config.dollywhitelist=Dolly Whitelist
-config.dollyblacklist=Dolly Blacklist
-config.earthstriderrepairable=Earth Strider Repairable
+rtk.config.tentfuelcost=Tent Fuel Cost
+rtk.config.earthstriderwhitelist=Earth Strider Whitelist
+rtk.config.dimension=Dimensions
+rtk.config.dimension.darkvoidid=Dark Void Dimension ID
+rtk.config.dimension.lightvoidid=Light Void Dimension ID
+rtk.config.dollywhitelist=Dolly Whitelist
+rtk.config.dollyblacklist=Dolly Blacklist
+rtk.config.earthstriderrepairable=Earth Strider Repairable
+
+rtk.common.tick=tick
+rtk.common.ticks=ticks
+rtk.common.second=second
+rtk.common.seconds=seconds
