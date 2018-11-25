@@ -48,6 +48,9 @@ item.stopwatch.name=Stopwatch
 item.stopwatch.tooltip=Right click to start timer.;Right click again to stop and see elapsed time.;Use on contrainers to measure gain/loss rates for items/fluids/energy.
 item.stopwatch.start=Stopwatch started.
 
+item.inspectiontool.name=Inspection Tool
+item.inspectiontool.tooltip=Creative Item;Right click block with tile entity to view state.
+
 tile.basetent.blocked=Something is blocking your tent!
 tile.basetent.insufficientfuel=You need more fuel!
 

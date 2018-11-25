@@ -9,7 +9,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.fml.common.Optional;
-import rtk.common.Common;
+import rtk.common.CWorld;
 
 @Optional.Interface(modid = "baubles", iface = "baubles.api.IBauble")
 public class ItemToolbelt extends ItemBase implements IBauble {
@@ -23,7 +23,7 @@ public class ItemToolbelt extends ItemBase implements IBauble {
         if (itemSlot > 8)
             return;
 
-        RayTraceResult trace = Common.traceLook(player, 5F);
+        RayTraceResult trace = CWorld.traceBlocks(player, 5F);
         if (trace.getBlockPos() == null)
             return;
         IBlockState bs = player.getEntityWorld().getBlockState(trace.getBlockPos());

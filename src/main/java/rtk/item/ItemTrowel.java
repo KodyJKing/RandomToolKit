@@ -131,7 +131,7 @@ public class ItemTrowel extends ItemBase {
             if (length > maxLength)
                 length = 1;
 
-            player.sendMessage(new TextComponentString(Integer.toString(length)));
+            Common.message(player, Integer.toString(length));
             player.swingArm(hand);
 
             nbt.setInteger("length", length);

@@ -9,6 +9,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
+import rtk.common.Common;
 
 public class ItemBarometer extends ItemBase {
     public ItemBarometer(String name) {
@@ -16,10 +17,6 @@ public class ItemBarometer extends ItemBase {
         setMaxStackSize(1);
         setMaxDamage(256);
         setCreativeTab(CreativeTabs.TOOLS);
-    }
-
-    TextComponentTranslation getMessage(EntityPlayer player) {
-        return new TextComponentTranslation("item.barometer.elevation", new Object[]{Integer.toString((int)player.posY)});
     }
 
 //    @Override
@@ -42,7 +39,7 @@ public class ItemBarometer extends ItemBase {
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
         ItemStack stack = player.getHeldItem(hand);
         if (!world.isRemote)
-            player.sendMessage(getMessage(player));
+            Common.message( player, Common.localize( "item.barometer.elevation", Integer.toString( (int) player.posY ) ) );
         return new ActionResult<>(EnumActionResult.SUCCESS, stack);
     }
 

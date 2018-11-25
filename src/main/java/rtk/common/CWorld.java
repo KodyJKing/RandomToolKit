@@ -1,12 +1,22 @@
 package rtk.common;
 
+import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class CWorld {
     public static boolean shouldReplace(World world, BlockPos pos) {
@@ -78,6 +88,68 @@ public class CWorld {
 
         extendedblockstorage.set(dx, y & 15, dz, state);
         chunk.setModified(true);
+    }
+
+    public static RayTraceResult getMouseover(EntityLivingBase entity, double range) {
+        Vec3d eye = new Vec3d(entity.posX, entity.posY + (double)entity.getEyeHeight(), entity.posZ);
+
+        RayTraceResult blocks = traceBlocks(entity, range);
+        RayTraceResult entities = traceEntities(entity, range);
+
+        if (blocks == null || blocks.typeOfHit == RayTraceResult.Type.MISS)
+            return entities;
+        if (entities == null || entities.typeOfHit == RayTraceResult.Type.MISS)
+            return blocks;
+
+        if (blocks.hitVec.squareDistanceTo(eye) < entities.hitVec.squareDistanceTo(eye))
+            return blocks;
+        return entities;
+    }
+
+    public static RayTraceResult traceBlocks(Entity entity, double range) {
+        Vec3d eye = entity.getPositionEyes(1);
+        Vec3d look = entity.getLookVec();
+        Vec3d endPoint = eye.add(look.scale(range));
+        return entity.world.rayTraceBlocks(eye, endPoint, false, false, true);
+    }
+
+    public static RayTraceResult traceEntities(Entity entity, double range) {
+        Vec3d look = entity.getLookVec();
+        Vec3d eye = entity.getPositionEyes(1);
+        Vec3d end = eye.add(look.scale(range));
+
+        List<Entity> list = entity.world.getEntitiesInAABBexcluding(
+                entity,
+                entity.getEntityBoundingBox().expand(look.x * range, look.y * range, look.z * range).grow(1.0D, 1.0D, 1.0D),
+                Predicates.and(EntitySelectors.NOT_SPECTATING, new Predicate<Entity>()
+                {
+                    public boolean apply(@Nullable Entity other)
+                    {
+                        return other != null && other.canBeCollidedWith();
+                    }
+                }));
+
+        RayTraceResult closest = null;
+        double closeDistSq = Double.MAX_VALUE;
+        for (Entity other: list) {
+
+            if (other.getEntityBoundingBox().contains(eye))
+                return new RayTraceResult(other);
+
+            RayTraceResult hit = other.getEntityBoundingBox().calculateIntercept(eye, end);
+            if (hit == null)
+                continue;
+
+            double distSq = hit.hitVec.squareDistanceTo(eye);
+            if (distSq < closeDistSq && distSq < range * range) {
+                closeDistSq = distSq;
+                closest = hit;
+                hit.typeOfHit = RayTraceResult.Type.ENTITY;
+                hit.entityHit = other;
+            }
+        }
+
+        return closest;
     }
 
     public BlockPos pickSpawnPoint(World world, BlockPos pos, int radius, int tries, int scanHeight) {

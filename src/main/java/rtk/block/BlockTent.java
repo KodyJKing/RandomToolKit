@@ -18,6 +18,7 @@ import net.minecraft.world.World;
 import rtk.ModConfig;
 import rtk.common.CMath;
 import rtk.common.CWorld;
+import rtk.common.Common;
 
 public class BlockTent extends BlockBase {
 
@@ -86,12 +87,12 @@ public class BlockTent extends BlockBase {
 
     public boolean canBuildTent(World world, BlockPos pos, EntityPlayer player) {
         if (!hasRoom(world, pos)) {
-            player.sendMessage(new TextComponentTranslation("tile.basetent.blocked"));
+            Common.message(player, Common.localize("tile.basetent.blocked"));
             return false;
         }
 
         if (!hasFuel(player)) {
-            player.sendMessage(new TextComponentTranslation("tile.basetent.insufficientfuel"));
+            Common.message(player, Common.localize("tile.basetent.insufficientfuel"));
             return false;
         }
 

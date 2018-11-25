@@ -80,7 +80,7 @@ public class ItemStopwatch extends ItemBase {
         if (nbt.hasKey(startTimeKey)) {
 
             long dt = world.getTotalWorldTime() - nbt.getLong(startTimeKey);
-            player.sendMessage( new TextComponentString(getStopMessage(dt) ) );
+            Common.message(player, getStopMessage(dt));
 
 
             if (nbt.hasKey(targetKey)) {
@@ -91,7 +91,7 @@ public class ItemStopwatch extends ItemBase {
                 NBTTagCompound diff = diffResources(oldResources, resources);
                 List<String> lines = documentDiff(diff, dt);
                 if (lines.size() > 0)
-                    player.sendMessage( new TextComponentString( String.join("\n", lines) ) );
+                    Common.message(player, String.join("\n", lines));
             }
 
             nbt.removeTag(startTimeKey);
@@ -100,7 +100,7 @@ public class ItemStopwatch extends ItemBase {
 
         } else {
 
-            player.sendMessage(new TextComponentTranslation("item.stopwatch.start"));
+            Common.message(player, Common.localize("item.stopwatch.start"));
             nbt.setLong(startTimeKey, world.getTotalWorldTime());
 
             if (target != null) {

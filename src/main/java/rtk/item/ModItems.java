@@ -17,7 +17,7 @@ import java.util.List;
 public class ModItems {
     private static List<Item> toRegister = new ArrayList<>();
     public static Item
-            devTool, trowel, hotplate,
+            devTool, inspectionTool, trowel, hotplate,
             hotplateEtched, needle, dolly, barometer,
             toolbelt, earthStrider, earthStriderDrained,
             hotSword, netherPearl, eyeOfNether, toolbox,
@@ -26,6 +26,7 @@ public class ModItems {
     public void init() {
         if (RTK.devEnv)
             devTool = add(new ItemDevTool("devtool"));
+        inspectionTool = add(new ItemInspectionTool("inspectiontool"));
         barometer = add(new ItemBarometer("barometer"));
         trowel = add(new ItemTrowel("trowel"));
         hotplate = add(new ItemHotplate("hotplate", false));

@@ -67,7 +67,7 @@ public class ItemEarthStrider extends ItemBase implements IBauble {
         nbt.setBoolean("active", !nbt.getBoolean("active"));
 
         if (!world.isRemote)
-            player.sendMessage(new TextComponentTranslation(nbt.getBoolean("active")? "item.earthstrider.active" : "item.earthstrider.inactive"));
+            Common.message(player, Common.localize( nbt.getBoolean("active") ? "item.earthstrider.active" : "item.earthstrider.inactive") );
 
         return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
     }

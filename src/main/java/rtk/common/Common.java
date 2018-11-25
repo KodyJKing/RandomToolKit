@@ -2,17 +2,25 @@ package rtk.common;
 
 import baubles.api.BaublesApi;
 import baubles.api.cap.IBaublesItemHandler;
+import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.text.TextComponentString;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class Common {
@@ -27,6 +35,10 @@ public class Common {
         String[] lines = localize(key).split(";");
         for (String line : lines)
             target.add(line);
+    }
+
+    public static void message(EntityPlayer player, String msg) {
+        player.sendMessage( new TextComponentString(msg) );
     }
 
     public static int findExactStack(IInventory inventory, ItemStack stack) {
@@ -65,11 +77,10 @@ public class Common {
         return null;
     }
 
-    public static RayTraceResult traceLook(Entity entity, Float distance) {
-        Vec3d eyePos = new Vec3d(entity.posX, entity.posY + (double)entity.getEyeHeight(), entity.posZ);
-        Vec3d look = entity.getLookVec();
-        Vec3d endPoint = eyePos.add(look.scale(distance));
-        return entity.world.rayTraceBlocks(eyePos, endPoint, false, false, true);
+    static Gson prettyGson = new GsonBuilder().setPrettyPrinting().create();
+    public static String prettifyJSON(String json) {
+        Object gsonObj = prettyGson.fromJson(json, Object.class);
+        return prettyGson.toJson(gsonObj);
     }
 
 }
