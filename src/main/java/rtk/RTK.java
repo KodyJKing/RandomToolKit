@@ -27,7 +27,7 @@ public class RTK {
 
     public static final String modId = "rtk";
     public static final String name = "Random Tool Kit";
-    public static final String version = "1.4";
+    public static final String version = "1.4.1";
 
     @SidedProxy(clientSide = "rtk.proxy.ClientProxy", serverSide = "rtk.proxy.CommonProxy")
     public static CommonProxy proxy;

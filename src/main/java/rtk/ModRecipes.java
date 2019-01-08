@@ -111,6 +111,11 @@ public class ModRecipes {
                 " CB",
                 "   ", 'B', Blocks.STONE_BUTTON, 'C', Items.CLOCK));
 
+        add(shapedRecipe(new ItemStack(ModItems.squidHand),
+                " PI",
+                " PP",
+                "F  ", 'F', Items.FISH, 'P', Blocks.PISTON, 'I', new ItemStack(Items.DYE, 1, 0)));
+
         add(shapelessRecipe(new ItemStack(ModItems.hotplateEtched), ModItems.hotplate, Blocks.STONEBRICK, Items.DIAMOND, Items.DIAMOND));
         add(shapelessRecipe(new ItemStack(ModItems.needle), Items.IRON_INGOT, Items.STRING));
         add(shapelessRecipe(new ItemStack(ModItems.eyeOfNether), ModItems.netherPearl, Items.BLAZE_ROD));

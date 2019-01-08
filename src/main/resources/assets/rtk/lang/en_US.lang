@@ -51,6 +51,9 @@ item.stopwatch.start=Stopwatch started.
 item.inspectiontool.name=Inspection Tool
 item.inspectiontool.tooltip=Creative Item;Right click block with tile entity to view state.
 
+item.squidhand.name=Hand of the Squid
+item.squidhand.tooltip=Right clicks blocks in 3x3 pattern with item to the right in hotbar.
+
 tile.basetent.blocked=Something is blocking your tent!
 tile.basetent.insufficientfuel=You need more fuel!
 
