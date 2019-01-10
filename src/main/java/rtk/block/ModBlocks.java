@@ -1,6 +1,8 @@
 package rtk.block;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockWall;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.event.RegistryEvent;
@@ -44,7 +46,7 @@ public class ModBlocks {
         toRegister.add(block);
 
         ItemBlock itemBlock;
-        if (block instanceof  BlockBase)
+        if (block instanceof BlockBase)
             itemBlock = ((BlockBase)block).createItemBlock(block);
         else
             itemBlock = new ItemBlock(block);

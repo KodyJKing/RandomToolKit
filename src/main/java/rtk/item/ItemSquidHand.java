@@ -65,6 +65,8 @@ public class ItemSquidHand extends ItemBase {
         return EnumActionResult.SUCCESS;
     }
 
+
+
 //    @Override
 //    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
 ////        return super.onItemRightClick(world, player, hand);

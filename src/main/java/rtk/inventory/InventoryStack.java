@@ -13,19 +13,17 @@ import java.util.Arrays;
 public abstract class InventoryStack implements IInventory {
 
     public ItemStack stack;
+    public EntityPlayer player;
     public int stackIndex;
     ItemStack[] inventory;
 
-    public InventoryStack(ItemStack stack, int stackIndex) {
+    public InventoryStack(ItemStack stack, EntityPlayer player, int stackIndex) {
         this.stack = stack;
+        this.player = player;
         this.stackIndex = stackIndex;
         CNBT.ensureCompound(stack);
         inventory = new ItemStack[getSizeInventory()];
         loadAll();
-    }
-
-    public InventoryStack(ItemStack stack) {
-        this(stack, -1);
     }
 
     public void loadAll() {

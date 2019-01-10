@@ -76,6 +76,11 @@ public class ModRecipes {
                 "ICC",
                 "III", 'L', Items.LEATHER, 'I', Items.IRON_INGOT, 'C', Blocks.CHEST));
 
+        add(shapedRecipe(new ItemStack(ModItems.enderToolbox),
+                "GLG",
+                "GCC",
+                "GGG", 'L', Items.LEATHER, 'G', Items.GOLD_INGOT, 'C', Blocks.ENDER_CHEST));
+
         add(shapedRecipe(new ItemStack(ModBlocks.levitator),
                 " F ",
                 "QQQ",

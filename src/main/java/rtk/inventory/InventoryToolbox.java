@@ -7,11 +7,13 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
+import rtk.common.CNBT;
+import rtk.item.ItemToolbox;
 
 public class InventoryToolbox extends InventoryStack {
 
-    public InventoryToolbox(ItemStack stack, int stackIndex) {
-        super(stack, stackIndex);
+    public InventoryToolbox(ItemStack stack, EntityPlayer player, int stackIndex) {
+        super(stack, player, stackIndex);
     }
 
     // TODO: Implement
@@ -22,7 +24,14 @@ public class InventoryToolbox extends InventoryStack {
 
     @Override
     protected NBTTagCompound getNBT() {
-        return stack.getTagCompound();
+        ItemToolbox item = (ItemToolbox) stack.getItem();
+        if (item.isEnder) {
+            NBTTagCompound playerData = player.getEntityData();
+            NBTTagCompound persist = CNBT.ensureCompound(playerData, EntityPlayer.PERSISTED_NBT_TAG);
+            return CNBT.ensureCompound(persist, "rtk:toolBox");
+        } else {
+            return stack.getTagCompound();
+        }
     }
 
     @Override

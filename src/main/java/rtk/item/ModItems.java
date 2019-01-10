@@ -21,7 +21,7 @@ public class ModItems {
             hotplateEtched, needle, dolly, barometer,
             toolbelt, earthStrider, earthStriderDrained,
             hotSword, netherPearl, eyeOfNether, toolbox,
-            voidStrider, stopwatch, squidHand;
+            enderToolbox, voidStrider, stopwatch, squidHand;
 
     public void init() {
         if (RTK.devEnv)
@@ -39,7 +39,8 @@ public class ModItems {
         hotSword = add(new ItemHotSword("hotsword"));
         netherPearl = add(new ItemBase("netherpearl")).setMaxStackSize(16);
         eyeOfNether = add(new ItemEyeOfNether("eyeofnether"));
-        toolbox = add(new ItemToolbox("toolbox"));
+        toolbox = add(new ItemToolbox("toolbox", false));
+        enderToolbox = add(new ItemToolbox("endertoolbox", true));
         voidStrider = add(new ItemVoidStrider("voidstrider"));
         stopwatch = add(new ItemStopwatch(("stopwatch")));
         squidHand = add(new ItemSquidHand("squidhand"));

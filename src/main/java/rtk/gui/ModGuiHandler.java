@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
+import rtk.item.ItemToolbox;
 import rtk.item.ModItems;
 //import rtk.udispenser.*;
 import rtk.common.Common;
@@ -34,13 +35,13 @@ public class ModGuiHandler implements IGuiHandler {
 
     public Object toolboxGuiElement(EntityPlayer player, boolean serverSide) {
         ItemStack stack = player.getHeldItemMainhand();
-        if (stack.isEmpty() || stack.getItem() != ModItems.toolbox) {
+        if (stack.isEmpty() || !(stack.getItem() instanceof ItemToolbox)) {
             stack = player.getHeldItemOffhand();
-            if (stack.isEmpty() || stack.getItem() != ModItems.toolbox)
+            if (stack.isEmpty() || !(stack.getItem() instanceof ItemToolbox))
                 return null;
         }
 
-        InventoryToolbox inv = new InventoryToolbox(stack, Common.findExactStack(player.inventory, stack));
+        InventoryToolbox inv = new InventoryToolbox(stack, player, Common.findExactStack(player.inventory, stack));
 
         if (serverSide)
             return new ContainerToolbox(player.inventory, inv, player);

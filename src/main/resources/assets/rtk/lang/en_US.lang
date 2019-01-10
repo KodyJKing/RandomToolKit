@@ -13,6 +13,9 @@ item.needle.tooltip=Use on tent walls to pop them all at once.;Doesn't destroy m
 item.toolbox.name=Toolbox
 item.toolbox.tooltip=Can hold many unstackable items.
 
+item.endertoolbox.name=Ender Toolbox
+item.endertoolbox.tooltip=Can hold many unstackable items.;Inventory can be accessed from any box similar to ender chest.
+
 item.toolbelt.name=Toolbelt
 item.toolbelt.tooltip=Swaps to the most effective tool when breaking blocks.;Must be equipped on hotbar.
 

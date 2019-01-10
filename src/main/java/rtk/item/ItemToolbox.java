@@ -17,8 +17,11 @@ import rtk.common.Common;
 import javax.annotation.Nullable;
 
 public class ItemToolbox extends ItemBase {
-    public ItemToolbox(String name) {
+    public boolean isEnder;
+
+    public ItemToolbox(String name, boolean isEnder) {
         super(name);
+        this.isEnder = isEnder;
         setCreativeTab(CreativeTabs.TOOLS);
         setMaxStackSize(1);
         addPropertyOverride(new ResourceLocation("open"), new IItemPropertyGetter() {
