@@ -72,7 +72,7 @@ tile.diverstent.tooltip=Works under water!;Right click with 32 coal/charcoal to 
 tile.endertent.name=Ender Tent
 tile.endertent.tooltip=A magic tent which can retain its interior when picked up.;Right click with 16 ender pearls to deploy.
 
-tile.diversendertent.name=Divers Ender Tent
+tile.diversendertent.name=Diver's Ender Tent
 tile.diversendertent.tooltip=Combines the Diver's Tent and Ender Tent.;Right click with 16 ender pearls to deploy.
 
 tile.tentwall.0.name=Emergency Tent Wall
