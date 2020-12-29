@@ -14,11 +14,11 @@ public class ModItems {
     public static Item devtool, dolly;
 
     public static void init() {
-        devtool = add(new ItemDevTool(), "devtool");
-        dolly = add(new ItemDolly(), "dolly");
+        devtool = add("devtool", new ItemDevTool());
+        dolly = add("dolly", new ItemDolly());
     }
 
-    public static <T extends Item> T add(T item, String registryName) {
+    public static <T extends Item> T add(String registryName, T item) {
         item.setRegistryName(registryName);
         toRegister.add(item);
         return item;

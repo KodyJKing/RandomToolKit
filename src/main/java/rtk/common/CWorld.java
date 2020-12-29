@@ -1,7 +1,10 @@
 package rtk.common;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
@@ -160,24 +163,6 @@ public class CWorld {
 //        }
 //
 //        return null;
-//    }
-//
-//    // This is the same as World.destroyBlock but without a hook for drop chance.
-//    public static void breakAndDrop(World world, BlockPos pos) {
-//        IBlockState state = world.getBlockState(pos);
-//        Block block = state.getBlock();
-//
-//        if (block.isAir(state, world, pos))
-//            return;
-//
-//        world.playEvent(2001, pos, Block.getStateId(state));
-//
-//        //block.dropBlockAsItem(world, pos, state, 0);
-//        if (!world.isRemote && !world.restoringBlockSnapshots)
-//            for (ItemStack drop :  block.getDrops(world, pos, state, 0))
-//                block.spawnAsEntity(world, pos, drop);
-//
-//        world.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
 //    }
 
 }

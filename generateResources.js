@@ -4,7 +4,14 @@ const assetRoot = "./src/generated/resources/assets/rtk"
 
 {
     generateItemModel( "devtool" )
+
     generateBlock( "tent" )
+    generateBlock( "tentwall" )
+    generateBlock( "emergencytentwall" )
+    generateBlock( "emergencytentlight" )
+    generateBlock( "endertentwall" )
+    generateBlock( "diverstentwall" )
+    generateBlock( "diversendertentwall" )
 }
 
 function output( pathStr, jsonObj ) {
