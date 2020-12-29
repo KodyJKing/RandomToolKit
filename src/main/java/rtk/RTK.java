@@ -1,79 +1,85 @@
 package rtk;
 
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
-import net.minecraft.launchwrapper.Launch;
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemModelsProperties;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
-import net.minecraftforge.fml.common.registry.EntityRegistry;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
+import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import rtk.block.ModBlocks;
-import rtk.dimension.ModDimensions;
-import rtk.entity.EntityEyeOfNether;
-import rtk.entity.EntitySkeletonPriest;
-import rtk.gui.ModGuiHandler;
 import rtk.item.ModItems;
-import rtk.proxy.CommonProxy;
 
-@Mod(modid = RTK.modId, name = RTK.name, version = RTK.version, acceptedMinecraftVersions = "[1.12.2]", dependencies = "after:baubles;")
-public class RTK {
+import java.util.stream.Collectors;
 
-    public static final String modId = "rtk";
-    public static final String name = "Random Tool Kit";
-    public static final String version = "1.4.1";
+@Mod("rtk")
+public class RTK
+{
+    public static final Logger LOGGER = LogManager.getLogger();
 
-    @SidedProxy(clientSide = "rtk.proxy.ClientProxy", serverSide = "rtk.proxy.CommonProxy")
-    public static CommonProxy proxy;
+    public RTK() {
+//        // Register the setup method for modloading
+//        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+//        // Register the enqueueIMC method for modloading
+//        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
+//        // Register the processIMC method for modloading
+//        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
+        // Register the doClientStuff method for modloading
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
 
-    @Mod.Instance(modId)
-    public static RTK instance;
-
-    public static boolean devEnv = false;
-
-    public static boolean baublesLoaded = false;
-
-    @Mod.EventHandler
-    public void preInit(FMLPreInitializationEvent event) {
-        System.out.println(name + " is loading!");
-
-        if ((boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment"))
-            devEnv = true;
-
-        baublesLoaded = Loader.isModLoaded("baubles");
-
-        MinecraftForge.EVENT_BUS.register(new ModBlocks());
-        MinecraftForge.EVENT_BUS.register(new ModItems());
-        MinecraftForge.EVENT_BUS.register(new ModRecipes());
-        proxy.preInit();
-
-        // TODO: Register these entities the new way https://mcforge.readthedocs.io/en/latest/concepts/registries/
-        EntityRegistry.registerModEntity(
-                new ResourceLocation(modId, "eyeofnether"),
-                EntityEyeOfNether.class, modId + ".eyeofnether",
-                2, this, 80, 1,
-                true);
-        EntityRegistry.registerModEntity(
-                new ResourceLocation(modId, "skeletonpriest"),
-                EntitySkeletonPriest.class, modId + ".skeletonpriest",
-                3, this, 80, 1,
-                true, 0xf2f2f2, 0x330000);
+        MinecraftForge.EVENT_BUS.register(this);
+        ModBlocks.init();
+        ModItems.init();
     }
 
-    @Mod.EventHandler
-    public void init(FMLInitializationEvent event) {
-        ModDimensions.init();
-        NetworkRegistry.INSTANCE.registerGuiHandler(instance, new ModGuiHandler());
+    @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
+    public static class RegistryEvents {
+        @SubscribeEvent
+        public static void onBlocksRegistry(final RegistryEvent.Register<Block> e) { ModBlocks.register(e); }
+        @SubscribeEvent
+        public static void onItemsRegistery(final RegistryEvent.Register<Item> e) { ModItems.register(e); }
     }
 
-    @Mod.EventHandler
-    public void postInit(FMLPostInitializationEvent event) {
-        MinecraftForge.EVENT_BUS.register(new ModEvents());
+    private void doClientStuff(final FMLClientSetupEvent event) {
+        // do something that can only be done on the client
+//        LOGGER.info("Got game settings {}", event.getMinecraftSupplier().get().gameSettings);
+
+        ItemModelsProperties.registerProperty(ModItems.dolly, new ResourceLocation("full"), (stack, world, entity) -> {
+            boolean result = stack.getTag() != null && stack.getTag().contains("container");
+            return result ? 1 : 0;
+        });
     }
+
+//    private void setup(final FMLCommonSetupEvent event) {
+//    }
+//
+//
+//    private void enqueueIMC(final InterModEnqueueEvent event) {
+//        // some example code to dispatch IMC to another mod
+//        InterModComms.sendTo("examplemod", "helloworld", () -> { LOGGER.info("Hello world from the MDK"); return "Hello world";});
+//    }
+//
+//    private void processIMC(final InterModProcessEvent event) {
+//        // some example code to receive and process InterModComms from other mods
+//        LOGGER.info("Got IMC {}", event.getIMCStream().
+//                map(m->m.getMessageSupplier().get()).
+//                collect(Collectors.toList()));
+//    }
+//
+//    // You can use SubscribeEvent and let the Event Bus discover methods to call
+//    @SubscribeEvent
+//    public void onServerStarting(FMLServerStartingEvent event) {
+//    }
+
 }
