@@ -4,6 +4,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemModelsProperties;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
@@ -20,6 +22,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import rtk.block.ModBlocks;
 import rtk.item.ModItems;
+import rtk.tileentity.ModTileTypes;
+import rtk.tileentity.TileEnderTent;
 
 import java.util.stream.Collectors;
 
@@ -49,6 +53,8 @@ public class RTK
         public static void onBlocksRegistry(final RegistryEvent.Register<Block> e) { ModBlocks.register(e); }
         @SubscribeEvent
         public static void onItemsRegistery(final RegistryEvent.Register<Item> e) { ModItems.register(e); }
+        @SubscribeEvent
+        public static void onTERegistry(final RegistryEvent.Register<TileEntityType<?>> e) { ModTileTypes.register(e); }
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {

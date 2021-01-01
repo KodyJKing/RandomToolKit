@@ -1,0 +1,22 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "OLO",
+        "LCL",
+        "OLO"
+    ],
+    "key": {
+        "O": {
+            "item": "minecraft:orange_dye"
+        },
+        "L": {
+            "item": "minecraft:leather"
+        },
+        "C": {
+            "item": "minecraft:coal"
+        }
+    },
+    "result": {
+        "item": "rtk:emergencytent"
+    }
+}

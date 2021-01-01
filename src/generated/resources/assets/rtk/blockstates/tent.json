@@ -1,7 +1,7 @@
 {
-  "variants": {
-    "": {
-      "model": "rtk:block/tent"
+    "variants": {
+        "": {
+            "model": "rtk:block/tent"
+        }
     }
-  }
 }

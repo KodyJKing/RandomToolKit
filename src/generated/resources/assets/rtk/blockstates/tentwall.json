@@ -1,7 +1,7 @@
 {
-  "variants": {
-    "": {
-      "model": "rtk:block/tentwall"
+    "variants": {
+        "": {
+            "model": "rtk:block/tentwall"
+        }
     }
-  }
 }

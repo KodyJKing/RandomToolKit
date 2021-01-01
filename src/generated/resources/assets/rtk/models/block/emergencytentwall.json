@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "rtk:block/emergencytentwall"
-  }
+    "parent": "minecraft:block/cube_all",
+    "textures": {
+        "all": "rtk:block/emergencytentwall"
+    }
 }

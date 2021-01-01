@@ -42,6 +42,7 @@ public class CNBT {
         NBT.putInt("stateID", Block.getStateId(world.getBlockState(pos)));
 
         TileEntity tile = world.getTileEntity(pos);
+        if (tile != null)
             NBT.put("tileEntity", tile.serializeNBT());
 
         return NBT;
